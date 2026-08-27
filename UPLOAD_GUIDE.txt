@@ -1,0 +1,77 @@
+GitHub 新仓库上传步骤（V54 最终版）
+=====================================
+
+推荐仓库名：adult-happy-party-v54
+
+一、新建仓库
+1. 登录 GitHub。
+2. 右上角 + → New repository。
+3. Repository name 输入：adult-happy-party-v54（也可以改成你喜欢的英文名）。
+4. Visibility 建议选择 Public。
+5. 不勾选 Add a README / .gitignore / License，本文件包已经包含 README。
+6. 点击 Create repository。
+
+二、上传本文件夹里的“内容”，不要上传外层文件夹本身
+1. 进入刚创建的新仓库。
+2. 点击 Add file → Upload files。
+3. 解压 adult-happy-party_V54_GitHub.zip。
+4. 打开解压后的 adult-happy-party_V54_GitHub 文件夹。
+5. Ctrl+A 选中里面的所有内容并拖进 GitHub：
+   index.html、admin.html、preview.html、01.html–08.html、404.html、README.md、.nojekyll、assets 文件夹。
+6. 等待上传完成。
+7. 页面底部点击 Commit changes。
+
+正确目录：
+仓库根目录/
+  index.html
+  admin.html
+  preview.html
+  01.html ... 08.html
+  assets/
+    audio/
+      you-dont-care.mp3
+      banjia.mp3
+      henizaiyiqi.mp3
+      whistle.mp3
+      yecao.mp3
+
+不要变成：仓库根目录/adult-happy-party_V54_GitHub/index.html
+否则 GitHub Pages 根地址不会直接打开首页。
+
+三、开启 GitHub Pages
+1. 仓库顶部 Settings。
+2. 左侧 Pages。
+3. Build and deployment → Source 选择 Deploy from a branch。
+4. Branch 选择 main，Folder 选择 /(root)。
+5. 点击 Save。
+6. 等待部署完成。通常数十秒到数分钟后，Pages 页面会显示站点地址。
+
+四、假设仓库名就是 adult-happy-party-v54，上线地址格式
+https://<你的GitHub用户名>.github.io/adult-happy-party-v54/
+
+建议测试：
+1. 总入口：
+   https://<你的GitHub用户名>.github.io/adult-happy-party-v54/
+2. 邀请链接生成器：
+   https://<你的GitHub用户名>.github.io/adult-happy-party-v54/admin.html
+3. 01–08 全局预览：
+   https://<你的GitHub用户名>.github.io/adult-happy-party-v54/preview.html
+4. 03 快乐街机：
+   https://<你的GitHub用户名>.github.io/adult-happy-party-v54/03.html?share=1&music=youdontcare
+5. 05 专属治疗方案：
+   https://<你的GitHub用户名>.github.io/adult-happy-party-v54/05.html?share=1&music=banjia
+6. 08 午夜派对酒店：
+   https://<你的GitHub用户名>.github.io/adult-happy-party-v54/08.html?share=1&music=yecao
+
+五、5 首音乐参数
+music=youdontcare  → ohsobrkn - you don't care
+music=banjia       → 张震岳 - 搬家
+music=henizaiyiqi  → 李志 - 和你在一起
+music=whistle      → Whistle
+music=yecao        → 椿乐队 - 野草
+
+六、缓存
+如果重新上传后还是看到旧版本：
+- Windows 浏览器：Ctrl + F5。
+- 已有参数的测试链接末尾加 &v=54；没有参数则加 ?v=54。
+- GitHub Pages 部署需要一点时间，上传完成后不要立刻判断失败。
