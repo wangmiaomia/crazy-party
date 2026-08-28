@@ -1,0 +1,489 @@
+{
+  "release": "V81 RELEASE FINAL",
+  "total": 96,
+  "passed": 96,
+  "failed": 0,
+  "result": "PASS",
+  "checks": [
+    {
+      "name": "01 JS 与 V78 完全一致",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "02 JS 与 V78 完全一致",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "03 JS 与 V78 完全一致",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "04 JS 与 V78 完全一致",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "05 JS 与 V78 完全一致",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "06 JS 与 V78 完全一致",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "07 JS 与 V78 完全一致",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "08 JS 与 V78 完全一致",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "01.html JavaScript 语法",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "02.html JavaScript 语法",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "03.html JavaScript 语法",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "04.html JavaScript 语法",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "05.html JavaScript 语法",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "06.html JavaScript 语法",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "07.html JavaScript 语法",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "08.html JavaScript 语法",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "admin.html JavaScript 语法",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "01 首页/内页全局底色连续化",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "01 连续化只在进入后生效",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "01 手机内页三列横排",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "01 线上音乐绝对路径",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "02 首页/内页全局底色连续化",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "02 连续化只在进入后生效",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "02 手机内页三列横排",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "02 线上音乐绝对路径",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "03 首页/内页全局底色连续化",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "03 连续化只在进入后生效",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "03 手机内页三列横排",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "03 线上音乐绝对路径",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "04 首页/内页全局底色连续化",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "04 连续化只在进入后生效",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "04 手机内页三列横排",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "04 线上音乐绝对路径",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "05 首页/内页全局底色连续化",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "05 连续化只在进入后生效",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "05 手机内页三列横排",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "05 线上音乐绝对路径",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "06 首页/内页全局底色连续化",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "06 连续化只在进入后生效",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "06 手机内页三列横排",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "06 线上音乐绝对路径",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "07 首页/内页全局底色连续化",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "07 连续化只在进入后生效",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "07 手机内页三列横排",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "07 线上音乐绝对路径",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "08 首页/内页全局底色连续化",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "08 连续化只在进入后生效",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "08 手机内页三列横排",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "08 线上音乐绝对路径",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "01 红毯首页 DATE/TIME/PLACE 手机三列横排",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "06 高灵敏度唱针",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "06 唱针落针后开歌",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "06 金色轴心固定旋转",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "07 手机签名板修复存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "07 签名坐标映射使用 getBoundingClientRect",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "音频文件 you-dont-care.mp3",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "音频文件 banjia.mp3",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "音频文件 henizaiyiqi.mp3",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "音频文件 whistle.mp3",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "音频文件 yecao.mp3",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Admin 生成独立 HTML 非 iframe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Admin 邀请人+主题标题",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Admin OG 标题/描述",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Admin 额外分享元信息",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Admin 分享 URL 缓存刷新 ?v=81",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Admin 读取 V81 页面",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Admin 邀请配置 V81",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "分享样例标题包含邀请人+主题",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "分享样例 URL 带短缓存版本",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Admin metaPack 会写 title",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Admin metaPack 会写 OG title",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Admin metaPack 会写 canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "01 V80 背景规则受 inviteEntered 限定",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "01 V80 未修改 audioIntro 选择器",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "01 手机自适应规则仍存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "02 V80 背景规则受 inviteEntered 限定",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "02 V80 未修改 audioIntro 选择器",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "02 手机自适应规则仍存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "03 V80 背景规则受 inviteEntered 限定",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "03 V80 未修改 audioIntro 选择器",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "03 手机自适应规则仍存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "04 V80 背景规则受 inviteEntered 限定",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "04 V80 未修改 audioIntro 选择器",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "04 手机自适应规则仍存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "05 V80 背景规则受 inviteEntered 限定",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "05 V80 未修改 audioIntro 选择器",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "05 手机自适应规则仍存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "06 V80 背景规则受 inviteEntered 限定",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "06 V80 未修改 audioIntro 选择器",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "06 手机自适应规则仍存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "07 V80 背景规则受 inviteEntered 限定",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "07 V80 未修改 audioIntro 选择器",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "07 手机自适应规则仍存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "08 V80 背景规则受 inviteEntered 限定",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "08 V80 未修改 audioIntro 选择器",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "08 手机自适应规则仍存在",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

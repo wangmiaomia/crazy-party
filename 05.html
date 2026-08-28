@@ -3294,7 +3294,7 @@ body.recipientMode .selectedTrackBadge{display:none!important}
 
 
 /* =========================================================
-   V78 RELEASE FINAL TARGETED FIXES · layout/signature only
+   V81 RELEASE FINAL TARGETED FIXES · layout/signature only
    1) all mobile inside date modules stay 3-in-one-row
    2) 07 signature pad gets a larger usable drawing area
    ========================================================= */
@@ -3400,6 +3400,35 @@ body.recipientMode .selectedTrackBadge{display:none!important}
   body.inviteEntered .front1 .premiereMeta{
     grid-template-columns:repeat(3,minmax(0,1fr))!important;
   }
+}
+
+
+/* =========================================================
+   V80 · GLOBAL CANVAS CONTINUITY · THEME 05
+   CSS ONLY. Startup/audio intro unchanged.
+   After entering: homepage + inside page promote their own
+   existing background to the full viewport, eliminating
+   left/right/bottom background seams.
+   ========================================================= */
+@supports selector(body:has(.screen)){
+  body.singleThemePage.inviteEntered::after{opacity:0!important;background:none!important}
+
+  html:has(body.singleThemePage.inviteEntered .screen.front5),
+  body.singleThemePage.inviteEntered:has(.screen.front5){background:radial-gradient(circle at 10% 16%,rgba(141,34,56,.13),transparent 28%),radial-gradient(circle at 88% 80%,rgba(39,61,99,.11),transparent 27%),#d1d5dd!important}
+  body.singleThemePage.inviteEntered:has(.screen.front5)::before{background:radial-gradient(circle at 10% 16%,rgba(141,34,56,.13),transparent 28%),radial-gradient(circle at 88% 80%,rgba(39,61,99,.11),transparent 27%),#d1d5dd!important}
+
+  html:has(body.singleThemePage.inviteEntered .screen.t5),
+  body.singleThemePage.inviteEntered:has(.screen.t5){background:radial-gradient(circle at 8% 10%,rgba(141,34,56,.09),transparent 27%),radial-gradient(circle at 92% 80%,rgba(39,61,99,.08),transparent 26%),#d1d5dd!important}
+  body.singleThemePage.inviteEntered:has(.screen.t5)::before{background:radial-gradient(circle at 8% 10%,rgba(141,34,56,.09),transparent 27%),radial-gradient(circle at 92% 80%,rgba(39,61,99,.08),transparent 26%),#d1d5dd!important}
+
+  body.singleThemePage.inviteEntered .mobileScaleHost,
+  body.singleThemePage.inviteEntered .app.singleThemeApp,
+  body.singleThemePage.inviteEntered .stage,
+  body.singleThemePage.inviteEntered .scene{background:transparent!important}
+
+  body.singleThemePage.inviteEntered .stage{border-color:transparent!important;box-shadow:none!important}
+  body.singleThemePage.inviteEntered .screen.front5,
+  body.singleThemePage.inviteEntered .screen.t5{background:transparent!important}
 }
 
 </style>

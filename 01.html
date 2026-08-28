@@ -3294,7 +3294,7 @@ body.recipientMode .selectedTrackBadge{display:none!important}
 
 
 /* =========================================================
-   V78 RELEASE FINAL TARGETED FIXES · layout/signature only
+   V81 RELEASE FINAL TARGETED FIXES · layout/signature only
    1) all mobile inside date modules stay 3-in-one-row
    2) 07 signature pad gets a larger usable drawing area
    ========================================================= */
@@ -3400,6 +3400,35 @@ body.recipientMode .selectedTrackBadge{display:none!important}
   body.inviteEntered .front1 .premiereMeta{
     grid-template-columns:repeat(3,minmax(0,1fr))!important;
   }
+}
+
+
+/* =========================================================
+   V80 · GLOBAL CANVAS CONTINUITY · THEME 01
+   CSS ONLY. Startup/audio intro unchanged.
+   After entering: homepage + inside page promote their own
+   existing background to the full viewport, eliminating
+   left/right/bottom background seams.
+   ========================================================= */
+@supports selector(body:has(.screen)){
+  body.singleThemePage.inviteEntered::after{opacity:0!important;background:none!important}
+
+  html:has(body.singleThemePage.inviteEntered .screen.front1),
+  body.singleThemePage.inviteEntered:has(.screen.front1){background:radial-gradient(circle at 80% 12%,rgba(218,181,94,.22),transparent 30%),linear-gradient(145deg,#075145,#063229)!important}
+  body.singleThemePage.inviteEntered:has(.screen.front1)::before{background:radial-gradient(circle at 80% 12%,rgba(218,181,94,.22),transparent 30%),linear-gradient(145deg,#075145,#063229)!important}
+
+  html:has(body.singleThemePage.inviteEntered .screen.t1),
+  body.singleThemePage.inviteEntered:has(.screen.t1){background:radial-gradient(circle at 85% 12%,rgba(224,182,90,.12),transparent 27%),linear-gradient(145deg,#240c13,#4d1320 56%,#150d12)!important}
+  body.singleThemePage.inviteEntered:has(.screen.t1)::before{background:radial-gradient(circle at 85% 12%,rgba(224,182,90,.12),transparent 27%),linear-gradient(145deg,#240c13,#4d1320 56%,#150d12)!important}
+
+  body.singleThemePage.inviteEntered .mobileScaleHost,
+  body.singleThemePage.inviteEntered .app.singleThemeApp,
+  body.singleThemePage.inviteEntered .stage,
+  body.singleThemePage.inviteEntered .scene{background:transparent!important}
+
+  body.singleThemePage.inviteEntered .stage{border-color:transparent!important;box-shadow:none!important}
+  body.singleThemePage.inviteEntered .screen.front1,
+  body.singleThemePage.inviteEntered .screen.t1{background:transparent!important}
 }
 
 </style>
