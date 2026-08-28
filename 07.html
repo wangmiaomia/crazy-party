@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=yes">
-<title>07 深夜便利店｜成年人放风派对 V57</title>
+<title>07 深夜便利店｜成年人放风派对 V73</title>
 <style>
 :root{--serif:"Songti SC","STSong",serif;--sans:"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
 *{box-sizing:border-box}html,body{margin:0;background:#07100e;color:#fff;font-family:var(--sans)}button,input{font:inherit}
@@ -2893,7 +2893,7 @@ body[data-p05="E"]{--p05-bg:#d1d5dd;--p05-surface:#f4f5f6;--p05-surface2:#e7e9ed
 
 
 /* =========================================================
-   V59 · PRODUCTION SINGLE-THEME MODE
+   V73 · PRODUCTION SINGLE-THEME MODE
    01–08 are recipient pages, never expose global preview UI.
    ========================================================= */
 body.singleThemePage .head,
@@ -2909,7 +2909,7 @@ body.singleThemePage .selectedTrackBadge span:after{content:' · 已由邀请人
 
 
 /* =========================================================
-   V57 · MOBILE DESKTOP-RATIO MODE
+   V73 · MOBILE DESKTOP-RATIO MODE
    Mobile gets the desktop composition scaled as one canvas.
    The width=1120 viewport prevents old <=780px rules from
    collapsing the designed grids into a long narrow column.
@@ -2929,7 +2929,7 @@ body.singleThemePage .stage{margin-top:0!important}
 
 
 /* =========================================================
-   V59 · STARTUP NATURAL / THEME CANVAS SCALE HANDOFF
+   V73 · STARTUP NATURAL / DIRECT THEME CANVAS HANDOFF
    Startup uses the real phone viewport. After START, the
    short-link wrapper expands this page to a 1120px canvas.
    ========================================================= */
@@ -2942,6 +2942,466 @@ body.recipientMode .selectedTrackBadge{display:none!important}
   .audioIntro{width:100vw!important;min-width:0!important;height:100dvh!important;min-height:100dvh!important}
   .audioIntroStage{width:100%!important;min-width:0!important;height:100%!important;min-height:100dvh!important}
 }
+
+
+/* =========================================================
+   V73 · iOS / WeChat DIRECT PAGE MOBILE CANVAS
+   Startup keeps native phone layout. After entering, only the
+   invitation app is scaled from the 1120px desktop composition.
+   No short-link iframe is required.
+   ========================================================= */
+body.singleThemePage .selectedTrackBadge,
+body.recipientMode .selectedTrackBadge{display:none!important}
+.mobileScaleHost{width:100%;position:relative}
+@media(max-width:899px){
+  html,body{min-width:0!important;width:100%!important;max-width:100%!important;overflow-x:hidden!important}
+  body.singleThemePage:not(.inviteEntered) .app.singleThemeApp{width:100%!important;max-width:100%!important;margin:0!important;padding:0!important;transform:none!important}
+  body.singleThemePage:not(.inviteEntered) .stage{width:auto!important;max-width:none!important;margin:0!important}
+  body.inviteEntered .mobileScaleHost{width:100%!important;overflow:hidden!important}
+  body.inviteEntered .app.singleThemeApp{width:1120px!important;max-width:1120px!important;margin:0!important;padding:14px 12px 44px!important;transform-origin:0 0!important}
+  body.inviteEntered .stage{width:1096px!important;max-width:none!important;margin:0!important;border-radius:28px!important}
+  .audioIntro{width:100vw!important;height:100dvh!important;min-width:0!important;min-height:100dvh!important}
+  .audioIntroStage{width:100%!important;height:100%!important;min-width:0!important;min-height:100dvh!important}
+}
+
+
+/* =========================================================
+   V73 · MOBILE HYBRID COMPOSITION
+   Startup remains native-phone. After entering, use a 780px
+   composition instead of crushing 1120px into the phone.
+   Stage/screen height is tightened by JS to actual content.
+   ========================================================= */
+@media(max-width:899px){
+  body.inviteEntered .mobileScaleHost{width:100%!important;overflow:hidden!important}
+  body.inviteEntered .app.singleThemeApp{
+    width:780px!important;
+    max-width:780px!important;
+    margin:0!important;
+    padding:10px 10px 28px!important;
+    transform-origin:0 0!important;
+  }
+  body.inviteEntered .stage{
+    width:760px!important;
+    max-width:none!important;
+    min-height:0!important;
+    margin:0!important;
+    border-radius:22px!important;
+  }
+  body.inviteEntered .scene{min-height:0!important}
+  body.inviteEntered .screen{min-height:0!important}
+}
+
+
+/* =========================================================
+   V73 · MOBILE ADAPTIVE FRONT / INNER TOP FIX
+   MOBILE ONLY. Desktop >= 900px remains untouched.
+   ========================================================= */
+@media(max-width:899px){
+  html,body,body.inviteEntered,.mobileScaleHost,.app.singleThemeApp,.stage,.scene,.screen{overflow-anchor:none!important}
+  html,body{scroll-behavior:auto!important}
+
+  /* Adaptive canvas: JS supplies --v62-design-w from viewport/readability,
+     rather than a single hard-coded composition width. */
+  body.inviteEntered .app.singleThemeApp{
+    width:var(--v62-design-w,780px)!important;
+    max-width:var(--v62-design-w,780px)!important;
+    padding:10px 10px 26px!important;
+  }
+  body.inviteEntered .stage{
+    width:calc(var(--v62-design-w,780px) - 20px)!important;
+    max-width:none!important;
+    min-height:0!important;
+  }
+
+  /* Shared homepage composition: preserve designed relationships using
+     percentages / flexible grids rather than collapsing everything to one column. */
+  body.inviteEntered .screen[class*="front"] .object,
+  body.inviteEntered .premiereObject,
+  body.inviteEntered .flightObject,
+  body.inviteEntered .vinylObject,
+  body.inviteEntered .martObject,
+  body.inviteEntered .hotelObject,
+  body.inviteEntered .arc03Object{width:min(94%,920px)!important;margin-left:auto!important;margin-right:auto!important}
+
+  body.inviteEntered .front1 .glamChecks{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important}
+  body.inviteEntered .front1 .glamChecks button{min-height:94px!important}
+
+  body.inviteEntered .front2 .secretGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important}
+
+  body.inviteEntered .front3 .arc03Grid{grid-template-columns:minmax(0,1.35fr) minmax(210px,.65fr)!important;gap:14px!important}
+  body.inviteEntered .front3 .arc03Deck{grid-template-columns:minmax(220px,.82fr) minmax(0,1.18fr)!important;gap:16px!important}
+  body.inviteEntered .front3 .arc03JoyBlock{flex-wrap:nowrap!important}
+  body.inviteEntered .front3 .arc03Joystick{flex-basis:150px!important;width:150px!important;height:150px!important}
+  body.inviteEntered .front3 .arc03Btn{width:70px!important;height:70px!important}
+
+  body.inviteEntered .front4 .baggageStage{flex-direction:row!important;align-items:stretch!important;gap:14px!important}
+  body.inviteEntered .front4 .bag,
+  body.inviteEntered .front4 .bagDrop{width:auto!important;flex:1 1 0!important;min-width:0!important}
+  body.inviteEntered .front4 .boardingCard{grid-template-columns:minmax(0,1fr) minmax(96px,18%)!important}
+
+  /* 06: centered copy + desktop-like three-step guide + four tracks in one row. */
+  body.inviteEntered .front6 .k,
+  body.inviteEntered .front6 .title,
+  body.inviteEntered .front6 .desc{text-align:center!important;margin-left:auto!important;margin-right:auto!important}
+  body.inviteEntered .front6 .steps{justify-content:center!important}
+  body.inviteEntered .front6 .vinylGuide{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important}
+  body.inviteEntered .front6 .guideItem{justify-content:center!important;text-align:center!important;gap:7px!important;padding:10px!important}
+  body.inviteEntered .front6 .guideItem span{text-align:center!important}
+  body.inviteEntered .front6 .trackInstruction{
+    grid-template-columns:1fr!important;justify-items:center!important;align-items:center!important;
+    text-align:center!important;gap:4px!important;padding:11px 14px!important
+  }
+  body.inviteEntered .front6 .trackInstruction>span,
+  body.inviteEntered .front6 .trackInstruction>b,
+  body.inviteEntered .front6 .trackInstruction>small{grid-column:1!important;text-align:center!important;width:100%!important}
+  body.inviteEntered .front6 .trackList{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:7px!important}
+  body.inviteEntered .front6 .trackList button{
+    min-width:0!important;min-height:78px!important;padding:10px 7px!important;text-align:center!important;
+    display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important
+  }
+  body.inviteEntered .front6 .trackList button>span{font-size:8px!important}
+  body.inviteEntered .front6 .trackList button>b{font-size:14px!important;margin:4px 0 2px!important}
+  body.inviteEntered .front6 .trackList button>small{font-size:6.5px!important;line-height:1.25!important}
+
+  body.inviteEntered .front7 .storeProducts{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;left:6%!important;right:6%!important;top:112px!important;gap:9px!important
+  }
+  body.inviteEntered .front7 .storeProducts button{
+    min-height:145px!important;display:block!important;text-align:center!important;padding:10px 9px 14px!important
+  }
+  body.inviteEntered .front7 .productPic{height:72px!important;margin-bottom:6px!important}
+  body.inviteEntered .front7 .productPic i{font-size:40px!important}
+  body.inviteEntered .front7 .martDoor{height:440px!important}
+
+  body.inviteEntered .front8 .roomLock{
+    grid-template-columns:minmax(180px,.72fr) minmax(0,1.28fr)!important;align-items:stretch!important;gap:14px!important
+  }
+  body.inviteEntered .front8 .roomCard{width:auto!important;margin:0!important;min-width:0!important;height:auto!important;min-height:122px!important}
+  body.inviteEntered .front8 .cardSlot{height:auto!important;min-height:92px!important}
+
+  /* Inner page keeps its own readable layout, but scroll anchoring cannot
+     preserve the old homepage position after DOM replacement. */
+  body.inviteEntered .screen .inside{overflow-anchor:none!important}
+}
+
+
+/* =========================================================
+   V73 · GLOBAL INNER MENU COMPACTNESS
+   Applies to ALL themes, desktop + mobile.
+   Tightens supply/menu drawers without touching main page layout.
+   ========================================================= */
+.drawer .panel{
+  padding:14px!important;
+}
+.drawer .menuGrid{
+  gap:6px!important;
+  margin-top:7px!important;
+}
+.drawer .menuCard{
+  min-height:72px!important;
+  grid-template-columns:42px minmax(0,1fr)!important;
+  gap:9px!important;
+  padding:9px 11px!important;
+  align-items:center!important;
+}
+.drawer .menuIcon{
+  width:38px!important;
+  height:38px!important;
+  border-radius:12px!important;
+  font-size:21px!important;
+}
+.drawer .menuCopy b{
+  font-size:14px!important;
+  line-height:1.18!important;
+  margin:0!important;
+}
+.drawer .menuCopy span{
+  font-size:11px!important;
+  line-height:1.3!important;
+  margin-top:2px!important;
+}
+.drawer .menuCopy em{
+  margin-top:4px!important;
+  padding:3px 7px!important;
+  font-size:8.5px!important;
+  line-height:1.15!important;
+}
+.drawer .eggTitle{
+  margin-bottom:6px!important;
+}
+
+/* Phone drawer stays readable but compact. */
+@media(max-width:899px){
+  .drawer .panel{padding:12px!important}
+  .drawer .menuGrid{gap:5px!important;margin-top:6px!important}
+  .drawer .menuCard{
+    min-height:66px!important;
+    grid-template-columns:38px minmax(0,1fr)!important;
+    gap:8px!important;
+    padding:8px 10px!important;
+  }
+  .drawer .menuIcon{
+    width:34px!important;height:34px!important;
+    border-radius:10px!important;font-size:19px!important;
+  }
+  .drawer .menuCopy b{font-size:13px!important}
+  .drawer .menuCopy span{font-size:10px!important;line-height:1.25!important}
+  .drawer .menuCopy em{font-size:8px!important;margin-top:3px!important}
+}
+
+/* =========================================================
+   V73 · 06 VINYL META: PHONE ONLY ONE-ROW TRIO
+   Desktop remains unchanged.
+   Overrides the old <=420px 2+1 composition.
+   ========================================================= */
+@media(max-width:899px){
+  .screen.t6 .date.dateTrio{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    grid-auto-flow:column!important;
+    gap:6px!important;
+    min-height:118px!important;
+    padding:7px!important;
+  }
+  .screen.t6 .date.dateTrio .dateCell{
+    grid-column:auto!important;
+    min-width:0!important;
+    min-height:0!important;
+    padding:9px 4px!important;
+  }
+  .screen.t6 .date.dateTrio .dateIcon{
+    font-size:14px!important;
+    margin-bottom:4px!important;
+  }
+  .screen.t6 .date.dateTrio .dateCell small{
+    font-size:6.5px!important;
+    margin-bottom:5px!important;
+    letter-spacing:.08em!important;
+  }
+  .screen.t6 .date.dateTrio .dateValue{
+    font-size:16px!important;
+    line-height:1.1!important;
+    white-space:nowrap!important;
+  }
+  .screen.t6 .date.dateTrio .kind-place .dateValue{
+    font-size:12px!important;
+  }
+}
+
+
+/* =========================================================
+   V73 · MOBILE INNER HERO TITLE BAND
+   PHONE ONLY. Desktop >=900px is intentionally untouched.
+   Makes every inner-page hero title a full-width, prominent row.
+   ========================================================= */
+@media(max-width:899px){
+  body.inviteEntered .screen .inside .hero{
+    display:block!important;
+    grid-template-columns:none!important;
+    gap:0!important;
+    margin-top:15px!important;
+  }
+  body.inviteEntered .screen .inside .copy{
+    width:100%!important;
+    max-width:none!important;
+    min-width:0!important;
+    min-height:0!important;
+    margin:0 0 11px!important;
+    padding:18px 22px 16px!important;
+    border-radius:18px!important;
+    text-align:center!important;
+    align-items:center!important;
+    justify-content:center!important;
+    background:
+      linear-gradient(135deg,
+        color-mix(in srgb,var(--frame) 15%,rgba(255,255,255,.045)),
+        color-mix(in srgb,var(--frame2) 9%,rgba(0,0,0,.04)))!important;
+    border:1.5px solid color-mix(in srgb,var(--frame) 30%,rgba(255,255,255,.08))!important;
+    box-shadow:0 10px 24px rgba(0,0,0,.07)!important;
+  }
+  body.inviteEntered .screen .inside .heroTitle{
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    font-size:40px!important;
+    line-height:1.06!important;
+    letter-spacing:-.025em!important;
+    text-align:center!important;
+    display:flex!important;
+    justify-content:center!important;
+    align-items:center!important;
+    flex-wrap:wrap!important;
+    column-gap:.30em!important;
+    row-gap:2px!important;
+  }
+  body.inviteEntered .screen .inside .heroTitle .line{
+    display:inline-block!important;
+    width:auto!important;
+    max-width:100%!important;
+    white-space:normal!important;
+  }
+  body.inviteEntered .screen .inside .copy p{
+    width:min(94%,690px)!important;
+    max-width:none!important;
+    margin:10px auto 0!important;
+    font-size:15px!important;
+    line-height:1.62!important;
+    text-align:center!important;
+    opacity:.88!important;
+  }
+  body.inviteEntered .screen .inside .hero > .date{
+    width:100%!important;
+    margin:0!important;
+  }
+
+  /* Theme 05 is light; keep the title band clearly separated from paper cards. */
+  body.inviteEntered .screen.t5 .inside .copy{
+    background:linear-gradient(135deg,rgba(255,252,246,.94),rgba(255,138,98,.11))!important;
+    border-color:rgba(235,132,95,.42)!important;
+  }
+
+  /* =======================================================
+     V73 · 06 VINYL INITIAL ALIGNMENT — PHONE ONLY
+     Keep the turntable relationship intact and avoid the
+     visual "floating stylus" / wrong-offset impression.
+     ======================================================= */
+  body.inviteEntered .front6 .recordDeck{
+    height:390px!important;
+  }
+  body.inviteEntered .front6 .vinyl{
+    width:252px!important;
+    height:252px!important;
+    left:8%!important;
+    top:60px!important;
+  }
+  body.inviteEntered .front6 .vinylLabel{
+    inset:79px!important;
+  }
+  body.inviteEntered .front6 .toneArm{
+    width:220px!important;
+    height:202px!important;
+    right:40%!important;
+    top:48px!important;
+    transform:scale(.74)!important;
+    transform-origin:right top!important;
+  }
+  body.inviteEntered .front6 .needleHint{
+    right:4%!important;
+    bottom:28px!important;
+    width:190px!important;
+  }
+}
+
+
+/* =========================================================
+   V78 RELEASE FINAL TARGETED FIXES · layout/signature only
+   1) all mobile inside date modules stay 3-in-one-row
+   2) 07 signature pad gets a larger usable drawing area
+   ========================================================= */
+@media(max-width:899px){
+  body.inviteEntered .screen .inside .hero>.date.dateTrio{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    grid-auto-flow:column!important;
+    width:100%!important;
+    min-width:0!important;
+    min-height:128px!important;
+    height:auto!important;
+    gap:6px!important;
+    padding:8px!important;
+    align-items:stretch!important;
+    overflow:hidden!important;
+  }
+  body.inviteEntered .screen .inside .hero>.date.dateTrio>.dateCell{
+    grid-column:auto!important;
+    grid-row:auto!important;
+    min-width:0!important;
+    width:auto!important;
+    min-height:108px!important;
+    padding:10px 5px!important;
+    border-radius:12px!important;
+    overflow:hidden!important;
+  }
+  body.inviteEntered .screen .inside .hero>.date.dateTrio .dateIcon{
+    font-size:15px!important;margin-bottom:5px!important
+  }
+  body.inviteEntered .screen .inside .hero>.date.dateTrio .dateCell small{
+    font-size:7px!important;line-height:1.15!important;margin-bottom:6px!important;letter-spacing:.08em!important
+  }
+  body.inviteEntered .screen .inside .hero>.date.dateTrio .dateValue{
+    font-size:19px!important;line-height:1.08!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important
+  }
+  body.inviteEntered .screen .inside .hero>.date.dateTrio .kind-place .dateValue,
+  body.inviteEntered .screen .inside .hero>.date.dateTrio .kind-status .dateValue{
+    font-size:14px!important;line-height:1.12!important;white-space:normal!important;word-break:keep-all!important
+  }
+
+  /* 07 HAPPY MART · make handwriting genuinely usable after the mobile design canvas is scaled */
+  body.inviteEntered .front7 .frontSignatureStage.sig7{
+    width:100%!important;max-width:none!important;margin:24px 0 14px!important;padding:18px!important;border-radius:20px!important
+  }
+  body.inviteEntered .front7 .frontSignatureStage.sig7 .frontSigPadWrap,
+  body.inviteEntered .front7 .frontSignatureStage.sig7 .frontSignaturePad{
+    height:270px!important;min-height:270px!important
+  }
+  body.inviteEntered .front7 .frontSignatureStage.sig7 .frontSigPadWrap{
+    border-width:2px!important
+  }
+  body.inviteEntered .front7 .frontSignatureStage.sig7 .frontSigPlaceholder{
+    font-size:15px!important;padding:26px!important
+  }
+  body.inviteEntered .front7 .frontSignatureStage.sig7 .frontSigFooter{
+    margin-top:16px!important;gap:12px!important
+  }
+  body.inviteEntered .front7 .frontSignatureStage.sig7 .frontSigActions button{
+    min-height:50px!important;font-size:13px!important
+  }
+}
+/* Override the old <=420px 2+1 date composition explicitly. */
+@media(max-width:420px){
+  body.inviteEntered .screen .inside .hero>.date.dateTrio{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    grid-auto-flow:column!important
+  }
+  body.inviteEntered .screen .inside .hero>.date.dateTrio>.dateCell,
+  body.inviteEntered .screen .inside .hero>.date.dateTrio>.dateCell.kind-place,
+  body.inviteEntered .screen .inside .hero>.date.dateTrio>.dateCell.kind-status{
+    grid-column:auto!important;grid-row:auto!important;min-height:108px!important
+  }
+}
+
+
+/* =========================================================
+   V78 RELEASE FINAL · MOBILE META ROW CORRECTION
+   Keep the red-carpet VIP date / time / place in one horizontal row.
+   This overrides the legacy <=780px rule that stacked the three items.
+   ========================================================= */
+@media(max-width:899px){
+  body.inviteEntered .front1 .premiereMeta{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    grid-auto-flow:column!important;
+    gap:6px!important;
+    width:100%!important;
+    align-items:stretch!important;
+  }
+  body.inviteEntered .front1 .premiereMeta span{
+    min-width:0!important;
+    min-height:34px!important;
+    padding:7px 5px!important;
+    font-size:10px!important;
+    line-height:1.15!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:clip!important;
+  }
+}
+@media(max-width:420px){
+  body.inviteEntered .front1 .premiereMeta{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+
 </style>
 </head>
 <body class="singleThemePage">
@@ -3016,12 +3476,14 @@ const DATA={
 
 /* V55 · short-link personalization */
 const inviteShortParams=new URLSearchParams(location.search);
+const embeddedInvite=(window.__INVITE_CONFIG__&&typeof window.__INVITE_CONFIG__==='object')?window.__INVITE_CONFIG__:{};
+function embeddedOrQuery(keyA,keyB){const v=embeddedInvite[keyA];if(v!==undefined&&v!==null&&String(v).trim()!=='')return String(v).trim();return (inviteShortParams.get(keyA)||inviteShortParams.get(keyB)||'').trim()}
 const invitePersonal={
-  name:(inviteShortParams.get('n')||inviteShortParams.get('to')||'').trim(),
-  date:(inviteShortParams.get('d')||inviteShortParams.get('date')||'').trim(),
-  day:(inviteShortParams.get('w')||inviteShortParams.get('day')||'').trim(),
-  time:(inviteShortParams.get('t')||inviteShortParams.get('time')||'').trim(),
-  venue:(inviteShortParams.get('p')||inviteShortParams.get('venue')||'').trim()
+  name:embeddedOrQuery('name','to')||embeddedOrQuery('n','to'),
+  date:embeddedOrQuery('date','d'),
+  day:embeddedOrQuery('day','w'),
+  time:embeddedOrQuery('time','t'),
+  venue:embeddedOrQuery('venue','p')
 };
 function inviteDateVariants(v){
   const m=String(v||'').match(/(\d{1,2})\D+(\d{1,2})/);if(!m)return null;
@@ -3518,15 +3980,21 @@ return `<button class="reset">↻ 重新体验</button><div class="screen ${d.th
 }
 
 function showInside(){
- syncPalette05Bar();
- document.body.dataset.theme=String(current).padStart(2,'0');
- const d=DATA[current]; scene.innerHTML=insideHTML(d); applyInvitePersonalization(scene); bindInside();
- requestAnimationFrame(()=>{
-   document.documentElement.scrollTop=0;document.body.scrollTop=0;
-   try{window.scrollTo({top:0,left:0,behavior:'instant'})}catch(e){window.scrollTo(0,0)}
-   requestAnimationFrame(()=>{document.documentElement.scrollTop=0;document.body.scrollTop=0;window.scrollTo(0,0)})
- });
- setTimeout(()=>{fitLines();document.documentElement.scrollTop=0;document.body.scrollTop=0;window.scrollTo(0,0)},50)
+  syncPalette05Bar();
+  document.body.dataset.theme=String(current).padStart(2,'0');
+  const d=DATA[current];
+  scene.innerHTML=insideHTML(d);
+  applyInvitePersonalization(scene);
+  bindInside();
+  if(window.innerWidth<900){
+    __tightenMobileCanvas();
+    __fitInviteCanvas();
+    __v62MobileTopReset();
+    [70,180,420].forEach(ms=>setTimeout(()=>{__fitInviteCanvas();__v62MobileTopReset()},ms));
+  }else{
+    requestAnimationFrame(()=>{document.documentElement.scrollTop=0;document.body.scrollTop=0;window.scrollTo(0,0)});
+  }
+  setTimeout(()=>{fitLines();if(window.innerWidth<900){__fitInviteCanvas();__v62MobileTopReset()}},60)
 }
 
 function bindInsideSignature(){
@@ -3935,15 +4403,15 @@ function revealFrontSignature(id){
   if(card.dataset.bound==='1')return;
   card.dataset.bound='1';
   requestAnimationFrame(()=>setupFrontSignature(card,id));
-  setTimeout(()=>{try{card.scrollIntoView({behavior:'smooth',block:'center'})}catch(e){}},120);
+  setTimeout(()=>{try{if(id===7)(card.querySelector('.frontSigPadWrap')||card).scrollIntoView({behavior:'smooth',block:'center'});else card.scrollIntoView({behavior:'smooth',block:'center'})}catch(e){}},120);
 }
 function setupFrontSignature(card,id){
   const x=FRONT_SIGNATURE_META[id],pad=card.querySelector('.frontSignaturePad'),wrap=card.querySelector('.frontSigPadWrap'),placeholder=card.querySelector('.frontSigPlaceholder'),clearBtn=card.querySelector('.frontSigClear'),confirmBtn=card.querySelector('.frontSigConfirm'),state=card.querySelector('.frontSigState');
   if(!pad||!x)return;
   const ctx=pad.getContext('2d');let drawing=false,drew=false,strokes=0,lastX=0,lastY=0,confirmed=false;
-  function resize(clear=true){const r=pad.getBoundingClientRect(),ratio=window.devicePixelRatio||1;pad.width=Math.max(360,Math.floor(r.width*ratio));pad.height=Math.max(160,Math.floor(r.height*ratio));ctx.setTransform(1,0,0,1,0,0);ctx.scale(ratio,ratio);ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=3.5;ctx.strokeStyle=getComputedStyle(card).getPropertyValue('--sig-ink').trim()||'#f5d36b';if(clear)ctx.clearRect(0,0,r.width,r.height)}
+  function resize(clear=true){const r=pad.getBoundingClientRect(),ratio=window.devicePixelRatio||1,isMartMobile=id===7&&window.innerWidth<900,cw=isMartMobile?(pad.clientWidth||r.width):r.width,ch=isMartMobile?(pad.clientHeight||r.height):r.height;pad.width=Math.max(360,Math.floor(cw*ratio));pad.height=Math.max(160,Math.floor(ch*ratio));ctx.setTransform(1,0,0,1,0,0);ctx.scale(ratio,ratio);ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=3.5;ctx.strokeStyle=getComputedStyle(card).getPropertyValue('--sig-ink').trim()||'#f5d36b';if(clear)ctx.clearRect(0,0,cw,ch)}
   resize();
-  const pos=e=>{const r=pad.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}};
+  const pos=e=>{const r=pad.getBoundingClientRect();if(id===7&&window.innerWidth<900){const sx=(pad.clientWidth||r.width)/Math.max(1,r.width),sy=(pad.clientHeight||r.height)/Math.max(1,r.height);return{x:(e.clientX-r.left)*sx,y:(e.clientY-r.top)*sy}}return{x:e.clientX-r.left,y:e.clientY-r.top}};
   pad.onpointerdown=e=>{if(confirmed)return;drawing=true;const p=pos(e);lastX=p.x;lastY=p.y;pad.setPointerCapture?.(e.pointerId);placeholder.style.opacity='0';try{PartyAudio.action('pen',id)}catch(err){}};
   pad.onpointermove=e=>{if(!drawing||confirmed)return;const p=pos(e);ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(p.x,p.y);ctx.stroke();if(Math.hypot(p.x-lastX,p.y-lastY)>2){strokes++;if(strokes>5){drew=true;confirmBtn.disabled=false;wrap.classList.add('hasInk')}}lastX=p.x;lastY=p.y};
   const stop=()=>drawing=false;pad.onpointerup=stop;pad.onpointercancel=stop;pad.onpointerleave=stop;
@@ -4068,7 +4536,7 @@ function bindVinyl(){
  const guide=n=>guides.forEach((g,i)=>{g.classList.toggle('on',i===n-1);g.classList.toggle('done',i<n-1)});
  const updateProgress=()=>{const progress=trackSet.size*25;pct.textContent=progress+'%';fill.style.width=progress+'%';dots.forEach((d,i)=>d.classList.toggle('on',i<trackSet.size));if(progress===100){setStep(4);status.textContent='步骤 04 · 四首曲目全部点亮 请由发行人亲笔签名批准今晚快乐单曲';revealFrontSignature(6);PartyAudio.sfx('success')}};
  arm.onpointerdown=e=>{if(needle)return;drag=true;sx=e.clientX;sy=e.clientY;arm.classList.add('dragging');arm.setPointerCapture?.(e.pointerId);PartyAudio.action('digital',6)};
- arm.onpointermove=e=>{if(!drag||needle)return;arm.style.transform='translate('+(e.clientX-sx)+'px,'+(e.clientY-sy)+'px)'};
+ arm.onpointermove=e=>{if(!drag||needle)return;const dx=e.clientX-sx,dy=e.clientY-sy;const ds=window.innerWidth<900?.74:1;arm.style.transform='translate('+dx+'px,'+dy+'px) scale('+ds+')'};
  arm.onpointerup=e=>{
    if(!drag||needle)return;drag=false;arm.classList.remove('dragging');
    const r=vinyl.getBoundingClientRect();
@@ -4250,13 +4718,13 @@ function bind5(){
 const MUSIC_LIBRARY={
   lively:{name:'系统活泼版',type:'builtin',mode:'lively'},
   calm:{name:'系统舒缓版',type:'builtin',mode:'calm'},
-  youdontcare:{name:"ohsobrkn - you don't care",type:'file',src:"assets/audio/you-dont-care.mp3"},
-  banjia:{name:"张震岳 - 搬家",type:'file',src:"assets/audio/banjia.mp3"},
-  henizaiyiqi:{name:"李志 - 和你在一起",type:'file',src:"assets/audio/henizaiyiqi.mp3"},
-  whistle:{name:"Whistle",type:'file',src:"assets/audio/whistle.mp3"},
-  yecao:{name:"椿乐队 - 野草",type:'file',src:"assets/audio/yecao.mp3"}
+  youdontcare:{name:"ohsobrkn - you don't care",type:'file',src:"https://wangmiaomia.github.io/crazy-party/assets/audio/you-dont-care.mp3"},
+  banjia:{name:"张震岳 - 搬家",type:'file',src:"https://wangmiaomia.github.io/crazy-party/assets/audio/banjia.mp3"},
+  henizaiyiqi:{name:"李志 - 和你在一起",type:'file',src:"https://wangmiaomia.github.io/crazy-party/assets/audio/henizaiyiqi.mp3"},
+  whistle:{name:"Whistle",type:'file',src:"https://wangmiaomia.github.io/crazy-party/assets/audio/whistle.mp3"},
+  yecao:{name:"椿乐队 - 野草",type:'file',src:"https://wangmiaomia.github.io/crazy-party/assets/audio/yecao.mp3"}
 };
-const __musicQ=new URLSearchParams(location.search);const musicParam=__musicQ.get('m')||__musicQ.get('music')||'youdontcare';
+const __musicQ=new URLSearchParams(location.search);const musicParam=(embeddedInvite.music||__musicQ.get('m')||__musicQ.get('music')||'youdontcare');
 let selectedMusicKey=MUSIC_LIBRARY[musicParam]?musicParam:'youdontcare';
 let selectedMusic=MUSIC_LIBRARY[selectedMusicKey];
 const partyBlobCache=new Map();
@@ -4482,7 +4950,7 @@ const audioStart=document.getElementById('audioStart');
 const audioToggle=document.getElementById('audioToggle');
 
 const pageParams=new URLSearchParams(location.search);
-const shareMode=pageParams.get('s')==='1'||pageParams.get('share')==='1'||pageParams.has('m')||pageParams.has('music');
+const shareMode=embeddedInvite.share===true||embeddedInvite.share==='1'||pageParams.get('s')==='1'||pageParams.get('share')==='1'||pageParams.has('m')||pageParams.has('music');
 document.body.classList.toggle('recipientMode',shareMode);
 updateIntroTheme(typeof current!=='undefined'?current:1);
 document.querySelectorAll('[data-intro-theme]').forEach(btn=>btn.addEventListener('click',()=>{
@@ -4500,22 +4968,107 @@ document.querySelectorAll('.previewSong').forEach(btn=>{
     catch(e){PartyAudio.toast('当前预览器限制歌曲输出；生成器试听正常时，GitHub正式页可正常播放')}
   });
 });
-audioStart?.addEventListener('click',()=>{
-  audioIntro.classList.add('armed');
-  try{
-    PartyAudio.unlock();
-    PartyAudio.startTheme(typeof current!=='undefined'?current:1);
-    PartyAudio.sfx('intro');
-    PartyAudio.toast('今晚正式开始');
-  }catch(err){
-    console.warn('audio start skipped, continue invitation',err);
+let __inviteEntered=false,__entering=false,__mobileScaleHost=null,__scaleObserver=null;
+function __ensureMobileScaleHost(){
+  const app=document.querySelector('.app.singleThemeApp');if(!app)return null;
+  if(app.parentElement&&app.parentElement.classList.contains('mobileScaleHost')){__mobileScaleHost=app.parentElement;return app}
+  const host=document.createElement('div');host.className='mobileScaleHost';app.parentNode.insertBefore(host,app);host.appendChild(app);__mobileScaleHost=host;
+  if(window.ResizeObserver){try{__scaleObserver=new ResizeObserver(()=>{if(__inviteEntered)__fitInviteCanvas()});__scaleObserver.observe(app)}catch(e){}}
+  return app;
+}
+
+function __tightenMobileCanvas(){
+  if(!__inviteEntered||window.innerWidth>=900)return;
+  const stage=document.querySelector('.stage');
+  const sceneEl=document.querySelector('.scene');
+  if(stage)stage.style.minHeight='0px';
+  if(sceneEl)sceneEl.style.minHeight='0px';
+
+  const screen=document.querySelector('.scene > .screen');
+  if(!screen)return;
+
+  // Remove the old desktop 1050px floor, then compute the real
+  // bottom of visible normal-flow homepage content.
+  screen.style.minHeight='0px';
+  screen.style.height='auto';
+
+  let bottom=0;
+  [...screen.children].forEach(el=>{
+    const cs=getComputedStyle(el);
+    if(cs.display==='none'||cs.visibility==='hidden'||cs.position==='absolute'||cs.position==='fixed')return;
+    bottom=Math.max(bottom,el.offsetTop+el.offsetHeight);
+  });
+
+  // Keep enough breathing room without creating a giant empty tail.
+  const isInner=!!screen.querySelector('.inside');
+  const target=isInner?Math.max(0,Math.ceil(bottom+30)):Math.max(680,Math.ceil(bottom+48));
+  screen.style.minHeight=target+'px';
+}
+
+
+function __v62MobileTopReset(){
+  if(window.innerWidth>=900)return;
+  try{if('scrollRestoration' in history)history.scrollRestoration='manual'}catch(e){}
+  const run=()=>{
+    try{
+      const root=document.scrollingElement||document.documentElement;
+      if(root)root.scrollTop=0;
+      document.documentElement.scrollTop=0;
+      document.body.scrollTop=0;
+      if(__mobileScaleHost)__mobileScaleHost.scrollTop=0;
+      window.scrollTo({top:0,left:0,behavior:'auto'});
+    }catch(e){try{window.scrollTo(0,0)}catch(_){} }
+  };
+  run();
+  requestAnimationFrame(()=>{run();requestAnimationFrame(run)});
+  [45,120,260,520].forEach(ms=>setTimeout(run,ms));
+}
+
+function __fitInviteCanvas(){
+  const app=__ensureMobileScaleHost();if(!app)return;
+  const host=__mobileScaleHost;
+  if(!__inviteEntered||window.innerWidth>=900){
+    app.style.transform='none';app.style.width='';app.style.maxWidth='';host.style.height='';host.style.overflow='';return;
   }
-  setTimeout(()=>{
-    audioIntro.classList.add('hide');
-    try{window.scrollTo(0,0)}catch(e){}
+  const targetReadableScale=.52;
+  const W=Math.round(Math.max(720,Math.min(840,window.innerWidth/targetReadableScale)));
+  const s=Math.max(.44,Math.min(1,window.innerWidth/W));
+  document.documentElement.style.setProperty('--v62-design-w',W+'px');
+  __tightenMobileCanvas();
+  app.style.width=W+'px';app.style.maxWidth=W+'px';app.style.transformOrigin='0 0';app.style.transform='scale('+s+')';
+  requestAnimationFrame(()=>{
+    __tightenMobileCanvas();
+    host.style.height=Math.ceil(app.scrollHeight*s)+'px';
+    host.style.overflow='hidden';
+  });
+}
+function __activateInviteCanvas(){
+  __inviteEntered=true;document.body.classList.add('inviteEntered');__ensureMobileScaleHost();__fitInviteCanvas();
+  if(window.innerWidth<900)__v62MobileTopReset();
+  else{try{window.scrollTo({top:0,left:0,behavior:'auto'})}catch(e){window.scrollTo(0,0)}}
+  setTimeout(__fitInviteCanvas,120);setTimeout(__fitInviteCanvas,520);
+}
+function __forceInviteEnter(){
+  if(__entering)return;__entering=true;
+  if(audioIntro){audioIntro.classList.add('armed');audioIntro.style.pointerEvents='none'}
+  try{PartyAudio.unlock();PartyAudio.startTheme(typeof current!=='undefined'?current:LOCKED_THEME);PartyAudio.sfx('intro');PartyAudio.toast('今晚正式开始')}catch(err){console.warn('audio skipped; invitation continues',err)}
+  const finish=()=>{
+    if(audioIntro){audioIntro.classList.add('hide');audioIntro.style.opacity='0';audioIntro.style.visibility='hidden';audioIntro.style.pointerEvents='none';setTimeout(()=>{try{audioIntro.style.display='none'}catch(e){}},380)}
+    __activateInviteCanvas();
     try{parent.postMessage({type:'party-invite-started',theme:LOCKED_THEME},'*')}catch(e){}
-  },520);
-});
+  };
+  setTimeout(finish,180);
+}
+window.__forceInviteEnter=__forceInviteEnter;
+if(audioStart){
+  audioStart.addEventListener('click',e=>{e.preventDefault();__forceInviteEnter()},{passive:false});
+  audioStart.addEventListener('touchend',e=>{e.preventDefault();__forceInviteEnter()},{passive:false});
+  audioStart.addEventListener('pointerup',()=>__forceInviteEnter(),{passive:true});
+  audioStart.setAttribute('onclick','window.__forceInviteEnter&&window.__forceInviteEnter()');
+}
+window.addEventListener('resize',()=>setTimeout(__fitInviteCanvas,80));
+window.addEventListener('orientationchange',()=>setTimeout(__fitInviteCanvas,180));
+document.addEventListener('click',()=>{if(__inviteEntered)setTimeout(()=>{__tightenMobileCanvas();__fitInviteCanvas()},60)},true);
 audioToggle?.addEventListener('click',()=>PartyAudio.toggle());
 
 document.querySelectorAll('.musicMode').forEach(btn=>{
