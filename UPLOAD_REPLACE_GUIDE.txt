@@ -1,0 +1,46 @@
+V57 手机端等比兼容 + 单主题正式邀请 修复包
+====================================================
+
+本次解决：
+1. 手机端不再把桌面 UI 拆成窄长单列；改为按网页版比例整体缩小。
+2. 01-08 正式邀请页的“全局预览标题 / 01-08 导航 / 锁定说明”已从 HTML 物理删除。
+3. 朋友端启动页的 8 主题测试器和 5 首歌曲试听器也从正式页移除。
+4. admin 新生成的“姓名专属短链接 HTML”使用 1120px 设计画布，再按手机宽度等比缩放 iframe。
+5. 每个 01.html-08.html 仍硬锁自己的主题，不能切到其他主题。
+
+需要覆盖上传到 GitHub crazy-party 仓库根目录：
+- admin.html
+- 01.html
+- 02.html
+- 03.html
+- 04.html
+- 05.html
+- 06.html
+- 07.html
+- 08.html
+
+不需要上传 / 不要动：
+- assets/
+- assets/audio/
+- index.html
+- preview.html（这是你自己全局检查用的，保留即可）
+- 404.html
+
+上传后测试：
+https://wangmiaomia.github.io/crazy-party/07.html?s=1&lock=07&v=57&m=whistle
+
+手机端正确表现：
+- 顶部不再出现“八套主题 / V54 / 01-08 导航”。
+- 便利店首页保留横向桌面构图比例，只是整体缩小进手机屏幕。
+- 不再出现 HAPPY MART 被拉成非常窄长的情况。
+
+重要：旧的朋友专属短链接文件（例如 lisiqi.html）
+----------------------------------------------------
+如果这个文件是 V55/V56 admin 生成的，它内部 iframe 还是旧的“100% 手机宽度”模式。
+所以覆盖 admin.html 后，请重新在 V57 admin 里生成 lisiqi.html，并把新的 lisiqi.html 上传覆盖旧文件。
+否则直接打开 lisiqi.html 时仍可能看到旧的窄长手机排版。
+
+新版 admin：
+https://wangmiaomia.github.io/crazy-party/admin.html?v=57
+
+建议上传后手机端清缓存，或测试地址末尾带 &v=57。

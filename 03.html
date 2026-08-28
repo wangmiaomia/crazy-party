@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>03 快乐街机｜成年人放风派对 V54</title>
+<meta name="viewport" content="width=1120,viewport-fit=cover,user-scalable=yes">
+<title>03 快乐街机｜成年人放风派对 V57</title>
 <style>
 :root{--serif:"Songti SC","STSong",serif;--sans:"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
 *{box-sizing:border-box}html,body{margin:0;background:#07100e;color:#fff;font-family:var(--sans)}button,input{font:inherit}
@@ -2891,9 +2891,45 @@ body[data-p05="E"]{--p05-bg:#d1d5dd;--p05-surface:#f4f5f6;--p05-surface2:#e7e9ed
 .t3{--frame:#43f1d0!important;--frame2:#ff5ab9!important;--st-bg:#0a1730!important;--st-fg:#ffe45f!important;--st-bd:#43f1d0!important;background:radial-gradient(circle at 12% 14%,rgba(67,241,208,.10),transparent 28%),radial-gradient(circle at 86% 16%,rgba(255,90,185,.12),transparent 28%),linear-gradient(145deg,#07131f,#10263a 56%,#211c4c)!important;color:#f8fbff!important}.t3 .date{background:linear-gradient(145deg,#111a38,#2a1740)!important;color:#ffe45f!important;border:1px solid rgba(255,90,185,.3)!important}.t3 .info,.t3 .right,.t3 .time span,.t3 .rule{background:rgba(11,23,48,.82)!important;border:1px solid rgba(67,241,208,.13)!important;color:#f8fbff!important}.t3 .dot{background:#43f1d0!important}.t3 .confirm{background:#ffe45f!important;color:#292300!important}.t3 .menuBtn,.t3 .eggBtn{border-color:rgba(67,241,208,.34)!important;color:#eafcff!important}.t3 .panel{background:#0a1730!important;border:1px solid rgba(255,90,185,.22)!important;color:#f8fbff!important}.t3 .funNote{background:rgba(255,255,255,.055)!important;border-color:rgba(255,228,95,.44)!important}.t3 .copy,.t3 .dressCard{background:rgba(8,20,41,.72)!important;border-color:rgba(67,241,208,.14)!important}.t3 .sectionHead i{background:linear-gradient(90deg,#43f1d0,#ff5ab9)!important}
 @media(max-width:780px){.arc03Object{width:100%!important}.arc03Cabinet{padding:13px}.arc03Grid{grid-template-columns:1fr}.arc03Screen{height:370px}.arc03Deck{grid-template-columns:1fr}.arc03JoyBlock{justify-content:center;flex-wrap:wrap}.arc03Joystick{flex-basis:160px;width:160px;height:160px}.arc03Buttons{gap:10px}.arc03Btn{width:76px;height:76px}.arc03Pass.show{grid-template-columns:1fr}.arc03Pass strong{width:78px;height:78px}.front3 .title{font-size:42px!important}}
 
+
+/* =========================================================
+   V57 · PRODUCTION SINGLE-THEME MODE
+   01–08 are recipient pages, never expose global preview UI.
+   ========================================================= */
+body.singleThemePage .head,
+body.singleThemePage .tabs,
+body.singleThemePage .finalLockNote,
+body.singleThemePage .introThemeTest,
+body.singleThemePage .previewSongTitle,
+body.singleThemePage .previewSongGrid{display:none!important}
+body.singleThemePage .app{padding-top:0!important}
+body.singleThemePage .stage{margin-top:0!important}
+body.singleThemePage .selectedTrackBadge{margin-bottom:18px}
+body.singleThemePage .selectedTrackBadge span:after{content:' · 已由邀请人指定'}
+
+
+/* =========================================================
+   V57 · MOBILE DESKTOP-RATIO MODE
+   Mobile gets the desktop composition scaled as one canvas.
+   The width=1120 viewport prevents old <=780px rules from
+   collapsing the designed grids into a long narrow column.
+   ========================================================= */
+body.singleThemePage .app.singleThemeApp{margin:0 auto!important}
+body.singleThemePage .head,
+body.singleThemePage .tabs,
+body.singleThemePage .finalLockNote{display:none!important}
+body.singleThemePage .stage{margin-top:0!important}
+@media (max-device-width:780px){
+  html,body{min-width:1120px!important}
+  body.singleThemePage{overflow-x:hidden!important}
+  body.singleThemePage .app.singleThemeApp{width:1120px!important;max-width:1120px!important;padding:14px 12px 44px!important}
+  body.singleThemePage .stage{width:1096px!important;border-radius:28px!important}
+  body.singleThemePage .audioToggle{right:24px!important;top:22px!important}
+}
+
 </style>
 </head>
-<body>
+<body class="singleThemePage">
 
 <div class="audioIntro" id="audioIntro">
   <div class="audioIntroStage">
@@ -2917,20 +2953,9 @@ body[data-p05="E"]{--p05-bg:#d1d5dd;--p05-surface:#f4f5f6;--p05-surface2:#e7e9ed
         <p>搞钱要紧，搞快乐更要紧。进去后请自行卸载“内耗”包袱。</p>
       </div>
       <div class="audioWave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      <div class="introThemeTest" id="introThemeTest" aria-label="测试8套启动页配色">
-        <button data-intro-theme="1" class="on">01 红毯</button><button data-intro-theme="2">02 澳门</button><button data-intro-theme="3">03 街机</button><button data-intro-theme="4">04 夜航</button><button data-intro-theme="5">05 治疗</button><button data-intro-theme="6">06 唱片</button><button data-intro-theme="7">07 便利店</button><button data-intro-theme="8">08 酒店</button>
-      </div>
       <div class="selectedTrackBadge" id="selectedTrackBadge">
         <span>🎵 今晚 BGM</span>
         <b id="selectedTrackName">系统活泼版</b>
-      </div>
-      <div class="previewSongTitle"><span>先选今晚的歌</span><small>测试模式可切换歌曲 · 正式分享链接只展示邀请人选定的 1 首 BGM</small></div>
-      <div class="previewSongGrid" id="previewSongGrid">
-        <button type="button" class="previewSong on" data-track="youdontcare"><b>01</b><span>you don't care</span><small>ohsobrkn</small></button>
-        <button type="button" class="previewSong" data-track="banjia"><b>02</b><span>搬家</span><small>张震岳</small></button>
-        <button type="button" class="previewSong" data-track="henizaiyiqi"><b>03</b><span>和你在一起</span><small>李志</small></button>
-        <button type="button" class="previewSong" data-track="whistle"><b>04</b><span>Whistle</span><small>试听版</small></button>
-        <button type="button" class="previewSong" data-track="yecao"><b>05</b><span>野草</span><small>椿乐队</small></button>
       </div>
       <div class="musicModes" aria-label="选择音乐氛围">
         <button type="button" class="musicMode on" data-music-mode="lively">⚡ 活泼一点</button>
@@ -2950,7 +2975,7 @@ body[data-p05="E"]{--p05-bg:#d1d5dd;--p05-surface:#f4f5f6;--p05-surface2:#e7e9ed
       <p class="audioHint">警告：此处不准提加班，违者罚酒一杯（或大声傻笑三声）！</p>
     </div>
     <div class="introBottom">
-      <span>08 THEMES</span><span>IMMERSIVE INTERACTION</span><span>AUDIO ON</span>
+      <span>PRIVATE INVITATION</span><span>IMMERSIVE INTERACTION</span><span>AUDIO ON</span>
     </div>
   </div>
 </div>
@@ -2959,12 +2984,7 @@ body[data-p05="E"]{--p05-bg:#d1d5dd;--p05-surface:#f4f5f6;--p05-surface2:#e7e9ed
 </button>
 <div class="audioToast" id="audioToast">声音已解锁 · 完成第一步后音乐自动开始</div>
 
-<div class="app">
-<div class="head"><div><small>FINAL GLOBAL PREVIEW · V54</small><h1>八套主题 · 最终全局确认预览 V54</h1></div><p>最终锁定：03 快乐街机增强交互 · 05 疗养院档案配色 · 08 电影式全屏开门转场；其余已确认主题保持不变。</p></div>
-<div class="tabs">
-<button class="tab on" data-id="1">01 红毯首映礼</button><button class="tab" data-id="2">02 澳门娱乐黑卡</button><button class="tab" data-id="3">03 快乐街机</button><button class="tab" data-id="4">04 成年人夜航</button><button class="tab" data-id="5">05 专属治疗方案</button><button class="tab" data-id="6">06 快乐唱片</button><button class="tab" data-id="7">07 深夜便利店</button><button class="tab" data-id="8">08 午夜派对酒店</button>
-</div>
-<div class="finalLockNote">03 已升级「快乐街机」 · 05 已锁定 E「疗养院档案」 · 08 已锁定电影式全屏开门转场</div>
+<div class="app singleThemeApp">
 <div class="stage"><div id="scene" class="scene"></div></div>
 </div>
 <script>
@@ -2978,9 +2998,48 @@ const DATA={
 7:{frontClass:'front7',theme:'t7',kicker:'HAPPY MART 0829 · OPEN TONIGHT',frontTitle:['今晚所有快乐商品','免费供应'],desc:'滑开便利店门 → 把快乐商品放进购物篮 → 长按扫码结账 → 小票正式出单',eye:'HAPPY MART · AFTER WORK SUPPLY',dressSmall:'STORE NIGHT DRESS CODE',dressTitle:'今晚<br>上架令',dressSub:'多巴胺上架 · 班味立即下架',hero:['HAPPY MART 深夜营业','今晚只卖快乐'],lead:'这家便利店不卖咖啡续命 只卖让你忘记明天上班的东西 顾客今晚拥有无限快乐额度',date:'OPEN',date2:'19:30',date3:'王苗苗之家',info:[['营业状态','🟢 OPEN TONIGHT'],['顾客','🛒 李思琪 VIP'],['结账金额','💳 快乐 ￥0']],rights:['🥤 饮料随便拿','🍟 热量随便补','🗣️ 八卦不限量','🍰 深夜随机加购'],times:[['19:30','🚪 自动门开启 欢迎光临'],['20:00','🛒 快乐商品自由选购'],['LATE','🧾 小票不结算 明天不追责']],rules:[['今日促销','✅ 开心买一送一 · 八卦无限续杯'],['下架商品','🚫 KPI · 工作群 · 内耗 · 明天焦虑']],funNotes:['🏪 HAPPY MART · 24H只营业今晚','<span class="weird">快乐商品已補貨 不開心概不售賣</span>'],dress:['班味太重？请用化妆品腌入味。','眼线飞到太阳穴，腮红打到后脑勺。','允许你服美役一晚，而且必须服到位。','8.29，王苗苗之家，不美不许进门。'],confirm:'确认今晚消费快乐',menu:'查看快乐货架',egg:'刮开幸运小票',menuTitle:'HAPPY MART 快乐货架',menuItems:[['01 冰柜','🥤 酒水 气泡饮'],['02 热柜','🍕 主食 炸物'],['03 零食架','🍬 甜点 零食'],['04 隐藏货架','🌙 深夜随机补货']],eggTitle:'🧾 幸运购物小票',eggText:'收银机多打印了一条隐藏优惠',eggPool:['获得一件免费夜宵','获得一次优先选饮料权','获得一次点歌权','获得一次拒绝收拾桌面权']},
 8:{frontClass:'front8',theme:'t8',kicker:'HAPPY HOTEL 0829 · PRIVATE PARTY SUITE',frontTitle:['您的快乐套房','已经准备完毕'],desc:'刷入房卡 → 领取金色钥匙 → 亲笔签名确认入住 → 推开套房门进入今晚',eye:'HAPPY HOTEL · PRIVATE SUITE INVITATION',dressSmall:'HOTEL NIGHT DRESS CODE',dressTitle:'今晚<br>入住令',dressSub:'Lobby见面请体面 · 房内允许失控',hero:['HAPPY HOTEL 0829','欢迎入住 PARTY SUITE'],lead:'今晚你不是来做客 是来办理快乐入住 工作事务将在前台统一寄存 次日再领取',date:'ROOM 0829',date2:'19:30',date3:'王苗苗之家',info:[['房型','🛎️ PARTY SUITE'],['入住人','🔑 李思琪'],['退房时间','🌙 快乐结束后']],rights:['🍷 MINI BAR自由','🎵 点歌服务','📸 房客拍照权','🛌 次日后悔服务'],times:[['19:30','🛎️ Lobby完成入住'],['20:00','🥂 PARTY SUITE开放'],['LATE','🔑 房门保持快乐状态']],rules:[['客房服务','✅ 酒水 · 夜宵 · 音乐 · 八卦 · 拍照'],['酒店禁令','🚫 工作电话 · KPI · 周报 · 提前成熟']],funNotes:['🛎️ DO NOT DISTURB · 除非你带了夜宵','<span class="weird">ROOM SERVICE：只送快樂不送工作</span>'],dress:['给我化！化最贵的妆，穿最唬人的衣服。','今晚咱就是人均身家过亿，演也要演像。','Lobby见面必须体面，进房后允许失控。','周六晚，HAPPY HOTEL 0829 等你入住。'],confirm:'确认入住今晚',menu:'打开客房服务',egg:'打开 MINI BAR',menuTitle:'PARTY SUITE · ROOM SERVICE',menuItems:[['WELCOME BAR','🍷 酒水 饮料'],['ROOM DINING','🍕 主食 热食'],['SWEET SERVICE','🍰 甜点 零食'],['MIDNIGHT CALL','🌙 深夜随机加餐']],eggTitle:'MINI BAR 隐藏格',eggText:'你发现了酒店没有写进菜单的隐藏服务',eggPool:['获得一杯优先选择权','获得一次房间BGM点歌权','获得一次甜点保留权','获得一次延迟退房快乐权']}
 }
+
+/* V55 · short-link personalization */
+const inviteShortParams=new URLSearchParams(location.search);
+const invitePersonal={
+  name:(inviteShortParams.get('n')||inviteShortParams.get('to')||'').trim(),
+  date:(inviteShortParams.get('d')||inviteShortParams.get('date')||'').trim(),
+  day:(inviteShortParams.get('w')||inviteShortParams.get('day')||'').trim(),
+  time:(inviteShortParams.get('t')||inviteShortParams.get('time')||'').trim(),
+  venue:(inviteShortParams.get('p')||inviteShortParams.get('venue')||'').trim()
+};
+function inviteDateVariants(v){
+  const m=String(v||'').match(/(\d{1,2})\D+(\d{1,2})/);if(!m)return null;
+  const mm=String(+m[1]).padStart(2,'0'),dd=String(+m[2]).padStart(2,'0');
+  return {slash:mm+'/'+dd, spaced:mm+' / '+dd, dot:mm+'.'+dd, dotShort:(+mm)+'.'+(+dd), cn:(+mm)+'月'+(+dd)+'日'};
+}
+function applyInvitePersonalization(root){
+  if(!root)return;
+  const reps=[];
+  if(invitePersonal.name)reps.push(['李思琪',invitePersonal.name]);
+  if(invitePersonal.venue)reps.push(['王苗苗之家',invitePersonal.venue]);
+  if(invitePersonal.time)reps.push(['19:30',invitePersonal.time]);
+  if(invitePersonal.day)reps.push(['周六',invitePersonal.day]);
+  const dv=inviteDateVariants(invitePersonal.date);
+  if(dv){reps.push(['08 / 29',dv.spaced],['08/29',dv.slash],['08.29',dv.dot],['8月29日',dv.cn],['8.29',dv.dotShort]);}
+  if(!reps.length)return;
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let node;
+  while(node=walker.nextNode()){
+    let s=node.nodeValue,changed=false;
+    for(const [a,b] of reps){if(s.includes(a)){s=s.split(a).join(b);changed=true;}}
+    if(changed)node.nodeValue=s;
+  }
+}
+
 let current=3;
 const scene=document.getElementById('scene');
 const tabs=[...document.querySelectorAll('.tab')];
+const LOCKED_THEME=3;
+function enforceSingleThemeLock(){
+  if(current!==LOCKED_THEME) current=LOCKED_THEME;
+  tabs.forEach(x=>x.classList.toggle('on',+x.dataset.id===LOCKED_THEME));
+}
+
 const palette05Bar=null;
 const palette05Buttons=[];
 let palette05='E';
@@ -3446,7 +3505,7 @@ return `<button class="reset">↻ 重新体验</button><div class="screen ${d.th
 function showInside(){
  syncPalette05Bar();
  document.body.dataset.theme=String(current).padStart(2,'0');
- const d=DATA[current]; scene.innerHTML=insideHTML(d); bindInside();
+ const d=DATA[current]; scene.innerHTML=insideHTML(d); applyInvitePersonalization(scene); bindInside();
  requestAnimationFrame(()=>{
    document.documentElement.scrollTop=0;document.body.scrollTop=0;
    try{window.scrollTo({top:0,left:0,behavior:'instant'})}catch(e){window.scrollTo(0,0)}
@@ -3520,10 +3579,11 @@ function bindInside(){
 }
 
 function render(){
+ enforceSingleThemeLock();
  syncPalette05Bar();
  updateIntroTheme(current);
  document.body.dataset.theme=String(current).padStart(2,'0');
- const d=DATA[current]; scene.innerHTML=injectFrontSignature(current,frontHTML(current,d)); bindFront(current); setTimeout(()=>{fitLines(); if(current===2)initScratch()},60)
+ const d=DATA[current]; scene.innerHTML=injectFrontSignature(current,frontHTML(current,d)); applyInvitePersonalization(scene); bindFront(current); setTimeout(()=>{fitLines(); if(current===2)initScratch()},60)
 }
 function legacyFrontHTML(id,d){
  const top=`<button class="reset">↻ 重新体验</button><div class="screen ${d.frontClass}">${themeArtHTML(id,'front')}${stickerHTML(id)}<div class="k">${id===2?'HAPPY CLUB · MACAU NIGHT EDITION':'FINAL INVITATION EXPERIENCE'}</div><h2 class="title">${d.frontTitle.map(x=>`<span class="line">${x}</span>`).join('')}</h2><div class="desc">${d.desc}</div>`;
@@ -4181,7 +4241,7 @@ const MUSIC_LIBRARY={
   whistle:{name:"Whistle",type:'file',src:"assets/audio/whistle.mp3"},
   yecao:{name:"椿乐队 - 野草",type:'file',src:"assets/audio/yecao.mp3"}
 };
-const musicParam=new URLSearchParams(location.search).get('music')||'youdontcare';
+const __musicQ=new URLSearchParams(location.search);const musicParam=__musicQ.get('m')||__musicQ.get('music')||'youdontcare';
 let selectedMusicKey=MUSIC_LIBRARY[musicParam]?musicParam:'youdontcare';
 let selectedMusic=MUSIC_LIBRARY[selectedMusicKey];
 const partyBlobCache=new Map();
@@ -4407,11 +4467,11 @@ const audioStart=document.getElementById('audioStart');
 const audioToggle=document.getElementById('audioToggle');
 
 const pageParams=new URLSearchParams(location.search);
-const shareMode=pageParams.get('share')==='1'||pageParams.has('music');
+const shareMode=pageParams.get('s')==='1'||pageParams.get('share')==='1'||pageParams.has('m')||pageParams.has('music');
 document.body.classList.toggle('recipientMode',shareMode);
 updateIntroTheme(typeof current!=='undefined'?current:1);
 document.querySelectorAll('[data-intro-theme]').forEach(btn=>btn.addEventListener('click',()=>{
-  const id=+btn.dataset.introTheme;current=id;tabs.forEach(x=>x.classList.toggle('on',+x.dataset.id===id));document.querySelectorAll('[data-intro-theme]').forEach(x=>x.classList.toggle('on',x===btn));updateIntroTheme(id);PartyAudio.setTheme(id);render();
+  const id=LOCKED_THEME;current=id;tabs.forEach(x=>x.classList.toggle('on',+x.dataset.id===id));updateIntroTheme(id);PartyAudio.setTheme(id);render();
 }));
 
 
