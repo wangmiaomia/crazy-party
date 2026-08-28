@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=1120,viewport-fit=cover,user-scalable=yes">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=yes">
 <title>06 快乐唱片｜成年人放风派对 V57</title>
 <style>
 :root{--serif:"Songti SC","STSong",serif;--sans:"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
@@ -2893,7 +2893,7 @@ body[data-p05="E"]{--p05-bg:#d1d5dd;--p05-surface:#f4f5f6;--p05-surface2:#e7e9ed
 
 
 /* =========================================================
-   V57 · PRODUCTION SINGLE-THEME MODE
+   V59 · PRODUCTION SINGLE-THEME MODE
    01–08 are recipient pages, never expose global preview UI.
    ========================================================= */
 body.singleThemePage .head,
@@ -2927,6 +2927,21 @@ body.singleThemePage .stage{margin-top:0!important}
   body.singleThemePage .audioToggle{right:24px!important;top:22px!important}
 }
 
+
+/* =========================================================
+   V59 · STARTUP NATURAL / THEME CANVAS SCALE HANDOFF
+   Startup uses the real phone viewport. After START, the
+   short-link wrapper expands this page to a 1120px canvas.
+   ========================================================= */
+body.singleThemePage .selectedTrackBadge,
+body.recipientMode .selectedTrackBadge{display:none!important}
+@media (max-width:899px){
+  html,body{min-width:0!important;width:100%!important;max-width:100%!important;overflow-x:hidden!important}
+  body.singleThemePage .app.singleThemeApp{width:100%!important;max-width:100%!important;margin:0!important;padding:0!important}
+  body.singleThemePage .stage{width:auto!important;max-width:none!important;margin:0!important}
+  .audioIntro{width:100vw!important;min-width:0!important;height:100dvh!important;min-height:100dvh!important}
+  .audioIntroStage{width:100%!important;min-width:0!important;height:100%!important;min-height:100dvh!important}
+}
 </style>
 </head>
 <body class="singleThemePage">
@@ -4486,12 +4501,20 @@ document.querySelectorAll('.previewSong').forEach(btn=>{
   });
 });
 audioStart?.addEventListener('click',()=>{
-  PartyAudio.unlock();
-  PartyAudio.startTheme(typeof current!=='undefined'?current:1);
-  PartyAudio.sfx('intro');
   audioIntro.classList.add('armed');
-  PartyAudio.toast('音乐已开启 · '+selectedMusic.name);
-  setTimeout(()=>audioIntro.classList.add('hide'),720);
+  try{
+    PartyAudio.unlock();
+    PartyAudio.startTheme(typeof current!=='undefined'?current:1);
+    PartyAudio.sfx('intro');
+    PartyAudio.toast('今晚正式开始');
+  }catch(err){
+    console.warn('audio start skipped, continue invitation',err);
+  }
+  setTimeout(()=>{
+    audioIntro.classList.add('hide');
+    try{window.scrollTo(0,0)}catch(e){}
+    try{parent.postMessage({type:'party-invite-started',theme:LOCKED_THEME},'*')}catch(e){}
+  },520);
 });
 audioToggle?.addEventListener('click',()=>PartyAudio.toggle());
 
