@@ -3294,7 +3294,7 @@ body.recipientMode .selectedTrackBadge{display:none!important}
 
 
 /* =========================================================
-   V81 RELEASE FINAL TARGETED FIXES · layout/signature only
+   V83 RELEASE FINAL TARGETED FIXES · layout/signature only
    1) all mobile inside date modules stay 3-in-one-row
    2) 07 signature pad gets a larger usable drawing area
    ========================================================= */
@@ -3431,7 +3431,312 @@ body.recipientMode .selectedTrackBadge{display:none!important}
   body.singleThemePage.inviteEntered .screen.t7{background:transparent!important}
 }
 
+
+/* =========================================================
+   V83 · MOBILE INTERACTION + PERSONAL INVITATION POLISH
+   - keeps the invitation frame visually distinct
+   - outer viewport is a translucent/blurred continuation only
+   - mobile sliders/tear gestures are physically reachable
+   ========================================================= */
+.introPersonal{width:min(620px,92%);margin:0 auto 12px;padding:11px 15px;border:1px solid rgba(255,255,255,.16);border-radius:16px;background:rgba(0,0,0,.16);backdrop-filter:blur(10px);font-size:13px;line-height:1.65;font-weight:850;letter-spacing:.01em;color:rgba(255,255,255,.92);box-shadow:0 12px 34px rgba(0,0,0,.12)}
+.introPersonal b{color:#f7d679;font-weight:950}.introPersonal .inviteArrow{display:inline-block;margin:0 5px;opacity:.72}.introPersonal em{font-style:normal;color:#ffdce8}
+.personalGuestChip{display:flex;align-items:center;gap:10px;flex-wrap:wrap;width:max-content;max-width:100%;margin:15px 0 3px;padding:8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.17);background:rgba(0,0,0,.14);backdrop-filter:blur(8px);box-shadow:0 8px 24px rgba(0,0,0,.10)}
+.personalGuestChip span{font:850 8px ui-monospace,monospace;letter-spacing:.13em;opacity:.64}.personalGuestChip b{font-size:16px;letter-spacing:.02em}.personalGuestChip em{font-style:normal;font-size:9px;font-weight:850;opacity:.7}
+.insideGuestRibbon{margin:13px 0 20px;padding:12px 14px;border-radius:15px;border:1px solid rgba(255,255,255,.15);background:linear-gradient(90deg,rgba(255,255,255,.075),rgba(255,255,255,.025));display:flex;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:0 10px 28px rgba(0,0,0,.10)}
+.insideGuestRibbon span{font:850 8px ui-monospace,monospace;letter-spacing:.14em;opacity:.56}.insideGuestRibbon b{font:650 22px var(--serif);letter-spacing:.03em}.insideGuestRibbon em{margin-left:auto;font-style:normal;font-size:9px;font-weight:850;opacity:.68}
+@media(max-width:899px){
+  .introPersonal{font-size:12px;line-height:1.55;margin-bottom:10px}
+  .personalGuestChip{margin-top:12px;padding:7px 10px;gap:8px}.personalGuestChip b{font-size:15px}
+  .insideGuestRibbon{margin:11px 0 16px}.insideGuestRibbon b{font-size:20px}.insideGuestRibbon em{margin-left:0;width:100%}
+  /* Tracks remain generous but no longer span nearly the full physical phone width. */
+  body.inviteEntered .slideTrack,body.inviteEntered .flightScanTrack,body.inviteEntered .doorSlider{max-width:600px!important;margin-left:auto!important;margin-right:auto!important}
+  body.inviteEntered .front4 .boardingCard{grid-template-columns:minmax(0,1fr) 120px!important}
+  body.inviteEntered .front4 .boardingStub{min-width:112px!important}
+  body.inviteEntered .front5 .cinemaTicket{max-width:650px!important;margin-left:auto!important;margin-right:auto!important}
+}
+
+/* V83 theme 07: framed invitation + translucent outer wash */
+html:has(body.singleThemePage.inviteEntered .screen.front7),html:has(body.singleThemePage.inviteEntered .screen.t7),
+body.singleThemePage.inviteEntered:has(.screen.front7),body.singleThemePage.inviteEntered:has(.screen.t7){background:#091710!important;}
+body.singleThemePage.inviteEntered:has(.screen.front7)::before{content:""!important;opacity:.40!important;background:radial-gradient(circle at 82% 14%,rgba(244,196,62,.16),transparent 27%),linear-gradient(145deg,#071b14,#0d4431 56%,#1d2b1f)!important;filter:blur(24px) saturate(.78)!important;transform:scale(1.07)!important;}
+body.singleThemePage.inviteEntered:has(.screen.t7)::before{content:""!important;opacity:.40!important;background:radial-gradient(circle at 82% 14%,rgba(244,196,62,.16),transparent 27%),linear-gradient(145deg,#071b14,#0d4431 56%,#1d2b1f)!important;filter:blur(24px) saturate(.78)!important;transform:scale(1.07)!important;}
+body.singleThemePage.inviteEntered:has(.screen.front7)::after,body.singleThemePage.inviteEntered:has(.screen.t7)::after{content:""!important;opacity:1!important;pointer-events:none!important;background:radial-gradient(circle at 50% 40%,transparent 30%,rgba(0,0,0,.10) 100%)!important;}
+body.singleThemePage.inviteEntered .screen.front7{background:radial-gradient(circle at 82% 14%,rgba(244,196,62,.16),transparent 27%),linear-gradient(145deg,#071b14,#0d4431 56%,#1d2b1f)!important;box-shadow:0 22px 60px rgba(0,0,0,.18)!important;}
+body.singleThemePage.inviteEntered .screen.t7{background:radial-gradient(circle at 82% 14%,rgba(244,196,62,.16),transparent 27%),linear-gradient(145deg,#071b14,#0d4431 56%,#1d2b1f)!important;box-shadow:0 22px 60px rgba(0,0,0,.18)!important;}
+
+
+
+/* =========================================================
+   V83 · TARGETED 7-ITEM FIX PACK
+   Only touches requested intro copy / theme-01 menu / inner hero/date
+   / mobile tear gestures / arcade joystick / Macau scratch typography.
+   ========================================================= */
+
+/* 02 · Theme 01 inner VIP menu: quieter, unified champagne / burgundy system */
+body[data-theme="01"] .screen.t1 .drawer.menu .panel{
+  background:linear-gradient(145deg,rgba(35,14,20,.96),rgba(54,18,27,.94))!important;
+  border:1px solid rgba(225,186,104,.30)!important;
+  box-shadow:0 18px 46px rgba(15,3,8,.24)!important;
+}
+body[data-theme="01"] .screen.t1 .drawer.menu .panel>b:first-child{
+  color:#f6e5ba!important;letter-spacing:.02em
+}
+body[data-theme="01"] .screen.t1 .drawer.menu .menuGrid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important
+}
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCard,
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCard:nth-child(odd),
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCard:nth-child(even){
+  min-height:96px!important;
+  grid-template-columns:54px minmax(0,1fr)!important;
+  background:linear-gradient(135deg,rgba(255,248,226,.085),rgba(255,213,151,.035))!important;
+  border:1px solid rgba(232,198,130,.17)!important;
+  border-radius:16px!important;
+  color:#fff6e5!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important;
+}
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCard:nth-child(2),
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCard:nth-child(4){
+  background:linear-gradient(135deg,rgba(153,53,62,.14),rgba(255,220,156,.035))!important;
+}
+body[data-theme="01"] .screen.t1 .drawer.menu .menuIcon{
+  width:46px!important;height:46px!important;border-radius:14px!important;
+  background:linear-gradient(145deg,rgba(231,191,105,.16),rgba(255,255,255,.045))!important;
+  box-shadow:inset 0 0 0 1px rgba(238,205,138,.16)!important
+}
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCopy b{color:#fff4d7!important}
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCopy span{color:#e8d8c4!important;opacity:.9!important}
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCopy em{
+  background:rgba(232,196,119,.10)!important;color:#efd69b!important
+}
+
+/* 04 · Inner page frame 1: title area must not look like a colored card. */
+body.inviteEntered .screen .inside .hero>.copy,
+body.inviteEntered .screen.t1 .inside .hero>.copy,
+body.inviteEntered .screen.t2 .inside .hero>.copy,
+body.inviteEntered .screen.t3 .inside .hero>.copy,
+body.inviteEntered .screen.t4 .inside .hero>.copy,
+body.inviteEntered .screen.t5 .inside .hero>.copy,
+body.inviteEntered .screen.t6 .inside .hero>.copy,
+body.inviteEntered .screen.t7 .inside .hero>.copy,
+body.inviteEntered .screen.t8 .inside .hero>.copy{
+  background:transparent!important;border:0!important;box-shadow:none!important;
+  border-radius:0!important
+}
+@media(max-width:899px){
+  body.inviteEntered .screen .inside .hero>.copy{
+    padding:10px 4px 14px!important;margin:0 0 8px!important
+  }
+}
+
+/* 04 · Inner page frame 2: stable equal columns + readable text, never compressed. */
+body.inviteEntered .screen .inside .date.dateTrio{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  min-width:0!important;overflow:visible!important
+}
+body.inviteEntered .screen .inside .dateCell{
+  min-width:0!important;overflow:hidden!important
+}
+body.inviteEntered .screen .inside .dateValue{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  min-height:1.25em!important;white-space:normal!important;word-break:keep-all!important;
+  overflow-wrap:normal!important;text-overflow:clip!important;line-height:1.16!important
+}
+@media(max-width:899px){
+  body.inviteEntered .screen .inside .date.dateTrio{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important
+  }
+  body.inviteEntered .screen .inside .dateCell.kind-place,
+  body.inviteEntered .screen .inside .dateCell.kind-status{
+    grid-column:auto!important;min-height:0!important
+  }
+  body.inviteEntered .screen .inside .dateValue{font-size:20px!important}
+  body.inviteEntered .screen .inside .dateCell.kind-place .dateValue,
+  body.inviteEntered .screen .inside .dateCell.kind-status .dateValue{font-size:15px!important}
+}
+
+/* 07 · Macau scratch title is real HTML text, not canvas-scaled text. */
+.scratchTitleOverlay{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  z-index:3;width:86%;pointer-events:none;text-align:center;
+  color:#fff0bd;font:900 24px/1.28 "PingFang SC","Microsoft YaHei",sans-serif;
+  letter-spacing:.03em;text-shadow:0 2px 8px rgba(86,25,14,.32);
+  transition:opacity .2s ease
+}
+@media(max-width:899px){.scratchTitleOverlay{font-size:25px!important;line-height:1.25!important;letter-spacing:.02em!important}}
+
+/* 03 · lively choice gets an explicit girlfriends-style acknowledgement */
+.livelyReply{
+  display:none;width:min(620px,100%);margin:-4px auto 13px;padding:11px 14px;
+  border-radius:14px;border:1px solid rgba(255,221,137,.18);
+  background:linear-gradient(135deg,rgba(252,190,83,.12),rgba(255,93,143,.08));
+  color:#fff0c9;font-size:12px;line-height:1.6;font-weight:850;text-align:center;
+  box-shadow:0 10px 28px rgba(0,0,0,.12)
+}
+.livelyReply.show{display:block;animation:rise .22s ease}
+@media(max-width:899px){.livelyReply{font-size:12px;padding:10px 12px;margin-bottom:11px}}
+
+
+/* =========================================================
+   V84 · TARGETED HOTFIX
+   1) Macau inner menu refinement only
+   2) guaranteed audio fallback
+   3) short-scratch feel restored; V83 text fix retained
+   ========================================================= */
+
+/* Macau / Theme 02 menu — unified black-card + champagne system, no red/green blocks */
+body[data-theme="02"] .screen.t2 .drawer.menu .panel{
+  position:relative!important;overflow:hidden!important;
+  padding:22px!important;border-radius:20px!important;
+  background:
+    radial-gradient(circle at 92% 0%,rgba(224,185,94,.10),transparent 34%),
+    linear-gradient(145deg,rgba(17,18,17,.98),rgba(31,22,22,.98) 58%,rgba(20,18,16,.98))!important;
+  border:1px solid rgba(224,185,94,.27)!important;
+  box-shadow:0 20px 52px rgba(0,0,0,.27),inset 0 1px 0 rgba(255,255,255,.025)!important;
+  color:#f7ecd1!important
+}
+body[data-theme="02"] .screen.t2 .drawer.menu .panel:before{
+  content:"HAPPY CLUB · PRIVATE TABLE";display:block;margin:0 0 7px;
+  color:#a99362;font:850 8px/1 ui-monospace,monospace;letter-spacing:.18em
+}
+body[data-theme="02"] .screen.t2 .drawer.menu .panel>b:first-child{
+  display:block!important;margin:0 0 15px!important;color:#f4dfaa!important;
+  font:650 22px/1.18 "Songti SC","STSong",serif!important;letter-spacing:.015em!important
+}
+body[data-theme="02"] .screen.t2 .drawer.menu .menuGrid{
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:11px!important;margin-top:0!important
+}
+body[data-theme="02"] .screen.t2 .drawer.menu .menuCard,
+body[data-theme="02"] .screen.t2 .drawer.menu .menuCard:nth-child(odd),
+body[data-theme="02"] .screen.t2 .drawer.menu .menuCard:nth-child(even){
+  position:relative!important;min-height:108px!important;
+  display:grid!important;grid-template-columns:52px minmax(0,1fr)!important;align-items:center!important;gap:13px!important;
+  padding:16px!important;border-radius:16px!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.046),rgba(224,185,94,.025))!important;
+  border:1px solid rgba(224,185,94,.16)!important;
+  color:#f8efd9!important;
+  box-shadow:inset 3px 0 0 rgba(224,185,94,.38),inset 0 1px 0 rgba(255,255,255,.028),0 10px 24px rgba(0,0,0,.10)!important
+}
+body[data-theme="02"] .screen.t2 .drawer.menu .menuCard:hover{border-color:rgba(224,185,94,.30)!important}
+body[data-theme="02"] .screen.t2 .drawer.menu .menuIcon{
+  width:46px!important;height:46px!important;border-radius:14px!important;
+  display:grid!important;place-items:center!important;font-size:23px!important;
+  background:linear-gradient(145deg,rgba(224,185,94,.14),rgba(255,255,255,.025))!important;
+  color:#f4d990!important;border:1px solid rgba(224,185,94,.13)!important;
+  box-shadow:none!important
+}
+body[data-theme="02"] .screen.t2 .drawer.menu .menuCopy b{
+  color:#fff3d4!important;font-size:15px!important;line-height:1.3!important;letter-spacing:.015em!important
+}
+body[data-theme="02"] .screen.t2 .drawer.menu .menuCopy span{
+  color:#cfc4ae!important;font-size:11px!important;line-height:1.45!important;opacity:.94!important;margin-top:4px!important
+}
+body[data-theme="02"] .screen.t2 .drawer.menu .menuCopy em{
+  display:inline-flex!important;width:auto!important;margin-top:8px!important;padding:4px 8px!important;
+  border-radius:999px!important;background:rgba(224,185,94,.08)!important;border:1px solid rgba(224,185,94,.10)!important;
+  color:#ddca98!important;font-size:8px!important;font-weight:850!important;letter-spacing:.03em!important
+}
+@media(max-width:899px){
+  body[data-theme="02"] .screen.t2 .drawer.menu .panel{padding:17px!important}
+  body[data-theme="02"] .screen.t2 .drawer.menu .menuGrid{grid-template-columns:1fr!important;gap:8px!important}
+  body[data-theme="02"] .screen.t2 .drawer.menu .menuCard{min-height:88px!important;grid-template-columns:46px minmax(0,1fr)!important;padding:13px!important}
+  body[data-theme="02"] .screen.t2 .drawer.menu .menuIcon{width:40px!important;height:40px!important;font-size:20px!important}
+}
+
+
+/* =========================================================
+   V86 · VERIFIED AUDIO + SHARE FIX
+   A) Theme 01 menu: refined champagne / charcoal layout
+   B) Mobile Macau scratch: one short swipe completes
+   C) Audio: audible built-in bed starts immediately while MP3 is verified
+   ========================================================= */
+
+/* Theme 01 / 红毯首映礼菜单：去掉红绿大色块和“进度条感”，改为香槟金+炭黑+暖象牙 */
+body[data-theme="01"] .screen.t1 .drawer.menu .panel{
+  padding:24px!important;border-radius:22px!important;overflow:hidden!important;
+  background:
+    radial-gradient(circle at 92% 4%,rgba(224,190,119,.12),transparent 30%),
+    linear-gradient(145deg,#171516,#211b1c 54%,#171414)!important;
+  border:1px solid rgba(224,190,119,.28)!important;
+  box-shadow:0 22px 54px rgba(20,5,9,.25),inset 0 1px 0 rgba(255,255,255,.035)!important;
+  color:#f8f1e3!important
+}
+body[data-theme="01"] .screen.t1 .drawer.menu .panel:before{
+  content:"PREMIERE SUPPER · VIP TABLE";display:block;margin:0 0 7px!important;
+  color:#ad9668!important;font:850 8px/1 ui-monospace,monospace!important;letter-spacing:.18em!important
+}
+body[data-theme="01"] .screen.t1 .drawer.menu .panel>b:first-child{
+  display:block!important;margin:0 0 16px!important;color:#f3dfb3!important;
+  font:650 23px/1.18 "Songti SC","STSong",serif!important;letter-spacing:.015em!important
+}
+body[data-theme="01"] .screen.t1 .drawer.menu .menuGrid{
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:12px!important;margin:0!important
+}
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCard,
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCard:nth-child(odd),
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCard:nth-child(even){
+  min-height:104px!important;display:grid!important;grid-template-columns:48px minmax(0,1fr)!important;
+  align-items:center!important;gap:14px!important;padding:16px!important;border-radius:17px!important;
+  background:linear-gradient(145deg,rgba(250,242,224,.075),rgba(224,190,119,.025))!important;
+  border:1px solid rgba(229,210,171,.14)!important;color:#f9f3e8!important;
+  box-shadow:inset 3px 0 0 rgba(215,181,111,.48),inset 0 1px 0 rgba(255,255,255,.035)!important
+}
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCard .menuIcon{
+  width:44px!important;height:44px!important;border-radius:50%!important;padding:0!important;
+  display:grid!important;place-items:center!important;font-size:21px!important;
+  background:#2b2624!important;border:1px solid rgba(215,181,111,.25)!important;color:#f0d394!important;
+  box-shadow:0 6px 18px rgba(0,0,0,.12)!important
+}
+/* 关键：覆盖旧版 .menuGrid div 的全后代选择器，防止 menuCopy 被当成第二张卡片继续着色 */
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCard .menuCopy{
+  display:block!important;min-height:0!important;padding:0!important;margin:0!important;
+  background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;color:inherit!important
+}
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCard .menuCopy b{
+  display:block!important;margin:0!important;color:#fff8ea!important;font-size:15px!important;line-height:1.25!important;font-weight:900!important
+}
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCard .menuCopy span{
+  display:block!important;margin:5px 0 0!important;padding:0!important;background:none!important;border:0!important;
+  color:#cfc5b4!important;font-size:11px!important;line-height:1.45!important;opacity:1!important
+}
+body[data-theme="01"] .screen.t1 .drawer.menu .menuCard .menuCopy em{
+  display:inline-block!important;width:auto!important;max-width:100%!important;margin:8px 0 0!important;padding:0!important;
+  background:none!important;border:0!important;border-radius:0!important;color:#bca675!important;
+  font-size:8px!important;line-height:1.3!important;font-weight:850!important;letter-spacing:.04em!important
+}
+@media(max-width:899px){
+  body[data-theme="01"] .screen.t1 .drawer.menu .panel{padding:17px!important}
+  body[data-theme="01"] .screen.t1 .drawer.menu .menuGrid{grid-template-columns:1fr!important;gap:8px!important}
+  body[data-theme="01"] .screen.t1 .drawer.menu .menuCard{min-height:82px!important;grid-template-columns:42px minmax(0,1fr)!important;padding:13px 14px!important;gap:12px!important}
+  body[data-theme="01"] .screen.t1 .drawer.menu .menuCard .menuIcon{width:38px!important;height:38px!important;font-size:19px!important}
+}
 </style>
+
+
+<meta name="description" content="HAPPY MART 今晚营业，所有快乐商品免费供应。">
+<meta itemprop="name" content="成年人放风派对｜深夜便利店">
+<meta itemprop="description" content="HAPPY MART 今晚营业，所有快乐商品免费供应。">
+<meta itemprop="image" content="https://wangmiaomia.github.io/crazy-party/assets/share-card-v86.jpg?v=86">
+<link rel="image_src" href="https://wangmiaomia.github.io/crazy-party/assets/share-card-v86.jpg?v=86">
+<meta property="og:site_name" content="成年人放风派对">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="成年人放风派对｜深夜便利店">
+<meta property="og:description" content="HAPPY MART 今晚营业，所有快乐商品免费供应。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wangmiaomia.github.io/crazy-party/07.html?v=86">
+<meta property="og:image" content="https://wangmiaomia.github.io/crazy-party/assets/share-card-v86.jpg?v=86">
+<meta property="og:image:secure_url" content="https://wangmiaomia.github.io/crazy-party/assets/share-card-v86.jpg?v=86">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="成年人放风派对 · 私人邀请函">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="成年人放风派对｜深夜便利店">
+<meta name="twitter:description" content="HAPPY MART 今晚营业，所有快乐商品免费供应。">
+<meta name="twitter:image" content="https://wangmiaomia.github.io/crazy-party/assets/share-card-v86.jpg?v=86">
+<link rel="canonical" href="https://wangmiaomia.github.io/crazy-party/07.html?v=86">
 </head>
 <body class="singleThemePage">
 
@@ -3450,9 +3755,10 @@ body.recipientMode .selectedTrackBadge{display:none!important}
       <span class="introNo" id="introNo">NIGHT MODE · 0829</span>
     </div>
     <div class="introCenter">
+      <div class="introPersonal" id="introPersonal"><b>李思琪</b><span class="inviteArrow">←</span>你的牛友 <em>王苗苗</em> 拍了拍你：一份「成年人放风许可」已送达。本人签收，拒收无效 😎</div>
       <div class="introKicker" id="introKicker">今晚请暂时退出工作模式</div>
       <h2><span>戴上耳机</span><span>开启今晚</span></h2>
-      <div class="introCopy">
+      <div class="introCopy" id="introCopy">
         <p>别犹豫了，辛苦上一天班，不就是为了这一刻的彻底放纵吗？</p>
         <p>搞钱要紧，搞快乐更要紧。进去后请自行卸载“内耗”包袱。</p>
       </div>
@@ -3465,6 +3771,7 @@ body.recipientMode .selectedTrackBadge{display:none!important}
         <button type="button" class="musicMode on" data-music-mode="lively">⚡ 活泼一点</button>
         <button type="button" class="musicMode calmTrap" data-music-mode="calm">🌙 舒缓一点</button>
       </div>
+      <div class="livelyReply" id="livelyReply" aria-live="polite"></div>
       <div class="calmPrank" id="calmPrank" aria-live="polite">
         <div class="prankSiren">🚨</div>
         <div class="prankCopy">
@@ -3493,14 +3800,14 @@ body.recipientMode .selectedTrackBadge{display:none!important}
 </div>
 <script>
 const DATA={
-1:{frontClass:'front1',theme:'t1',kicker:'TIANQIAO PREMIERE NIGHT · RED CARPET ACCESS',frontTitle:['今晚请停止做普通人','你将以明星身份入场'],desc:'开启明星邀请 → 完成妆造确认 → 滑动签名 → 红毯席位正式生效',eye:'TONIGHT PREMIERE · STAR INVITATION',dressSmall:'RED CARPET DRESS CODE',dressTitle:'今晚<br>红毯令',dressSub:'盛装出席 · 镜头已经就位',hero:['你的红毯席位','已经正式保留'],lead:'今晚不是普通聚会 是王苗苗之家限定首映礼 请带着两米八气场准时出现',date:'08/29',date2:'周六',date3:'19:30',info:[['红毯地点','📍 王苗苗之家'],['嘉宾身份','⭐ STAR GUEST'],['镜头状态','📸 已对准你']],rights:['✨ 拥有抢镜权','📸 拥有随时自拍权','💄 拥有美得过分权','🥂 拥有碰杯优先权'],times:[['19:30','🎬 红毯签到与闪光灯首拍'],['20:00','🥂 首映酒会正式开始'],['21:30','🌟 自由发挥与明星失控时间']],rules:[['红毯守则','✅ 妆发完整 · 衣服有存在感 · 被拍到请自动Pose'],['保安提示','🚫 禁止说“我随便穿穿” · 禁止带班味入镜']],funNotes:['🌟 TONIGHT YOU ARE THE STAR','<span class="weird">夲亱鏡頭只追漂亮的人 ✨</span>'],dress:['今晚是王苗苗之家红毯夜🌟','请各位女明星男明星盛装出席。','妆要浓，衣服要夸张，气场要两米八。','不化妆的，保安（我）有权拒绝入场。','周六19:00，红毯见。'],confirm:'确认以明星身份出席',menu:'查看首映酒会菜单',egg:'抽取明星彩蛋',menuTitle:'首映礼 VIP 酒会菜单',menuItems:[['WELCOME DRINK','🥂 入场第一杯'],['PREMIERE BITES','🍕 高热量明星餐'],['CAMERA BREAK','📸 随时补妆拍照'],['AFTER PARTY','🍰 深夜随机加餐']],eggTitle:'⭐ STAR BONUS',eggText:'你的红毯隐藏权益已经解锁',eggPool:['获得今晚第一张C位合照','拥有一次指定BGM权','获得一次重拍照片权','今晚最后一块甜品归你']},
-2:{frontClass:'front2',theme:'t2',kicker:'HAPPY CLUB · MACAU NIGHT EDITION',frontTitle:['刮开今晚的快乐筹码','激活你的专属通行证'],desc:'真彩票刮层 → 全部揭晓 → 滑动激活 → 再进入正式邀约',hero:['你的快乐通行证','已正式生效','今晚所有快乐权限','全部恢复'],lead:'成年人偶尔也需要被允许不靠谱一次 今晚只负责开心',date:'19:30',date2:'8月29日',date3:'王苗苗之家',info:[['身份','♠ 快乐会员07'],['状态','♦ 权限已批准'],['入场暗号','♥ 今天不上班']],rights:['🍽️ 吃点好的','🥂 喝点喜欢的','🃏 聊点没用的','🌙 忘记明天周几'],times:[['19:30','🎟️ 使用暗号完成入场'],['20:30','🍸 开始无效聊天和快乐进食'],['LATE','✨ 之后不做计划 自由发挥']],rules:[['会员状态','🟢 快乐权限 FULL'],['风险提示','⚠️ 继续工作可能导致今晚资格冻结']],funNotes:['♠ 今夜只談風月 不談KPI ♣','<span class="weird">冇錢都要有億點點氣質 (¬‿¬)</span>'],dress:['给我化！化最贵的妆，穿最唬人的衣服。','今晚咱就是人均身家过亿，演也要演像。','班味扔门外，多巴胺穿身上。','周六晚，王苗苗之家，人类高质量聚会。'],confirm:'确认接受快乐权限',menu:'查看今晚菜单',egg:'开启幸运彩蛋',menuTitle:'今晚菜单',menuItems:[['欢迎饮品','入场先喝点喜欢的'],['主餐时间','主食 热食'],['甜蜜时刻','甜点 零食'],['深夜加餐','随机夜宵']],eggTitle:'LUCKY BONUS',eggText:'抽取今晚专属幸运特权 不涉及任何真实筹码或金额',eggPool:['第一杯饮料优先选择','今晚点歌优先','最后一块甜点归你','获得一次免解释权']},
-3:{frontClass:'front3',theme:'t3',kicker:'HAPPY ARCADE · PLAYER 01 · MAIN CHARACTER MODE',frontTitle:['今晚投币','开始一局快乐'],desc:'拖入快乐金币 → 用真实可动摇杆完成方向 Combo → A/B/C 三键连击 → 生成 PLAYER 01 通行卡 → 亲笔签名保存存档',eye:'HAPPY ARCADE · PLAYER 01 ACCESS',dressSmall:'ARCADE NIGHT DRESS CODE',dressTitle:'今晚<br>玩家令',dressSub:'穿得像隐藏角色 · 不准像工牌证件照',hero:['PLAYER 01 快乐模式已加载','今晚正式进入街机副本'],lead:'这不是普通聚会 是成年人限定街机夜 今晚可以乱按按钮 乱唱跑调 乱笑很大声 唯一不能继续加班',date:'P1',date2:'08.29 · 19:30',date3:'王苗苗之家',info:[['玩家身份','🎮 PLAYER 01'],['快乐数值','⚡ MAX 100%'],['游戏地点','📍 王苗苗之家']],rights:['🕹️ 拥有乱玩权','🎤 拥有跑调权','📸 拥有怪照权','💾 拥有明天再说权'],times:[['19:30','🪙 投币上线 · PLAYER 01 登场'],['20:00','🎮 HAPPY MODE 正式开局'],['LATE','💾 保存快乐存档 · 明天再读档']],rules:[['街机规则','✅ 可以连击快乐 · 可以操作失误 · 可以无限续命'],['GAME OVER 禁区','🚫 KPI · 工作群 · 扫兴 · 突然成熟']],funNotes:['🎮 INSERT HAPPINESS · CREDIT ￥0','<span class="weird">夲局禁止讀取工作存檔 ᕕ( ᐛ )ᕗ</span>'],dress:['今晚不是来刷工卡，是来解锁隐藏角色。','妆发和衣服请直接开到“限定皮肤”级别。','班味留在投币口，多巴胺请拉满。','8.29 晚，王苗苗之家，PLAYER 01 准时上线。'],confirm:'确认 PLAYER 01 上线',menu:'打开街机补给菜单',egg:'触发隐藏作弊码',menuTitle:'🎮 HAPPY ARCADE · BONUS MENU',menuItems:[['ENERGY +100','🍕 高热量回血包'],['MP +100','🥤 快乐饮料药水'],['PHOTO MODE','📸 怪姿势拍照模式'],['CONTINUE?','🍰 深夜续命加餐']],eggTitle:'👾 CHEAT CODE FOUND',eggText:'检测到一条今晚限定隐藏作弊码 请本人亲手启用',eggPool:['解锁一次点歌抢占权','获得一次全员陪你拍怪照权','获得一次“明天再说”免解释权','获得一次甜品最后一口优先权']},
-4:{frontClass:'front4',theme:'t4',kicker:'HAPPY AIR 0829 · NIGHT FLIGHT',frontTitle:['你的快乐航班','已经开始登机'],desc:'托运工作包袱 → 扫描登机牌 → 撕下登机副券 → 飞往快乐自治区',eye:'HAPPY AIR · BOARDING INVITATION',dressSmall:'CABIN DRESS CODE',dressTitle:'今晚<br>登机令',dressSub:'盛装登机 · 班味禁止托运回来',hero:['前往快乐自治区的航班','现已开放登机'],lead:'请暂时离开现实航线 工作消息将在目的地自动失去信号 今晚只负责抵达快乐',date:'HA0829',date2:'19:30',date3:'王苗苗之家',info:[['航班','✈️ HAPPY AIR 0829'],['登机口','📍 王苗苗之家'],['行李额度','🧳 工作包袱 0KG']],rights:['✈️ 拥有离线权','🥂 拥有机上饮料权','🎵 拥有点歌权','🌙 拥有晚点回现实权'],times:[['19:30','🛫 完成登机并关闭工作信号'],['20:00','🥂 进入快乐巡航高度'],['LATE','🌌 抵达之后自由活动']],rules:[['随身物品','✅ 快乐 · 盛装 · 好心情 · 手机电量'],['违禁物品','🚫 KPI · 周报 · 工作群 · 明日焦虑']],funNotes:['✈ HAPPY AIR · DESTINATION: 快乐自治区','<span class="weird">夲航班禁止攜帶班味登機 🧳</span>'],dress:['给我化！化最贵的妆，穿最唬人的衣服。','今晚登机的不是打工人，是头等舱名媛和少爷。','班味留在安检口，多巴胺请随身携带。','周六晚，王苗苗之家，准时登机。'],confirm:'确认登机',menu:'查看机上服务',egg:'打开隐藏行李舱',menuTitle:'HAPPY AIR 机上服务',menuItems:[['WELCOME DRINK','🥂 起飞后第一杯'],['CABIN MEAL','🍕 高热量机上餐'],['IN-FLIGHT MUSIC','🎵 今晚专属歌单'],['LATE SNACK','🍰 深夜落地加餐']],eggTitle:'🧳 隐藏行李已发现',eggText:'行李系统发现一件未申报快乐物品',eggPool:['获得一次免回工作消息权','获得一次点歌优先权','获得一张深夜加餐券','获得一次延迟回现实权']},
-5:{frontClass:'front5',theme:'t5',kicker:'PRIVATE TREATMENT · OFF DUTY CLINIC',frontTitle:['先完成班味检测','再领取专属治疗方案'],desc:'先完成班味诊断 再领取私人放映式治疗入场券 最后切换派对模式',hero:['班味清除成功','今晚正式入场'],lead:'医嘱 今晚禁止懂事 禁止顺便聊工作',date:'08/29',date2:'19:30',date3:'王苗苗之家',info:[['工作模式','🧪 已关闭'],['清除状态','✅ 清除完成'],['治疗地点','📍 王苗苗之家']],rights:['🥂 饮料补充','🍗 高热量摄入','🎵 音乐刺激','🤣 大量笑声'],times:[['19:30','🩺 入场登记并清除最后一点班味'],['20:00','🍟 开始高热量治疗'],['21:30','💬 进行无效聊天康复训练']],rules:[['医嘱','💄 今晚禁止懂事 · 禁止讨论工作'],['复诊提醒','🚨 再次谈工作需要重新排队治疗']],funNotes:['<span class="weird">夲亱拒絕班味 💄</span>','不美不许进门 ヽ(•̀ω•́ )ゝ'],dress:['今晚是王苗苗之家红毯夜🌟','请各位女明星男明星盛装出席。','妆要浓，衣服要夸张，气场要两米八。','不化妆的，保安（我）有权拒绝入场。','周六19:00，红毯见。'],confirm:'确认接受治疗',menu:'查看治疗套餐',egg:'打开隐藏疗程',menuTitle:'班味清除治疗套餐',menuItems:[['高热量治疗','烧烤 炸物'],['饮料补充','酒水 气泡饮'],['快乐刺激','甜点 零食'],['深夜疗程','随机夜宵']],eggTitle:'隐藏疗程已发现',eggText:'系统检测到你还需要额外补充一点快乐',eggPool:['夜宵加量','抱抱券一张','免社交五分钟','甜品优先选择']},
-6:{frontClass:'front6',theme:'t6',kicker:'TIANQIAO RECORDS · LIMITED PARTY PRESSING',frontTitle:['今晚这张唱片','只播放快乐'],desc:'拖动唱针落入唱沟 → 依次点亮四首曲目 → 发行进度自动累计 → 打开今晚唱片内页',eye:'LIMITED VINYL · PARTY RELEASE',dressSmall:'ALBUM COVER DRESS CODE',dressTitle:'今晚<br>封面令',dressSub:'穿得像专辑封面 · 不准像工牌照片',hero:['你的快乐唱片','今晚限定发行'],lead:'这张唱片没有工作曲目 只有吃喝聊天发疯和明天再说 请把音量推到刚刚好失控',date:'0829',date2:'19:30',date3:'王苗苗之家',info:[['唱片编号','💿 HAPPY-0829'],['发行状态','🔴 LIMITED PRESS'],['播放地点','📍 王苗苗之家']],rights:['🎵 拥有点歌权','🕺 拥有乱跳权','🎤 拥有乱唱权','🔊 拥有调大音量权'],times:[['19:30','💿 SIDE A 开始播放'],['20:30','🪩 PARTY MIX 进入高潮'],['LATE','🌙 BONUS TRACK 随机追加']],rules:[['播放规则','✅ 可以单曲循环快乐 · 可以跑调 · 可以乱跳'],['禁播曲目','🚫 工作语音 · KPI · 明早闹钟 · 丧气歌']],funNotes:['♪ SIDE A：下班 / SIDE B：发疯','<span class="weird">今晚音量請勿低於快樂值 100% ♬</span>'],dress:['尊嘟假嘟？还有人想素颜来？拱出去！','今晚全员妆造拉满，衣服往死里漂亮。','做不了真名媛，就做一晚限定唱片封面人物。','周六晚，王苗苗之家，我看谁不化。','💄👠👗'],confirm:'确认发行今晚',menu:'打开唱片内页',egg:'播放隐藏曲目',menuTitle:'SIDE B · PARTY TRACKLIST',menuItems:[['TRACK 01','🍕 吃点好的'],['TRACK 02','🥂 喝点喜欢的'],['TRACK 03','🎤 唱点跑调的'],['TRACK 04','🌙 明天再说']],eggTitle:'BONUS TRACK',eggText:'发现一首未公开隐藏曲目',eggPool:['今晚指定一首必放歌曲','获得一次单曲循环权','获得一次全员合唱召集权','获得一次跳过明日焦虑权']},
-7:{frontClass:'front7',theme:'t7',kicker:'HAPPY MART 0829 · OPEN TONIGHT',frontTitle:['今晚所有快乐商品','免费供应'],desc:'滑开便利店门 → 把快乐商品放进购物篮 → 长按扫码结账 → 小票正式出单',eye:'HAPPY MART · AFTER WORK SUPPLY',dressSmall:'STORE NIGHT DRESS CODE',dressTitle:'今晚<br>上架令',dressSub:'多巴胺上架 · 班味立即下架',hero:['HAPPY MART 深夜营业','今晚只卖快乐'],lead:'这家便利店不卖咖啡续命 只卖让你忘记明天上班的东西 顾客今晚拥有无限快乐额度',date:'OPEN',date2:'19:30',date3:'王苗苗之家',info:[['营业状态','🟢 OPEN TONIGHT'],['顾客','🛒 李思琪 VIP'],['结账金额','💳 快乐 ￥0']],rights:['🥤 饮料随便拿','🍟 热量随便补','🗣️ 八卦不限量','🍰 深夜随机加购'],times:[['19:30','🚪 自动门开启 欢迎光临'],['20:00','🛒 快乐商品自由选购'],['LATE','🧾 小票不结算 明天不追责']],rules:[['今日促销','✅ 开心买一送一 · 八卦无限续杯'],['下架商品','🚫 KPI · 工作群 · 内耗 · 明天焦虑']],funNotes:['🏪 HAPPY MART · 24H只营业今晚','<span class="weird">快乐商品已補貨 不開心概不售賣</span>'],dress:['班味太重？请用化妆品腌入味。','眼线飞到太阳穴，腮红打到后脑勺。','允许你服美役一晚，而且必须服到位。','8.29，王苗苗之家，不美不许进门。'],confirm:'确认今晚消费快乐',menu:'查看快乐货架',egg:'刮开幸运小票',menuTitle:'HAPPY MART 快乐货架',menuItems:[['01 冰柜','🥤 酒水 气泡饮'],['02 热柜','🍕 主食 炸物'],['03 零食架','🍬 甜点 零食'],['04 隐藏货架','🌙 深夜随机补货']],eggTitle:'🧾 幸运购物小票',eggText:'收银机多打印了一条隐藏优惠',eggPool:['获得一件免费夜宵','获得一次优先选饮料权','获得一次点歌权','获得一次拒绝收拾桌面权']},
-8:{frontClass:'front8',theme:'t8',kicker:'HAPPY HOTEL 0829 · PRIVATE PARTY SUITE',frontTitle:['您的快乐套房','已经准备完毕'],desc:'刷入房卡 → 领取金色钥匙 → 亲笔签名确认入住 → 推开套房门进入今晚',eye:'HAPPY HOTEL · PRIVATE SUITE INVITATION',dressSmall:'HOTEL NIGHT DRESS CODE',dressTitle:'今晚<br>入住令',dressSub:'Lobby见面请体面 · 房内允许失控',hero:['HAPPY HOTEL 0829','欢迎入住 PARTY SUITE'],lead:'今晚你不是来做客 是来办理快乐入住 工作事务将在前台统一寄存 次日再领取',date:'ROOM 0829',date2:'19:30',date3:'王苗苗之家',info:[['房型','🛎️ PARTY SUITE'],['入住人','🔑 李思琪'],['退房时间','🌙 快乐结束后']],rights:['🍷 MINI BAR自由','🎵 点歌服务','📸 房客拍照权','🛌 次日后悔服务'],times:[['19:30','🛎️ Lobby完成入住'],['20:00','🥂 PARTY SUITE开放'],['LATE','🔑 房门保持快乐状态']],rules:[['客房服务','✅ 酒水 · 夜宵 · 音乐 · 八卦 · 拍照'],['酒店禁令','🚫 工作电话 · KPI · 周报 · 提前成熟']],funNotes:['🛎️ DO NOT DISTURB · 除非你带了夜宵','<span class="weird">ROOM SERVICE：只送快樂不送工作</span>'],dress:['给我化！化最贵的妆，穿最唬人的衣服。','今晚咱就是人均身家过亿，演也要演像。','Lobby见面必须体面，进房后允许失控。','周六晚，HAPPY HOTEL 0829 等你入住。'],confirm:'确认入住今晚',menu:'打开客房服务',egg:'打开 MINI BAR',menuTitle:'PARTY SUITE · ROOM SERVICE',menuItems:[['WELCOME BAR','🍷 酒水 饮料'],['ROOM DINING','🍕 主食 热食'],['SWEET SERVICE','🍰 甜点 零食'],['MIDNIGHT CALL','🌙 深夜随机加餐']],eggTitle:'MINI BAR 隐藏格',eggText:'你发现了酒店没有写进菜单的隐藏服务',eggPool:['获得一杯优先选择权','获得一次房间BGM点歌权','获得一次甜点保留权','获得一次延迟退房快乐权']}
+1:{frontClass:'front1',theme:'t1',kicker:'TIANQIAO PREMIERE NIGHT · RED CARPET ACCESS',frontTitle:['今晚请停止做普通人','你将以明星身份入场'],desc:'开启明星邀请 → 完成妆造确认 → 滑动签名 → 红毯席位正式生效',eye:'TONIGHT PREMIERE · STAR INVITATION',dressSmall:'RED CARPET DRESS CODE',dressTitle:'今晚<br>红毯令',dressSub:'盛装出席 · 镜头已经就位',hero:['你的红毯席位','已经正式保留'],lead:'今晚不是普通聚会 是王苗苗之家限定首映礼 请带着两米八气场准时出现',date:'08/29',date2:'周六',date3:'19:30',info:[['红毯地点','📍 王苗苗之家'],['嘉宾身份','⭐ STAR GUEST'],['镜头状态','📸 已对准你']],rights:['✨ 拥有抢镜权','📸 拥有随时自拍权','💄 拥有美得过分权','🥂 拥有碰杯优先权'],times:[['19:30','🎬 红毯签到与闪光灯首拍'],['20:00','🥂 首映酒会正式开始'],['21:30','🌟 自由发挥与明星失控时间']],rules:[['红毯守则','✅ 妆发完整 · 衣服有存在感 · 被拍到请自动Pose'],['保安提示','🚫 禁止说“我随便穿穿” · 禁止带班味入镜']],funNotes:['🌟 TONIGHT YOU ARE THE STAR','<span class="weird">今晚镜头只追漂亮的人 ✨</span>'],dress:['今晚是王苗苗之家红毯夜🌟','请各位女明星男明星盛装出席。','妆要浓，衣服要夸张，气场要两米八。','不化妆的，保安（我）有权拒绝入场。','周六19:00，红毯见。'],confirm:'确认以明星身份出席',menu:'查看首映酒会菜单',egg:'抽取明星彩蛋',menuTitle:'首映礼 VIP 酒会菜单',menuItems:[['WELCOME DRINK','🥂 入场第一杯'],['PREMIERE BITES','🍕 高热量明星餐'],['CAMERA BREAK','📸 随时补妆拍照'],['AFTER PARTY','🍰 深夜随机加餐']],eggTitle:'⭐ STAR BONUS',eggText:'你的红毯隐藏权益已经解锁',eggPool:['获得今晚第一张C位合照','拥有一次指定BGM权','获得一次重拍照片权','今晚最后一块甜品归你']},
+2:{frontClass:'front2',theme:'t2',kicker:'HAPPY CLUB · MACAU NIGHT EDITION',frontTitle:['刮开今晚的快乐筹码','激活你的专属通行证'],desc:'真彩票刮层 → 全部揭晓 → 滑动激活 → 再进入正式邀约',hero:['你的快乐通行证','已正式生效','今晚所有快乐权限','全部恢复'],lead:'成年人偶尔也需要被允许不靠谱一次 今晚只负责开心',date:'19:30',date2:'8月29日',date3:'王苗苗之家',info:[['身份','♠ 快乐会员07'],['状态','♦ 权限已批准'],['入场暗号','♥ 今天不上班']],rights:['🍽️ 吃点好的','🥂 喝点喜欢的','🃏 聊点没用的','🌙 忘记明天周几'],times:[['19:30','🎟️ 使用暗号完成入场'],['20:30','🍸 开始无效聊天和快乐进食'],['LATE','✨ 之后不做计划 自由发挥']],rules:[['会员状态','🟢 快乐权限 FULL'],['风险提示','⚠️ 继续工作可能导致今晚资格冻结']],funNotes:['♠ 今夜只谈风月 不谈 KPI ♣','<span class="weird">没钱也要有亿点点气质 (¬‿¬)</span>'],dress:['给我化！化最贵的妆，穿最唬人的衣服。','今晚咱就是人均身家过亿，演也要演像。','班味扔门外，多巴胺穿身上。','周六晚，王苗苗之家，人类高质量聚会。'],confirm:'确认接受快乐权限',menu:'查看今晚菜单',egg:'开启幸运彩蛋',menuTitle:'今晚菜单',menuItems:[['欢迎饮品','入场先喝点喜欢的'],['主餐时间','主食 热食'],['甜蜜时刻','甜点 零食'],['深夜加餐','随机夜宵']],eggTitle:'LUCKY BONUS',eggText:'抽取今晚专属幸运特权 不涉及任何真实筹码或金额',eggPool:['第一杯饮料优先选择','今晚点歌优先','最后一块甜点归你','获得一次免解释权']},
+3:{frontClass:'front3',theme:'t3',kicker:'HAPPY ARCADE · PLAYER 01 · MAIN CHARACTER MODE',frontTitle:['今晚投币','开始一局快乐'],desc:'拖入快乐金币 → 用真实可动摇杆完成方向 Combo → A/B/C 三键连击 → 生成 PLAYER 01 通行卡 → 亲笔签名保存存档',eye:'HAPPY ARCADE · PLAYER 01 ACCESS',dressSmall:'ARCADE NIGHT DRESS CODE',dressTitle:'今晚<br>玩家令',dressSub:'穿得像隐藏角色 · 不准像工牌证件照',hero:['PLAYER 01 快乐模式已加载','今晚正式进入街机副本'],lead:'这不是普通聚会 是成年人限定街机夜 今晚可以乱按按钮 乱唱跑调 乱笑很大声 唯一不能继续加班',date:'08/29',date2:'19:30',date3:'王苗苗之家',info:[['玩家身份','🎮 PLAYER 01'],['快乐数值','⚡ MAX 100%'],['游戏地点','📍 王苗苗之家']],rights:['🕹️ 拥有乱玩权','🎤 拥有跑调权','📸 拥有怪照权','💾 拥有明天再说权'],times:[['19:30','🪙 投币上线 · PLAYER 01 登场'],['20:00','🎮 HAPPY MODE 正式开局'],['LATE','💾 保存快乐存档 · 明天再读档']],rules:[['街机规则','✅ 可以连击快乐 · 可以操作失误 · 可以无限续命'],['GAME OVER 禁区','🚫 KPI · 工作群 · 扫兴 · 突然成熟']],funNotes:['🎮 INSERT HAPPINESS · CREDIT ￥0','<span class="weird">本局禁止读取工作存档 ᕕ( ᐛ )ᕗ</span>'],dress:['今晚不是来刷工卡，是来解锁隐藏角色。','妆发和衣服请直接开到“限定皮肤”级别。','班味留在投币口，多巴胺请拉满。','8.29 晚，王苗苗之家，PLAYER 01 准时上线。'],confirm:'确认 PLAYER 01 上线',menu:'打开街机补给菜单',egg:'触发隐藏作弊码',menuTitle:'🎮 HAPPY ARCADE · BONUS MENU',menuItems:[['ENERGY +100','🍕 高热量回血包'],['MP +100','🥤 快乐饮料药水'],['PHOTO MODE','📸 怪姿势拍照模式'],['CONTINUE?','🍰 深夜续命加餐']],eggTitle:'👾 CHEAT CODE FOUND',eggText:'检测到一条今晚限定隐藏作弊码 请本人亲手启用',eggPool:['解锁一次点歌抢占权','获得一次全员陪你拍怪照权','获得一次“明天再说”免解释权','获得一次甜品最后一口优先权']},
+4:{frontClass:'front4',theme:'t4',kicker:'HAPPY AIR 0829 · NIGHT FLIGHT',frontTitle:['你的快乐航班','已经开始登机'],desc:'托运工作包袱 → 扫描登机牌 → 撕下登机副券 → 飞往快乐自治区',eye:'HAPPY AIR · BOARDING INVITATION',dressSmall:'CABIN DRESS CODE',dressTitle:'今晚<br>登机令',dressSub:'盛装登机 · 班味禁止托运回来',hero:['前往快乐自治区的航班','现已开放登机'],lead:'请暂时离开现实航线 工作消息将在目的地自动失去信号 今晚只负责抵达快乐',date:'HA0829',date2:'19:30',date3:'王苗苗之家',info:[['航班','✈️ HAPPY AIR 0829'],['登机口','📍 王苗苗之家'],['行李额度','🧳 工作包袱 0KG']],rights:['✈️ 拥有离线权','🥂 拥有机上饮料权','🎵 拥有点歌权','🌙 拥有晚点回现实权'],times:[['19:30','🛫 完成登机并关闭工作信号'],['20:00','🥂 进入快乐巡航高度'],['LATE','🌌 抵达之后自由活动']],rules:[['随身物品','✅ 快乐 · 盛装 · 好心情 · 手机电量'],['违禁物品','🚫 KPI · 周报 · 工作群 · 明日焦虑']],funNotes:['✈ HAPPY AIR · DESTINATION: 快乐自治区','<span class="weird">本航班禁止携带班味登机 🧳</span>'],dress:['给我化！化最贵的妆，穿最唬人的衣服。','今晚登机的不是打工人，是头等舱名媛和少爷。','班味留在安检口，多巴胺请随身携带。','周六晚，王苗苗之家，准时登机。'],confirm:'确认登机',menu:'查看机上服务',egg:'打开隐藏行李舱',menuTitle:'HAPPY AIR 机上服务',menuItems:[['WELCOME DRINK','🥂 起飞后第一杯'],['CABIN MEAL','🍕 高热量机上餐'],['IN-FLIGHT MUSIC','🎵 今晚专属歌单'],['LATE SNACK','🍰 深夜落地加餐']],eggTitle:'🧳 隐藏行李已发现',eggText:'行李系统发现一件未申报快乐物品',eggPool:['获得一次免回工作消息权','获得一次点歌优先权','获得一张深夜加餐券','获得一次延迟回现实权']},
+5:{frontClass:'front5',theme:'t5',kicker:'PRIVATE TREATMENT · OFF DUTY CLINIC',frontTitle:['先完成班味检测','再领取专属治疗方案'],desc:'先完成班味诊断 再领取私人放映式治疗入场券 最后切换派对模式',hero:['班味清除成功','今晚正式入场'],lead:'医嘱 今晚禁止懂事 禁止顺便聊工作',date:'08/29',date2:'19:30',date3:'王苗苗之家',info:[['工作模式','🧪 已关闭'],['清除状态','✅ 清除完成'],['治疗地点','📍 王苗苗之家']],rights:['🥂 饮料补充','🍗 高热量摄入','🎵 音乐刺激','🤣 大量笑声'],times:[['19:30','🩺 入场登记并清除最后一点班味'],['20:00','🍟 开始高热量治疗'],['21:30','💬 进行无效聊天康复训练']],rules:[['医嘱','💄 今晚禁止懂事 · 禁止讨论工作'],['复诊提醒','🚨 再次谈工作需要重新排队治疗']],funNotes:['<span class="weird">今晚拒绝班味 💄</span>','不美不许进门 ヽ(•̀ω•́ )ゝ'],dress:['今晚是王苗苗之家红毯夜🌟','请各位女明星男明星盛装出席。','妆要浓，衣服要夸张，气场要两米八。','不化妆的，保安（我）有权拒绝入场。','周六19:00，红毯见。'],confirm:'确认接受治疗',menu:'查看治疗套餐',egg:'打开隐藏疗程',menuTitle:'班味清除治疗套餐',menuItems:[['高热量治疗','烧烤 炸物'],['饮料补充','酒水 气泡饮'],['快乐刺激','甜点 零食'],['深夜疗程','随机夜宵']],eggTitle:'隐藏疗程已发现',eggText:'系统检测到你还需要额外补充一点快乐',eggPool:['夜宵加量','抱抱券一张','免社交五分钟','甜品优先选择']},
+6:{frontClass:'front6',theme:'t6',kicker:'TIANQIAO RECORDS · LIMITED PARTY PRESSING',frontTitle:['今晚这张唱片','只播放快乐'],desc:'拖动唱针落入唱沟 → 依次点亮四首曲目 → 发行进度自动累计 → 打开今晚唱片内页',eye:'LIMITED VINYL · PARTY RELEASE',dressSmall:'ALBUM COVER DRESS CODE',dressTitle:'今晚<br>封面令',dressSub:'穿得像专辑封面 · 不准像工牌照片',hero:['你的快乐唱片','今晚限定发行'],lead:'这张唱片没有工作曲目 只有吃喝聊天发疯和明天再说 请把音量推到刚刚好失控',date:'0829',date2:'19:30',date3:'王苗苗之家',info:[['唱片编号','💿 HAPPY-0829'],['发行状态','🔴 LIMITED PRESS'],['播放地点','📍 王苗苗之家']],rights:['🎵 拥有点歌权','🕺 拥有乱跳权','🎤 拥有乱唱权','🔊 拥有调大音量权'],times:[['19:30','💿 SIDE A 开始播放'],['20:30','🪩 PARTY MIX 进入高潮'],['LATE','🌙 BONUS TRACK 随机追加']],rules:[['播放规则','✅ 可以单曲循环快乐 · 可以跑调 · 可以乱跳'],['禁播曲目','🚫 工作语音 · KPI · 明早闹钟 · 丧气歌']],funNotes:['♪ SIDE A：下班 / SIDE B：发疯','<span class="weird">今晚音量请勿低于快乐值 100% ♬</span>'],dress:['尊嘟假嘟？还有人想素颜来？拱出去！','今晚全员妆造拉满，衣服往死里漂亮。','做不了真名媛，就做一晚限定唱片封面人物。','周六晚，王苗苗之家，我看谁不化。','💄👠👗'],confirm:'确认发行今晚',menu:'打开唱片内页',egg:'播放隐藏曲目',menuTitle:'SIDE B · PARTY TRACKLIST',menuItems:[['TRACK 01','🍕 吃点好的'],['TRACK 02','🥂 喝点喜欢的'],['TRACK 03','🎤 唱点跑调的'],['TRACK 04','🌙 明天再说']],eggTitle:'BONUS TRACK',eggText:'发现一首未公开隐藏曲目',eggPool:['今晚指定一首必放歌曲','获得一次单曲循环权','获得一次全员合唱召集权','获得一次跳过明日焦虑权']},
+7:{frontClass:'front7',theme:'t7',kicker:'HAPPY MART 0829 · OPEN TONIGHT',frontTitle:['今晚所有快乐商品','免费供应'],desc:'滑开便利店门 → 把快乐商品放进购物篮 → 长按扫码结账 → 小票正式出单',eye:'HAPPY MART · AFTER WORK SUPPLY',dressSmall:'STORE NIGHT DRESS CODE',dressTitle:'今晚<br>上架令',dressSub:'多巴胺上架 · 班味立即下架',hero:['HAPPY MART 深夜营业','今晚只卖快乐'],lead:'这家便利店不卖咖啡续命 只卖让你忘记明天上班的东西 顾客今晚拥有无限快乐额度',date:'OPEN',date2:'19:30',date3:'王苗苗之家',info:[['营业状态','🟢 OPEN TONIGHT'],['顾客','🛒 李思琪 VIP'],['结账金额','💳 快乐 ￥0']],rights:['🥤 饮料随便拿','🍟 热量随便补','🗣️ 八卦不限量','🍰 深夜随机加购'],times:[['19:30','🚪 自动门开启 欢迎光临'],['20:00','🛒 快乐商品自由选购'],['LATE','🧾 小票不结算 明天不追责']],rules:[['今日促销','✅ 开心买一送一 · 八卦无限续杯'],['下架商品','🚫 KPI · 工作群 · 内耗 · 明天焦虑']],funNotes:['🏪 HAPPY MART · 24H只营业今晚','<span class="weird">快乐商品已补货，不开心概不售卖</span>'],dress:['班味太重？请用化妆品腌入味。','眼线飞到太阳穴，腮红打到后脑勺。','允许你服美役一晚，而且必须服到位。','8.29，王苗苗之家，不美不许进门。'],confirm:'确认今晚消费快乐',menu:'查看快乐货架',egg:'刮开幸运小票',menuTitle:'HAPPY MART 快乐货架',menuItems:[['01 冰柜','🥤 酒水 气泡饮'],['02 热柜','🍕 主食 炸物'],['03 零食架','🍬 甜点 零食'],['04 隐藏货架','🌙 深夜随机补货']],eggTitle:'🧾 幸运购物小票',eggText:'收银机多打印了一条隐藏优惠',eggPool:['获得一件免费夜宵','获得一次优先选饮料权','获得一次点歌权','获得一次拒绝收拾桌面权']},
+8:{frontClass:'front8',theme:'t8',kicker:'HAPPY HOTEL 0829 · PRIVATE PARTY SUITE',frontTitle:['您的快乐套房','已经准备完毕'],desc:'刷入房卡 → 领取金色钥匙 → 亲笔签名确认入住 → 推开套房门进入今晚',eye:'HAPPY HOTEL · PRIVATE SUITE INVITATION',dressSmall:'HOTEL NIGHT DRESS CODE',dressTitle:'今晚<br>入住令',dressSub:'Lobby见面请体面 · 房内允许失控',hero:['HAPPY HOTEL 0829','欢迎入住 PARTY SUITE'],lead:'今晚你不是来做客 是来办理快乐入住 工作事务将在前台统一寄存 次日再领取',date:'ROOM 0829',date2:'19:30',date3:'王苗苗之家',info:[['房型','🛎️ PARTY SUITE'],['入住人','🔑 李思琪'],['退房时间','🌙 快乐结束后']],rights:['🍷 MINI BAR自由','🎵 点歌服务','📸 房客拍照权','🛌 次日后悔服务'],times:[['19:30','🛎️ Lobby完成入住'],['20:00','🥂 PARTY SUITE开放'],['LATE','🔑 房门保持快乐状态']],rules:[['客房服务','✅ 酒水 · 夜宵 · 音乐 · 八卦 · 拍照'],['酒店禁令','🚫 工作电话 · KPI · 周报 · 提前成熟']],funNotes:['🛎️ DO NOT DISTURB · 除非你带了夜宵','<span class="weird">ROOM SERVICE：只送快乐，不送工作</span>'],dress:['给我化！化最贵的妆，穿最唬人的衣服。','今晚咱就是人均身家过亿，演也要演像。','Lobby见面必须体面，进房后允许失控。','周六晚，HAPPY HOTEL 0829 等你入住。'],confirm:'确认入住今晚',menu:'打开客房服务',egg:'打开 MINI BAR',menuTitle:'PARTY SUITE · ROOM SERVICE',menuItems:[['WELCOME BAR','🍷 酒水 饮料'],['ROOM DINING','🍕 主食 热食'],['SWEET SERVICE','🍰 甜点 零食'],['MIDNIGHT CALL','🌙 深夜随机加餐']],eggTitle:'MINI BAR 隐藏格',eggText:'你发现了酒店没有写进菜单的隐藏服务',eggPool:['获得一杯优先选择权','获得一次房间BGM点歌权','获得一次甜点保留权','获得一次延迟退房快乐权']}
 }
 
 /* V55 · short-link personalization */
@@ -3509,6 +3816,7 @@ const embeddedInvite=(window.__INVITE_CONFIG__&&typeof window.__INVITE_CONFIG__=
 function embeddedOrQuery(keyA,keyB){const v=embeddedInvite[keyA];if(v!==undefined&&v!==null&&String(v).trim()!=='')return String(v).trim();return (inviteShortParams.get(keyA)||inviteShortParams.get(keyB)||'').trim()}
 const invitePersonal={
   name:embeddedOrQuery('name','to')||embeddedOrQuery('n','to'),
+  from:embeddedOrQuery('from','f')||'王苗苗',
   date:embeddedOrQuery('date','d'),
   day:embeddedOrQuery('day','w'),
   time:embeddedOrQuery('time','t'),
@@ -3568,12 +3876,20 @@ const introThemeIdentity={
   7:['HAPPY MART · STORE AUDIO','OPEN TONIGHT · 0829','今晚快乐补给全部免费供应'],
   8:['HAPPY HOTEL · SUITE AUDIO','CHECK-IN · ROOM 0829','今晚请入住你的快乐套房']
 };
+const introThemeCopy={"1":{"personal":"{guest}，你的牛友 {from} 已把你塞进今晚红毯嘉宾名单：妆发请上线，班味请离场。拒绝普通入场 😎","copy1":"今晚不是来低调路过的，是来把红毯当自家客厅走的。","copy2":"闪光灯已经开机，漂亮请主动一点，工作脑请自动关机。","lively":"好闺闺的要求必须满足——活泼模式已拉满，今晚谁先端着谁请喝一杯 ✨"},"2":{"personal":"{guest}，{from} 给你批了一张今晚限定快乐黑卡：不兑现金，只兑吃喝拍照和发疯额度 ♠","copy1":"今晚的筹码只有一种：把班味押出去，把快乐赢回来。","copy2":"请放心挥霍情绪价值，本场不查余额，只查你够不够开心。","lively":"收到大小姐指令——快乐筹码已经加满，今晚手气只负责旺你本人 ♠"},"3":{"personal":"{guest}，{from} 已替你投币：PLAYER 01 账号上线，今晚 KPI 自动 GAME OVER 🎮","copy1":"今天的工作进度到此存档，接下来只运行快乐主线。","copy2":"允许操作失误、允许乱笑，唯一禁止的是突然成熟。","lively":"PLAYER 01 指令收到——活泼 Buff +100%，闺闺局现在正式开机 🎮"},"4":{"personal":"{guest}，{from} 已帮你办好 HAPPY AIR 登机牌：工作包袱限重 0KG，请本人登机 ✈️","copy1":"今晚航线直达快乐自治区，中途不经停工作群和明日焦虑。","copy2":"请把班味留在安检口，漂亮和好心情允许随身携带。","lively":"乘务闺闺收到——已为你切到欢乐巡航，今晚不接受返航申请 ✈️"},"5":{"personal":"{guest}，{from} 给你挂了今晚唯一一个号：班味超标，建议立即接受快乐治疗 🩺","copy1":"初步诊断：懂事过量、加班残留、快乐余额偏低。","copy2":"处方只有一张——吃好喝好笑大声一点，疗程今晚必须完成。","lively":"好闺闺的要求医生必须满足——快乐剂量已加倍，今晚禁止端庄 🩺"},"6":{"personal":"{guest}，{from} 把你的名字压进今晚限定唱片：A 面下班，B 面发疯，禁止跳针回工作群 💿","copy1":"今晚不收录工作语音，也不发行“我明天还要早起”这首歌。","copy2":"请把音量推到刚刚好失控，跑调也算限定版本。","lively":"制作人闺闺批准——活泼混音已上母带，今晚副歌必须大声唱 💿"},"7":{"personal":"{guest}，{from} 通知你：今晚 HAPPY MART 为你单独营业，快乐 ￥0，内耗已下架 🛒","copy1":"饮料、热量、八卦和没用但好笑的话，全部不限购。","copy2":"结账时只收一个东西：你今天最后一点班味。","lively":"店长闺闺收到——活泼货架已补满，今晚快乐买一送一 🛒"},"8":{"personal":"{guest}，{from} 已替你办理 PARTY SUITE 入住：前台代管工作，房内只允许开心 🔑","copy1":"今晚入住不用押金，只需要把成熟模式暂存在前台。","copy2":"Mini Bar、夜宵和八卦服务已开启，退房时间看心情。","lively":"前台闺闺收到——已升级活泼套房，今晚禁止安静退房 🔑"}};
+
+function introTpl(tpl,guest,from){return String(tpl||'').replaceAll('{guest}',guest).replaceAll('{from}',from)}
+function escapeHTMLText(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function updateIntroTheme(id){
   const gate=document.getElementById('audioIntro');if(!gate)return;
   const n=String(id).padStart(2,'0');gate.dataset.theme=n;
-  const a=introThemeIdentity[id]||introThemeIdentity[1];
-  const brand=document.getElementById('introBrand'),no=document.getElementById('introNo'),k=document.getElementById('introKicker');
+  const a=introThemeIdentity[id]||introThemeIdentity[1],c=introThemeCopy[id]||introThemeCopy[1];
+  const brand=document.getElementById('introBrand'),no=document.getElementById('introNo'),k=document.getElementById('introKicker'),personal=document.getElementById('introPersonal'),copy=document.getElementById('introCopy');
   if(brand)brand.textContent=a[0];if(no)no.textContent=a[1];if(k)k.textContent=a[2];
+  const guest=invitePersonal.name||'专属嘉宾',from=invitePersonal.from||'王苗苗';
+  if(personal){let msg=escapeHTMLText(introTpl(c.personal,'__GUEST__','__FROM__'));msg=msg.replace('__GUEST__','<b>'+escapeHTMLText(guest)+'</b>').replace('__FROM__','<em>'+escapeHTMLText(from)+'</em>');personal.innerHTML=msg;}
+  if(copy){const ps=copy.querySelectorAll('p');if(ps[0])ps[0].textContent=c.copy1;if(ps[1])ps[1].textContent=c.copy2;}
+  const lively=document.getElementById('livelyReply');if(lively){lively.textContent=c.lively;lively.classList.remove('show')}
 }
 
 
@@ -3994,6 +4310,7 @@ function menuCardHTML(id,x,i){
 function insideHTML(d){
 return `<button class="reset">↻ 重新体验</button><div class="screen ${d.theme}">${themeArtHTML(current,'inside')}${stickerHTML(current)}<div class="inside">
 <div class="topline"><div class="eye">${d.eye||"FINAL PARTY INVITATION"}</div><div class="serial">HAPPY 0829</div></div>
+<div class="insideGuestRibbon"><span>THIS INVITATION BELONGS TO</span><b>李思琪</b><em>专属快乐席位 · 仅限本人使用</em></div>
 <div class="hero"><div class="copy"><h3 class="heroTitle">${d.hero.map(x=>`<span class="line">${x}</span>`).join('')}</h3><p>${d.lead}</p></div>${dateCardHTML(current,d)}</div>
 <div class="dressSection"><div class="dressCard"><div class="dressSide"><small>${d.dressSmall||"PARTY DRESS CODE"}</small><b>${d.dressTitle||"今晚<br>盛装令"}</b><span>${d.dressSub||"妆发到位 · 拒绝班味入场"}</span></div><div class="dressCopy">${d.dress.map((x,i)=>`<p>${x}</p>`).join('')}<span class="dressMark">盛装出席 REQUIRED</span></div></div></div>
 <div class="section"><div class="sectionHead"><b>关键信息</b><i></i></div><div class="infoGrid">${d.info.map(x=>`<div class="info"><small>${x[0]}</small><b>${x[1]}</b></div>`).join('')}</div></div>
@@ -4009,6 +4326,7 @@ return `<button class="reset">↻ 重新体验</button><div class="screen ${d.th
 }
 
 function showInside(){
+  document.body.classList.add('insideView');
   syncPalette05Bar();
   document.body.dataset.theme=String(current).padStart(2,'0');
   const d=DATA[current];
@@ -4091,6 +4409,7 @@ function bindInside(){
 }
 
 function render(){
+ document.body.classList.remove('insideView');
  enforceSingleThemeLock();
  syncPalette05Bar();
  updateIntroTheme(current);
@@ -4098,7 +4417,7 @@ function render(){
  const d=DATA[current]; scene.innerHTML=injectFrontSignature(current,frontHTML(current,d)); applyInvitePersonalization(scene); bindFront(current); setTimeout(()=>{fitLines(); if(current===2)initScratch()},60)
 }
 function legacyFrontHTML(id,d){
- const top=`<button class="reset">↻ 重新体验</button><div class="screen ${d.frontClass}">${themeArtHTML(id,'front')}${stickerHTML(id)}<div class="k">${id===2?'HAPPY CLUB · MACAU NIGHT EDITION':'FINAL INVITATION EXPERIENCE'}</div><h2 class="title">${d.frontTitle.map(x=>`<span class="line">${x}</span>`).join('')}</h2><div class="desc">${d.desc}</div>`;
+ const top=`<button class="reset">↻ 重新体验</button><div class="screen ${d.frontClass}">${themeArtHTML(id,'front')}${stickerHTML(id)}<div class="k">${id===2?'HAPPY CLUB · MACAU NIGHT EDITION':'FINAL INVITATION EXPERIENCE'}</div><h2 class="title">${d.frontTitle.map(x=>`<span class="line">${x}</span>`).join('')}</h2><div class="desc">${d.desc}</div><div class="personalGuestChip"><span>PRIVATE ACCESS FOR</span><b>李思琪</b><em>本人专属 · 班味禁止代领</em></div>`;
  if(id===1)return top+`<div class="steps"><span class="on">01 领取</span><span>02 认证</span><span>03 审批</span><span>04 生效</span></div><div class="object"><div class="case">
 <div class="caseRivet r1"></div><div class="caseRivet r2"></div><div class="caseRivet r3"></div><div class="caseRivet r4"></div>
 <div class="caseTop">
@@ -4123,11 +4442,11 @@ function legacyFrontHTML(id,d){
 <div class="caseStamp">内部<br>审批</div>
 <div class="caseHint">请本人领取文件并完成身份认证 →</div>
 </div><div class="license"><div class="permitTop"><span class="issuerTag">成年人快乐管理局 · 特别签发</span><span class="permitNo">NO. 0829-01</span></div><div class="permitBody"><h3>成年人临时放风许可证</h3><div class="permitSub">ADULT TEMPORARY RELEASE PERMIT</div><div class="permitRule"></div><div class="holderRow"><span>持证人</span><b>李思琪</b><em>仅限今晚</em></div><div class="authPanel"><div class="authLabel">长按完成本人认证</div><div class="finger"><div class="ink"></div><b>◎</b><small>长按认证</small></div><div class="progress"><i></i></div><div class="status auth">步骤 02 · 等待身份认证</div></div><div class="decision"><b>检测完成 系统建议立即放风</b><div class="actions"><button class="primary approve">批准本人今晚停止成熟</button><button class="secondary deny">继续成熟</button></div></div></div><div class="stamp">准许<br>放风</div></div></div><div class="actions"><button class="primary claim">📂 领取审批文件</button></div></div>`;
- if(id===2)return `<div class="casinoPattern"></div>`+top+`<div class="steps"><span class="on">01 刮开</span><span>02 揭晓</span><span>03 激活</span><span>04 签名领奖</span></div><div class="suits">♠ ♥ ♣ ♦</div><div class="object"><div class="lottery"><small>快乐通行证 · 会员07</small><h3>成年人快乐通行证</h3><b>持证人 李思琪</b><div class="scratchShell"><div class="secretGrid"><div class="secret"><small>身份认证</small><b>李思琪 验证通过</b></div><div class="secret"><small>今晚权限</small><b>快乐权限全部恢复</b></div><div class="secret"><small>最终地点</small><b>王苗苗之家</b></div></div><canvas class="scratchCanvas"></canvas></div><div class="scratchMeta"><div class="scratchProg"><i></i></div><div class="scratchPct">0%</div></div><div class="reveal">所有奖区已经揭晓 请确认信息后继续激活</div><div class="activation"><div class="slideTrack"><div class="slideFill"></div><div class="slideLabel">向右滑动激活快乐通行证</div><div class="knob">›</div></div></div><button class="enter2">通行证已激活 进入正式邀约</button></div></div><div class="status status2">步骤 01 · 等待刮开票面</div></div>`;
+ if(id===2)return `<div class="casinoPattern"></div>`+top+`<div class="steps"><span class="on">01 刮开</span><span>02 揭晓</span><span>03 激活</span><span>04 签名领奖</span></div><div class="suits">♠ ♥ ♣ ♦</div><div class="object"><div class="lottery"><small>快乐通行证 · 会员07</small><h3>成年人快乐通行证</h3><b>持证人 李思琪</b><div class="scratchShell"><div class="secretGrid"><div class="secret"><small>身份认证</small><b>李思琪 验证通过</b></div><div class="secret"><small>今晚权限</small><b>快乐权限全部恢复</b></div><div class="secret"><small>最终地点</small><b>王苗苗之家</b></div></div><canvas class="scratchCanvas"></canvas><div class="scratchTitleOverlay">刮开今晚的幸运权限</div></div><div class="scratchMeta"><div class="scratchProg"><i></i></div><div class="scratchPct">0%</div></div><div class="reveal">所有奖区已经揭晓 请确认信息后继续激活</div><div class="activation"><div class="slideTrack"><div class="slideFill"></div><div class="slideLabel">向右滑动激活快乐通行证</div><div class="knob">›</div></div></div><button class="enter2">通行证已激活 进入正式邀约</button></div></div><div class="status status2">步骤 01 · 等待刮开票面</div></div>`;
  if(id===3)return `<button class="reset">↻ 重新体验</button><div class="screen front3">
  <div class="k">HAPPY ARCADE · PLAYER 01 · MAIN CHARACTER MODE</div>
  <h2 class="title"><span class="line">今晚投币</span><span class="line">开始一局快乐</span></h2>
- <div class="desc">把快乐金币拖进投币口 → 用真实可动摇杆完成 ↑ → ↓ ← → A/B/C 三键连击 → 保存 PLAYER 01 快乐存档</div>
+ <div class="desc">把快乐金币拖进投币口 → 用真实可动摇杆完成 ↑ / → / ↓ 三方向 Combo → A/B/C 三键连击 → 保存 PLAYER 01 快乐存档</div>
  <div class="steps"><span class="on">01 投币</span><span>02 摇杆 COMBO</span><span>03 三键连击</span><span>04 通行卡</span><span>05 签名存档</span></div>
  <div class="object arc03Object">
    <div class="arc03Cabinet">
@@ -4156,7 +4475,7 @@ function legacyFrontHTML(id,d){
            <div class="arc03Gate"></div><span class="arc03Dir up">↑</span><span class="arc03Dir right">→</span><span class="arc03Dir down">↓</span><span class="arc03Dir left">←</span>
            <div class="arc03Stem"></div><div class="arc03Knob"></div>
          </div>
-         <div class="arc03JoyCopy"><b>摇杆指令</b><small>按住粉色摇杆向指定方向拖动<br>松手会自动回中</small><div class="arc03Combo"><i class="current">↑</i><i>→</i><i>↓</i><i>←</i></div></div>
+         <div class="arc03JoyCopy"><b>摇杆指令</b><small>按住粉色摇杆向指定方向拖动<br>手机端无需左滑，松手自动回中</small><div class="arc03Combo"><i class="current">↑</i><i>→</i><i>↓</i></div></div>
        </div>
        <div class="arc03ButtonBlock"><div class="arc03Buttons"><button class="arc03Btn pink" data-key="A">A</button><button class="arc03Btn yellow" data-key="B">B</button><button class="arc03Btn cyan" data-key="C">C</button></div><small>完成摇杆后，按顺序 A → B → C</small></div>
      </div>
@@ -4169,7 +4488,7 @@ function legacyFrontHTML(id,d){
 }
 
 function frontHTML(id,d){
- const top=`<button class="reset">↻ 重新体验</button><div class="screen ${d.frontClass}">${themeArtHTML(id,'front')}${stickerHTML(id)}<div class="k">${d.kicker||'FINAL INVITATION EXPERIENCE'}</div><h2 class="title">${d.frontTitle.map(x=>`<span class="line">${x}</span>`).join('')}</h2><div class="desc">${d.desc}</div>`;
+ const top=`<button class="reset">↻ 重新体验</button><div class="screen ${d.frontClass}">${themeArtHTML(id,'front')}${stickerHTML(id)}<div class="k">${d.kicker||'FINAL INVITATION EXPERIENCE'}</div><h2 class="title">${d.frontTitle.map(x=>`<span class="line">${x}</span>`).join('')}</h2><div class="desc">${d.desc}</div><div class="personalGuestChip"><span>PRIVATE ACCESS FOR</span><b>李思琪</b><em>本人专属 · 班味禁止代领</em></div>`;
  if(id===2||id===3||id===5)return legacyFrontHTML(id,d);
  if(id===1)return top+`
  <div class="steps"><span class="on">01 开启红毯</span><span>02 后台检查</span><span>03 明星签名</span><span>04 正式入场</span></div>
@@ -4473,11 +4792,17 @@ function bindFront(id){
  if(id===8)bindHotel();
 }
 
+function __visualCanvasScale(){
+ const app=document.querySelector('.app.singleThemeApp');if(!app)return 1;
+ const r=app.getBoundingClientRect(),w=app.offsetWidth||app.clientWidth||r.width;
+ const s=w?Math.abs(r.width/w):1;return Number.isFinite(s)&&s>.15?s:1;
+}
+function __designDelta(v){return v/__visualCanvasScale()}
 function dragHorizontal(el, opts={}){
  let down=false,sx=0,startLeft=0;
  const limit=()=>typeof opts.limit==='function'?Math.max(0,opts.limit()):(opts.limit||160);
  el.onpointerdown=e=>{down=true;sx=e.clientX;startLeft=parseFloat(el.dataset.dx||0);el.setPointerCapture?.(e.pointerId);opts.start?.(e)};
- el.onpointermove=e=>{if(!down)return;let dx=Math.max(0,Math.min(limit(),startLeft+e.clientX-sx));el.dataset.dx=dx;opts.move?.(dx,limit(),e)};
+ el.onpointermove=e=>{if(!down)return;let dx=Math.max(0,Math.min(limit(),startLeft+__designDelta(e.clientX-sx)));el.dataset.dx=dx;opts.move?.(dx,limit(),e)};
  el.onpointerup=e=>{if(!down)return;down=false;opts.end?.(parseFloat(el.dataset.dx||0),limit(),e)};
 }
 
@@ -4508,7 +4833,7 @@ function bindPremiere(){
  };
  env.onpointermove=e=>{
    if(!curtainDragging||opened)return;
-   dragAmt=Math.min(160,Math.abs(e.clientX-startX));applyCurtain(dragAmt);
+   dragAmt=Math.min(160,Math.abs(__designDelta(e.clientX-startX)));applyCurtain(dragAmt);
  };
  env.onpointerup=()=>{
    if(!curtainDragging||opened)return;
@@ -4548,14 +4873,15 @@ function bindFlight(){
  let bagDone=false,scanDone=false;
  let startX=0,startY=0,drag=false;
  bag.onpointerdown=e=>{drag=true;startX=e.clientX;startY=e.clientY;bag.setPointerCapture?.(e.pointerId);PartyAudio.action('paper',4)};
- bag.onpointermove=e=>{if(!drag)return;bag.style.transform=`translate(${e.clientX-startX}px,${e.clientY-startY}px) rotate(${(e.clientX-startX)/16}deg)`};
+ bag.onpointermove=e=>{if(!drag)return;{const dx=__designDelta(e.clientX-startX),dy=__designDelta(e.clientY-startY);bag.style.transform=`translate(${dx}px,${dy}px) rotate(${dx/16}deg) `}};
  bag.onpointerup=e=>{if(!drag)return;drag=false;const r=drop.getBoundingClientRect();if(e.clientX>r.left&&e.clientX<r.right&&e.clientY>r.top&&e.clientY<r.bottom){bagDone=true;bag.classList.add('checked');bag.innerHTML='<span>✅</span><b>工作包袱已托运</b><small>0KG 带走</small>';bag.style.transform='';drop.classList.add('done');card.classList.add('show');scan.classList.add('show');setStep(2);status.textContent='步骤 02 · 工作包袱已托运 请扫描登机牌';PartyAudio.sfx('success')}else bag.style.transform=''};
  const scanTrack=scene.querySelector('.flightScanTrack');
  dragHorizontal(knob,{limit:()=>Math.max(140,scanTrack.clientWidth-knob.offsetWidth-10),move:(dx,l)=>{knob.style.transform=`translateX(${dx}px)`;fill.style.width=(l?dx/l*100:0)+'%'},end:(dx,l)=>{if(l&&dx/l>.86&&bagDone){scanDone=true;knob.style.transform=`translateX(${l}px)`;knob.dataset.dx=l;fill.style.width='100%';stub.classList.add('ready');setStep(3);status.textContent='步骤 03 · 扫描通过 请向右撕下登机副券';PartyAudio.sfx('scan')}else{knob.dataset.dx=0;knob.style.transform='';fill.style.width='0'}}});
- let sx=0,tear=false;
- stub.onpointerdown=e=>{if(!scanDone)return;tear=true;sx=e.clientX;stub.setPointerCapture?.(e.pointerId);PartyAudio.sfx('tear')};
- stub.onpointermove=e=>{if(!tear)return;const dx=Math.max(0,e.clientX-sx);stub.style.transform=`translateX(${dx}px) rotate(${Math.min(18,dx/10)}deg)`;stub.style.opacity=Math.max(.2,1-dx/170)};
- stub.onpointerup=e=>{if(!tear)return;tear=false;const dx=Math.max(0,e.clientX-sx);if(dx>90){stub.classList.add('torn');setStep(4);status.textContent='步骤 04 · 登机副券已核销 请完成最后的本人登机签名';revealFrontSignature(4);PartyAudio.sfx('success')}else{stub.style.transform='';stub.style.opacity='1'}};
+ let sx=0,tear=false,tearDone=false;
+ const finishFlightTear=()=>{if(tearDone)return;tearDone=true;tear=false;stub.classList.add('torn');stub.style.transition='.46s cubic-bezier(.2,.8,.2,1)';stub.style.transform='translateX(150px) rotate(20deg)';stub.style.opacity='0';setStep(4);status.textContent='步骤 04 · 登机副券已核销 请完成最后的本人登机签名';revealFrontSignature(4);PartyAudio.sfx('success')};
+ stub.onpointerdown=e=>{if(!scanDone||tearDone)return;tear=true;sx=e.clientX;stub.setPointerCapture?.(e.pointerId);PartyAudio.sfx('tear')};
+ stub.onpointermove=e=>{if(!tear||tearDone)return;const raw=e.clientX-sx,dx=Math.max(0,__designDelta(raw));if(window.innerWidth<900&&Math.abs(raw)>=4){finishFlightTear();return}stub.style.transform=`translateX(${dx}px) rotate(${Math.min(18,dx/10)}deg)`;stub.style.opacity=Math.max(.2,1-dx/170)};
+ stub.onpointerup=e=>{if(!tear||tearDone)return;tear=false;const raw=e.clientX-sx,dx=Math.max(0,__designDelta(raw));if((window.innerWidth<900&&Math.abs(raw)>=2)||dx>90)finishFlightTear();else{stub.style.transform='';stub.style.opacity='1'}};
  enter.onclick=()=>{if(!enter.disabled)showInside()};
 }
 
@@ -4565,7 +4891,7 @@ function bindVinyl(){
  const guide=n=>guides.forEach((g,i)=>{g.classList.toggle('on',i===n-1);g.classList.toggle('done',i<n-1)});
  const updateProgress=()=>{const progress=trackSet.size*25;pct.textContent=progress+'%';fill.style.width=progress+'%';dots.forEach((d,i)=>d.classList.toggle('on',i<trackSet.size));if(progress===100){setStep(4);status.textContent='步骤 04 · 四首曲目全部点亮 请由发行人亲笔签名批准今晚快乐单曲';revealFrontSignature(6);PartyAudio.sfx('success')}};
  arm.onpointerdown=e=>{if(needle)return;drag=true;sx=e.clientX;sy=e.clientY;arm.classList.add('dragging');arm.setPointerCapture?.(e.pointerId);PartyAudio.action('digital',6)};
- arm.onpointermove=e=>{if(!drag||needle)return;const dx=e.clientX-sx,dy=e.clientY-sy;const ds=window.innerWidth<900?.74:1;arm.style.transform='translate('+dx+'px,'+dy+'px) scale('+ds+')'};
+ arm.onpointermove=e=>{if(!drag||needle)return;const dx=__designDelta(e.clientX-sx),dy=__designDelta(e.clientY-sy);const ds=window.innerWidth<900?.74:1;arm.style.transform='translate('+dx+'px,'+dy+'px) scale('+ds+')'};
  arm.onpointerup=e=>{
    if(!drag||needle)return;drag=false;arm.classList.remove('dragging');
    const r=vinyl.getBoundingClientRect();
@@ -4647,7 +4973,7 @@ function bindHotel(){
  let sx=0,sy=0,drag=false,keyReady=false,timer=0;
  if(door)door.classList.remove('show','opened');
  card.onpointerdown=e=>{drag=true;sx=e.clientX;sy=e.clientY;card.setPointerCapture?.(e.pointerId);PartyAudio.action('digital',8)};
- card.onpointermove=e=>{if(!drag)return;card.style.transform='translate('+(e.clientX-sx)+'px,'+(e.clientY-sy)+'px) rotate('+((e.clientX-sx)/18)+'deg)'};
+ card.onpointermove=e=>{if(!drag)return;{const dx=__designDelta(e.clientX-sx),dy=__designDelta(e.clientY-sy);card.style.transform='translate('+dx+'px,'+dy+'px) rotate('+(dx/18)+'deg)'}};
  card.onpointerup=e=>{if(!drag)return;drag=false;const r=slot.getBoundingClientRect();if(e.clientX>r.left&&e.clientX<r.right&&e.clientY>r.top&&e.clientY<r.bottom){card.classList.add('swiped');card.style.transform='';slot.classList.add('green');key.classList.add('show');setStep(2);status.textContent='步骤 02 · 房卡验证通过 长按领取今晚的金色钥匙';PartyAudio.sfx('success')}else card.style.transform=''};
  key.onpointerdown=()=>{if(!key.classList.contains('show')||keyReady)return;key.classList.add('holding');PartyAudio.action('scan',8);timer=setTimeout(()=>{keyReady=true;key.classList.remove('holding');key.classList.add('ready');setStep(3);status.textContent='步骤 03 · 金色钥匙已领取 还差本人签名才能真正买断今晚';PartyAudio.sfx('success');revealFrontSignature(8)},1100)};
  key.onpointerup=key.onpointerleave=()=>{clearTimeout(timer);key.classList.remove('holding')};
@@ -4683,14 +5009,15 @@ let scratchState=null;
 function initScratch(){
  if(current!==2)return;
  const cv=scene.querySelector('.scratchCanvas'); if(!cv)return; const ctx=cv.getContext('2d'),r=cv.getBoundingClientRect(); if(r.width<30)return;
- const d=Math.max(1,Math.min(2,devicePixelRatio||1));cv.width=Math.floor(r.width*d);cv.height=Math.floor(r.height*d);ctx.setTransform(d,0,0,d,0,0);
- const g=ctx.createLinearGradient(0,0,r.width,r.height);g.addColorStop(0,'#8e1625');g.addColorStop(.2,'#c58c2c');g.addColorStop(.5,'#e6bc55');g.addColorStop(.78,'#a71d2d');g.addColorStop(1,'#d8ad45');ctx.fillStyle=g;ctx.fillRect(0,0,r.width,r.height);ctx.fillStyle='rgba(255,245,204,.35)';for(let i=0;i<130;i++){ctx.beginPath();ctx.arc(Math.random()*r.width,Math.random()*r.height,Math.random()*2+.3,0,Math.PI*2);ctx.fill()}ctx.fillStyle='#fff1bf';ctx.font='800 18px PingFang SC';ctx.textAlign='center';ctx.fillText('刮开今晚的幸运权限',r.width/2,r.height/2+5);
- let down=false,done=false,cells=new Set(),cols=18,rows=8;const prog=scene.querySelector('.scratchProg i'),pct=scene.querySelector('.scratchPct'),reveal=scene.querySelector('.reveal'),act=scene.querySelector('.activation'),status=scene.querySelector('.status2');
- function scratch(e){if(!down||done)return;const rr=cv.getBoundingClientRect(),x=e.clientX-rr.left,y=e.clientY-rr.top;ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(x,y,29,0,Math.PI*2);ctx.fill();const gx=Math.floor(x/rr.width*cols),gy=Math.floor(y/rr.height*rows);for(let yy=-1;yy<=1;yy++)for(let xx=-1;xx<=1;xx++){const a=gx+xx,b=gy+yy;if(a>=0&&a<cols&&b>=0&&b<rows)cells.add(b*cols+a)}const p=Math.min(100,Math.round(cells.size/(cols*rows)*100));prog.style.width=p+'%';pct.textContent=p+'%';status.textContent='步骤 01 · 正在刮开奖区 '+p+'%';if(p>=72){done=true;down=false;prog.style.width='100%';pct.textContent='100%';cv.style.opacity='0';setTimeout(()=>{cv.style.display='none';reveal.classList.add('show');act.classList.add('show');setStep(3);status.textContent='步骤 03 · 结果已揭晓 请滑动激活'},300)}}
- cv.onpointerdown=e=>{PartyAudio.action('scratch',2);down=true;cv.setPointerCapture?.(e.pointerId);scratch(e)};cv.onpointermove=scratch;cv.onpointerup=()=>down=false;
+ const overlay=scene.querySelector('.scratchTitleOverlay'); const d=Math.max(1,Math.min(2,devicePixelRatio||1));cv.width=Math.floor(r.width*d);cv.height=Math.floor(r.height*d);ctx.setTransform(d,0,0,d,0,0);
+ const g=ctx.createLinearGradient(0,0,r.width,r.height);g.addColorStop(0,'#8e1625');g.addColorStop(.2,'#c58c2c');g.addColorStop(.5,'#e6bc55');g.addColorStop(.78,'#a71d2d');g.addColorStop(1,'#d8ad45');ctx.fillStyle=g;ctx.fillRect(0,0,r.width,r.height);ctx.fillStyle='rgba(255,245,204,.35)';for(let i=0;i<130;i++){ctx.beginPath();ctx.arc(Math.random()*r.width,Math.random()*r.height,Math.random()*2+.3,0,Math.PI*2);ctx.fill()}
+ let down=false,done=false,cells=new Set(),cols=18,rows=8,startX=0,startY=0,moveCount=0;const prog=scene.querySelector('.scratchProg i'),pct=scene.querySelector('.scratchPct'),reveal=scene.querySelector('.reveal'),act=scene.querySelector('.activation'),status=scene.querySelector('.status2');
+ function finishScratch(){if(done)return;done=true;down=false;prog.style.width='100%';pct.textContent='100%';cv.style.transition='opacity .18s ease';cv.style.opacity='0';if(overlay)overlay.style.opacity='0';setTimeout(()=>{cv.style.display='none';reveal.classList.add('show');act.classList.add('show');setStep(3);status.textContent='步骤 03 · 结果已揭晓 请滑动激活'},190)}
+ function scratch(e){if(!down||done)return;const rr=cv.getBoundingClientRect(),x=e.clientX-rr.left,y=e.clientY-rr.top;ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(x,y,(window.innerWidth<900?48:34),0,Math.PI*2);ctx.fill();const gx=Math.floor(x/rr.width*cols),gy=Math.floor(y/rr.height*rows);for(let yy=-2;yy<=2;yy++)for(let xx=-2;xx<=2;xx++){const a=gx+xx,b=gy+yy;if(a>=0&&a<cols&&b>=0&&b<rows)cells.add(b*cols+a)}moveCount++;const p=Math.min(100,Math.round(cells.size/(cols*rows)*100));prog.style.width=p+'%';pct.textContent=p+'%';status.textContent='步骤 01 · 正在刮开奖区 '+p+'%';const shortSwipe=window.innerWidth<900&&Math.hypot(e.clientX-startX,e.clientY-startY)>=18;if(shortSwipe||moveCount>=3&&window.innerWidth<900||p>=45)finishScratch()}
+ cv.onpointerdown=e=>{PartyAudio.action('scratch',2);down=true;moveCount=0;startX=e.clientX;startY=e.clientY;cv.setPointerCapture?.(e.pointerId);scratch(e)};cv.onpointermove=scratch;cv.onpointerup=e=>{if(down&&window.innerWidth<900&&Math.hypot(e.clientX-startX,e.clientY-startY)>=8)finishScratch();down=false};
  const track=scene.querySelector('.slideTrack'),knob=scene.querySelector('.knob'),fill=scene.querySelector('.slideFill'),enter=scene.querySelector('.enter2');let slide=false,sx=0;
  knob.onpointerdown=e=>{if(!done)return;PartyAudio.action('digital',2);slide=true;sx=e.clientX;knob.setPointerCapture?.(e.pointerId)};
- knob.onpointermove=e=>{if(!slide)return;const max=track.clientWidth-knob.offsetWidth-10,dx=Math.max(0,Math.min(max,e.clientX-sx)),ratio=dx/max;knob.style.transform=`translateX(${dx}px)`;fill.style.width=dx+55+'px';if(ratio>.9){slide=false;knob.style.transform=`translateX(${max}px)`;fill.style.width='100%';scene.querySelector('.slideLabel').textContent='快乐通行证激活成功';setStep(4);status.textContent='步骤 04 · 通行证已激活 请亲笔签名领取今晚特等奖';revealFrontSignature(2)}};
+ knob.onpointermove=e=>{if(!slide)return;const max=track.clientWidth-knob.offsetWidth-10,dx=Math.max(0,Math.min(max,__designDelta(e.clientX-sx))),ratio=dx/max;knob.style.transform=`translateX(${dx}px)`;fill.style.width=dx+55+'px';if(ratio>.9){slide=false;knob.style.transform=`translateX(${max}px)`;fill.style.width='100%';scene.querySelector('.slideLabel').textContent='快乐通行证激活成功';setStep(4);status.textContent='步骤 04 · 通行证已激活 请亲笔签名领取今晚特等奖';revealFrontSignature(2)}};
  knob.onpointerup=()=>{if(slide){slide=false;knob.style.transform='translateX(0)';fill.style.width='0'}};
  if(enter)enter.style.display='none';
 }
@@ -4700,29 +5027,29 @@ function bind3(){
  const buttons=[...scene.querySelectorAll('.arc03Btn')],quests=[...scene.querySelectorAll('.arc03Quests i')];
  const status=scene.querySelector('.status3'),title=scene.querySelector('.arc03PixelTitle'),sub=scene.querySelector('.arc03Sub'),command=scene.querySelector('.arc03Command');
  const scoreEl=scene.querySelector('.arc03Score'),comboEl=scene.querySelector('.arc03ComboNum'),modeEl=scene.querySelector('.arc03Mode'),workEl=scene.querySelector('.arc03Work'),happyEl=scene.querySelector('.arc03Happy'),pass=scene.querySelector('.arc03Pass');
- let phase=1,score=0,coinDone=false,joyIndex=0,keyIndex=0;const joySeq=['up','right','down','left'],keySeq=['A','B','C'];
+ let phase=1,score=0,coinDone=false,joyIndex=0,keyIndex=0;const joySeq=['up','right','down'],keySeq=['A','B','C'];
  const addScore=n=>{score+=n;scoreEl.textContent=String(score).padStart(6,'0')};
- const vitals=()=>{const h=Math.min(100,Math.round((Math.min(joyIndex,4)/4*.45+Math.min(keyIndex,3)/3*.55)*100));happyEl.textContent=h+'%';workEl.textContent=(100-h)+'%'};
+ const vitals=()=>{const h=Math.min(100,Math.round((Math.min(joyIndex,joySeq.length)/joySeq.length*.45+Math.min(keyIndex,3)/3*.55)*100));happyEl.textContent=h+'%';workEl.textContent=(100-h)+'%'};
  const ping=(type='scan')=>{try{PartyAudio.sfx(type)}catch(e){}};
 
  // STEP 01 · physical coin drag
  let coinDrag=false,ox=0,oy=0;
  coin.onpointerdown=e=>{if(coinDone)return;coinDrag=true;const r=coin.getBoundingClientRect();ox=e.clientX-r.left;oy=e.clientY-r.top;coin.setPointerCapture?.(e.pointerId);try{PartyAudio.action('metal',3)}catch(err){}};
  coin.onpointermove=e=>{if(!coinDrag||coinDone)return;const r=arena.getBoundingClientRect();let x=e.clientX-r.left-ox,y=e.clientY-r.top-oy;x=Math.max(0,Math.min(r.width-coin.offsetWidth,x));y=Math.max(0,Math.min(r.height-coin.offsetHeight,y));coin.style.left=x+'px';coin.style.top=y+'px'};
- coin.onpointerup=()=>{if(!coinDrag||coinDone)return;coinDrag=false;const a=coin.getBoundingClientRect(),b=slot.getBoundingClientRect();const hit=!(a.right<b.left||a.left>b.right||a.bottom<b.top||a.top>b.bottom);if(hit){coinDone=true;coin.classList.add('inserted');phase=2;setStep(2);modeEl.textContent='READY';title.innerHTML='PLAYER 01<br>READY';sub.textContent='机器已通电。现在完成摇杆 Combo：↑ → ↓ ←';command.innerHTML='COMMAND：<b>↑ → ↓ ←</b>';status.textContent='步骤 02 · 拖动摇杆完成 ↑ → ↓ ←';addScore(1000);workEl.textContent='75%';happyEl.textContent='25%';ping('success')}else{coin.style.left='18px';coin.style.top='26px';status.textContent='步骤 01 · 没投进去 再准一点 把金币拖进右侧投币口'}};
+ coin.onpointerup=()=>{if(!coinDrag||coinDone)return;coinDrag=false;const a=coin.getBoundingClientRect(),b=slot.getBoundingClientRect();const hit=!(a.right<b.left||a.left>b.right||a.bottom<b.top||a.top>b.bottom);if(hit){coinDone=true;coin.classList.add('inserted');phase=2;setStep(2);modeEl.textContent='READY';title.innerHTML='PLAYER 01<br>READY';sub.textContent='机器已通电。现在完成摇杆 Combo：↑ / → / ↓';command.innerHTML='COMMAND：<b>↑ / → / ↓</b>';status.textContent='步骤 02 · 拖动摇杆完成 ↑ / → / ↓';addScore(1000);workEl.textContent='75%';happyEl.textContent='25%';ping('success')}else{coin.style.left='18px';coin.style.top='26px';status.textContent='步骤 01 · 没投进去 再准一点 把金币拖进右侧投币口'}};
  coin.onpointercancel=()=>{coinDrag=false};
 
  // STEP 02 · real movable joystick, springs back to center
  let joyDrag=false,cx=0,cy=0;
  const resetJoy=()=>{knob.style.transform='translate(-50%,-50%)';stem.style.transform='translate(-50%,-15%) rotate(0deg)'};
- const detectDir=(dx,dy)=>{if(Math.hypot(dx,dy)<42)return null;if(Math.abs(dx)>Math.abs(dy))return dx>0?'right':'left';return dy>0?'down':'up'};
+ const detectDir=(dx,dy)=>{const threshold=window.innerWidth<900?18:34;if(Math.hypot(dx,dy)<threshold)return null;if(Math.abs(dx)>Math.abs(dy))return dx>0?'right':'left';return dy>0?'down':'up'};
  knob.onpointerdown=e=>{if(phase!==2)return;joyDrag=true;const r=joy.getBoundingClientRect();cx=r.left+r.width/2;cy=r.top+r.height/2;knob.setPointerCapture?.(e.pointerId);try{PartyAudio.action('digital',3)}catch(err){}};
  knob.onpointermove=e=>{if(!joyDrag||phase!==2)return;let dx=e.clientX-cx,dy=e.clientY-cy;const max=58,mag=Math.hypot(dx,dy)||1;if(mag>max){dx=dx/mag*max;dy=dy/mag*max}knob.style.transform=`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px))`;const ang=Math.atan2(dy,dx)*180/Math.PI+90;stem.style.transform=`translate(-50%,-15%) rotate(${ang}deg)`};
- knob.onpointerup=e=>{if(!joyDrag||phase!==2)return;joyDrag=false;const dir=detectDir(e.clientX-cx,e.clientY-cy);resetJoy();if(!dir)return;const expected=joySeq[joyIndex];if(dir===expected){comboIcons[joyIndex].classList.remove('current');comboIcons[joyIndex].classList.add('done');joyIndex++;comboEl.textContent=joyIndex;addScore(750);vitals();ping('scan');if(joyIndex<joySeq.length){comboIcons[joyIndex].classList.add('current');status.textContent='步骤 02 · 命中 '+dir.toUpperCase()+' · 下一方向 '+joySeq[joyIndex].toUpperCase()}else{phase=3;setStep(3);modeEl.textContent='COMBO';title.innerHTML='JOYSTICK<br>COMBO!';sub.textContent='摇杆 Combo 完成。最后按 A → B → C 三键连击。';command.innerHTML='BUTTON COMBO：<b>A → B → C</b>';status.textContent='步骤 03 · 摇杆完成 请按 A → B → C';ping('success')}}else{status.textContent='步骤 02 · MISS！当前需要 '+expected.toUpperCase()+' · 摇杆已自动回中 请重试';knob.classList.add('miss');setTimeout(()=>knob.classList.remove('miss'),320)}};
+ knob.onpointerup=e=>{if(!joyDrag||phase!==2)return;joyDrag=false;const dir=detectDir(e.clientX-cx,e.clientY-cy);resetJoy();if(!dir)return;const expected=joySeq[joyIndex];if(window.innerWidth<900&&dir==='left'){status.textContent='步骤 02 · 手机端左滑不计入指令，请继续 '+expected.toUpperCase();return}if(dir===expected){comboIcons[joyIndex].classList.remove('current');comboIcons[joyIndex].classList.add('done');joyIndex++;comboEl.textContent=joyIndex;addScore(750);vitals();ping('scan');if(joyIndex<joySeq.length){comboIcons[joyIndex].classList.add('current');status.textContent='步骤 02 · 命中 '+dir.toUpperCase()+' · 下一方向 '+joySeq[joyIndex].toUpperCase()}else{phase=3;setStep(3);modeEl.textContent='COMBO';title.innerHTML='JOYSTICK<br>COMBO!';sub.textContent='摇杆 Combo 完成。最后按 A → B → C 三键连击。';command.innerHTML='BUTTON COMBO：<b>A → B → C</b>';status.textContent='步骤 03 · 摇杆完成 请按 A → B → C';ping('success')}}else{status.textContent='步骤 02 · MISS！当前需要 '+expected.toUpperCase()+' · 摇杆已自动回中 请重试';knob.classList.add('miss');setTimeout(()=>knob.classList.remove('miss'),320)}};
  knob.onpointercancel=()=>{joyDrag=false;resetJoy()};
 
  // STEP 03 · arcade A/B/C combo
- buttons.forEach(btn=>btn.onclick=()=>{if(phase!==3){status.textContent=phase<3?'请先完成摇杆 Combo':'三键连击已经通关';return}const key=btn.dataset.key,expected=keySeq[keyIndex];btn.classList.add('hit');setTimeout(()=>btn.classList.remove('hit'),120);if(key===expected){quests[keyIndex].classList.add('on');keyIndex++;comboEl.textContent=4+keyIndex;addScore(1500);vitals();ping('scan');if(keyIndex<3){status.textContent='步骤 03 · '+key+' 命中 · 下一键 '+keySeq[keyIndex]}else{phase=4;setStep(4);modeEl.textContent='MAX';title.innerHTML='LEVEL<br>CLEAR!';sub.textContent='关卡通关。PLAYER 01 快乐通行卡已生成。';command.innerHTML='SYSTEM：<b>HAPPY MODE 100%</b>';happyEl.textContent='100%';workEl.textContent='0%';addScore(2900);pass.classList.add('show');status.textContent='步骤 04 · PLAYER 01 通行卡已生成';ping('success');setTimeout(()=>{phase=5;setStep(5);status.textContent='步骤 05 · 请亲笔签名保存今晚快乐存档';revealFrontSignature(3)},520)}}else{status.textContent='步骤 03 · COMBO BREAK · 当前应该按 '+expected+'，请继续从正确键操作';btn.classList.add('wrong');setTimeout(()=>btn.classList.remove('wrong'),300)}});
+ buttons.forEach(btn=>btn.onclick=()=>{if(phase!==3){status.textContent=phase<3?'请先完成摇杆 Combo':'三键连击已经通关';return}const key=btn.dataset.key,expected=keySeq[keyIndex];btn.classList.add('hit');setTimeout(()=>btn.classList.remove('hit'),120);if(key===expected){quests[keyIndex].classList.add('on');keyIndex++;comboEl.textContent=joySeq.length+keyIndex;addScore(1500);vitals();ping('scan');if(keyIndex<3){status.textContent='步骤 03 · '+key+' 命中 · 下一键 '+keySeq[keyIndex]}else{phase=4;setStep(4);modeEl.textContent='MAX';title.innerHTML='LEVEL<br>CLEAR!';sub.textContent='关卡通关。PLAYER 01 快乐通行卡已生成。';command.innerHTML='SYSTEM：<b>HAPPY MODE 100%</b>';happyEl.textContent='100%';workEl.textContent='0%';addScore(2900);pass.classList.add('show');status.textContent='步骤 04 · PLAYER 01 通行卡已生成';ping('success');setTimeout(()=>{phase=5;setStep(5);status.textContent='步骤 05 · 请亲笔签名保存今晚快乐存档';revealFrontSignature(3)},520)}}else{status.textContent='步骤 03 · COMBO BREAK · 当前应该按 '+expected+'，请继续从正确键操作';btn.classList.add('wrong');setTimeout(()=>btn.classList.remove('wrong'),300)}});
 }
 function bind4(){
  const diag=scene.querySelector('.diagnose'),balls=[...scene.querySelectorAll('.ball')],wrap=scene.querySelector('.coreWrap'),core=scene.querySelector('.core'),pct=scene.querySelector('.corePct'),unlock=scene.querySelector('.unlock'),ub=scene.querySelector('.unlockBtn'),enter=scene.querySelector('.enter4'),over=scene.querySelector('.overtime'),status=scene.querySelector('.status4');let ok=false,n=0,hold=false,hs=0,raf=0;const levels=[0,30,65,100],colors=['#00cfff','#35dfd0','#8b79ff','#4ef2b3'],grads=['radial-gradient(circle at 35% 30%,#d2ffff,#00cfff 42%,#075983 73%)','radial-gradient(circle at 35% 30%,#e4ffff,#35dfd0 42%,#0c6f70 73%)','radial-gradient(circle at 35% 30%,#f0e9ff,#8b79ff 42%,#422b85 73%)','radial-gradient(circle at 35% 30%,#ecfff7,#4ef2b3 42%,#087356 73%)'];
@@ -4736,9 +5063,10 @@ function bind5(){
  const det=scene.querySelector('.detector'),detect=scene.querySelector('.detect'),reject=scene.querySelector('.reject'),bars=[...scene.querySelectorAll('.bar i')],mask=scene.querySelector('.mask'),maskContent=scene.querySelector('.maskContent'),ticket=scene.querySelector('.cinemaTicket'),stub=scene.querySelector('.stub'),tb=scene.querySelector('.tearBar i'),tp=scene.querySelector('.tearPct'),fm=scene.querySelector('.finalMode'),range=scene.querySelector('.modeRange'),mp=scene.querySelector('.modePct'),enter=scene.querySelector('.enter5'),status=scene.querySelector('.status5'),diagConclusion=scene.querySelector('.diagFoot b');let drag=false,sx=0,torn=false;const fitDetector=()=>{if(!det.classList.contains('expanded')||!maskContent)return;requestAnimationFrame(()=>{const floor=window.innerWidth<=780?900:860;const need=Math.ceil(maskContent.scrollHeight+24);det.style.minHeight=Math.max(floor,need)+'px'})};
  detect.onclick=()=>{PartyAudio.action('medical',5);detect.disabled=true;reject.disabled=true;setStep(1);status.textContent='步骤 01 · 正在分析班味指数';diagConclusion.textContent='诊断中…';bars.forEach((b,i)=>setTimeout(()=>b.style.width=b.dataset.w,140+i*190));setTimeout(()=>{diagConclusion.textContent='不建议继续工作';det.classList.add('expanded');setStep(2);status.textContent='步骤 02 · 治疗方案已生成 请领取入场券';detect.style.display='none';reject.style.display='none';setTimeout(()=>{mask.classList.add('show');fitDetector();setTimeout(fitDetector,100)},220)},1020)};
  reject.onclick=()=>{reject.textContent='申请驳回 · 医生不同意';status.textContent='步骤 01 · 继续工作申请已驳回'};
- stub.onpointerdown=e=>{if(torn)return;PartyAudio.action('tear',5);drag=true;sx=e.clientX;stub.style.transition='none';stub.setPointerCapture?.(e.pointerId);setStep(3);status.textContent='步骤 03 · 向右撕下专属入场券'};
- stub.onpointermove=e=>{if(!drag||torn)return;const dx=Math.max(0,e.clientX-sx),p=Math.min(100,Math.round(dx/150*100));stub.style.transform=`translateX(${dx}px) rotate(${Math.min(14,dx/11)}deg)`;tb.style.width=p+'%';tp.textContent=p+'%';status.textContent='步骤 03 · 正在撕票 '+p+'%';if(p>=68){drag=false;torn=true;tb.style.width='100%';tp.textContent='100%';ticket.classList.add('torn');stub.style.transition='.55s cubic-bezier(.2,.8,.2,1)';stub.style.transform='translate(125px,155px) rotate(26deg)';stub.style.opacity='0';setStep(4);status.textContent='步骤 04 · 入场券已核销 请完成模式切换';setTimeout(()=>{fm.classList.add('show');fitDetector();setTimeout(fitDetector,100)},260)}};
- stub.onpointerup=()=>{if(drag&&!torn){drag=false;stub.style.transition='.28s';stub.style.transform='';tb.style.width='0';tp.textContent='0%';setStep(2);status.textContent='步骤 02 · 未完成撕票 请重新操作'}};
+ const finishTreatmentTear=()=>{if(torn)return;drag=false;torn=true;tb.style.width='100%';tp.textContent='100%';ticket.classList.add('torn');stub.style.transition='.55s cubic-bezier(.2,.8,.2,1)';stub.style.transform='translate(125px,155px) rotate(26deg)';stub.style.opacity='0';setStep(4);status.textContent='步骤 04 · 入场券已核销 请完成模式切换';setTimeout(()=>{fm.classList.add('show');fitDetector();setTimeout(fitDetector,100)},260)};
+ stub.onpointerdown=e=>{if(torn)return;PartyAudio.action('tear',5);drag=true;sx=e.clientX;stub.style.transition='none';stub.setPointerCapture?.(e.pointerId);setStep(3);status.textContent='步骤 03 · 轻轻一滑即可撕下专属入场券'};
+ stub.onpointermove=e=>{if(!drag||torn)return;const raw=e.clientX-sx,dx=Math.max(0,__designDelta(raw)),p=Math.min(100,Math.round(dx/150*100));if(window.innerWidth<900&&Math.abs(raw)>=4){finishTreatmentTear();return}stub.style.transform=`translateX(${dx}px) rotate(${Math.min(14,dx/11)}deg)`;tb.style.width=p+'%';tp.textContent=p+'%';status.textContent='步骤 03 · 正在撕票 '+p+'%';if(p>=68)finishTreatmentTear()};
+ stub.onpointerup=e=>{if(drag&&!torn){const raw=e.clientX-sx;if(window.innerWidth<900&&Math.abs(raw)>=2){finishTreatmentTear();return}drag=false;stub.style.transition='.28s';stub.style.transform='';tb.style.width='0';tp.textContent='0%';setStep(2);status.textContent='步骤 02 · 未完成撕票 请重新操作'}};
  range.oninput=()=>{mp&&(mp.textContent=range.value+'%');status.textContent='步骤 04 · 正在切换派对模式 '+range.value+'%';if(+range.value>96&&!scene.querySelector('.frontSignatureStage.sig5')?.classList.contains('show')){range.value='100';mp&&(mp.textContent='100%');setStep(5);status.textContent='步骤 05 · 治疗完成 请本人签署快乐治疗知情同意书';revealFrontSignature(5);fitDetector();setTimeout(fitDetector,100)}};
  enter.onclick=()=>{PartyAudio.sfx('success');showInside()}
 }
@@ -4747,11 +5075,11 @@ function bind5(){
 const MUSIC_LIBRARY={
   lively:{name:'系统活泼版',type:'builtin',mode:'lively'},
   calm:{name:'系统舒缓版',type:'builtin',mode:'calm'},
-  youdontcare:{name:"ohsobrkn - you don't care",type:'file',src:"https://wangmiaomia.github.io/crazy-party/assets/audio/you-dont-care.mp3"},
-  banjia:{name:"张震岳 - 搬家",type:'file',src:"https://wangmiaomia.github.io/crazy-party/assets/audio/banjia.mp3"},
-  henizaiyiqi:{name:"李志 - 和你在一起",type:'file',src:"https://wangmiaomia.github.io/crazy-party/assets/audio/henizaiyiqi.mp3"},
-  whistle:{name:"Whistle",type:'file',src:"https://wangmiaomia.github.io/crazy-party/assets/audio/whistle.mp3"},
-  yecao:{name:"椿乐队 - 野草",type:'file',src:"https://wangmiaomia.github.io/crazy-party/assets/audio/yecao.mp3"}
+  youdontcare:{name:"ohsobrkn - you don't care",type:'file',src:"assets/audio/you-dont-care.mp3"},
+  banjia:{name:"张震岳 - 搬家",type:'file',src:"assets/audio/banjia.mp3"},
+  henizaiyiqi:{name:"李志 - 和你在一起",type:'file',src:"assets/audio/henizaiyiqi.mp3"},
+  whistle:{name:"Whistle",type:'file',src:"assets/audio/whistle.mp3"},
+  yecao:{name:"椿乐队 - 野草",type:'file',src:"assets/audio/yecao.mp3"}
 };
 const __musicQ=new URLSearchParams(location.search);const musicParam=(embeddedInvite.music||__musicQ.get('m')||__musicQ.get('music')||'youdontcare');
 let selectedMusicKey=MUSIC_LIBRARY[musicParam]?musicParam:'youdontcare';
@@ -4771,22 +5099,39 @@ const realBgm=new Audio();
 realBgm.loop=true;
 realBgm.preload='auto';
 realBgm.playsInline=true;
+realBgm.setAttribute('playsinline','');
+realBgm.setAttribute('webkit-playsinline','');
 realBgm.volume=0;
 
 let robustAudioCtx=null,robustWebSource=null,robustWebGain=null;
+let robustMusicWanted=false,robustRecoverBusy=false,robustLastRecover=0;
 function armRobustAudio(){
   try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return null;if(!robustAudioCtx)robustAudioCtx=new AC();robustAudioCtx.resume();return robustAudioCtx}catch(e){return null}
 }
 function stopRobustWebAudio(){if(robustWebSource){try{robustWebSource.stop()}catch(e){}robustWebSource=null}robustWebGain=null}
 async function playSelectedMusicRobust(volume=.82,reset=true){
   selectedMusic=MUSIC_LIBRARY[selectedMusicKey]||MUSIC_LIBRARY.youdontcare;
+  robustMusicWanted=true;
   if(selectedMusic.type!=='file')return {mode:'builtin'};
   const src=selectedMusic.src,resolved=resolvePartyAudioSrc(src);
   const ctx=armRobustAudio();stopRobustWebAudio();
   try{realBgm.pause()}catch(e){}
   realBgm.src=resolved;realBgm.preload='auto';realBgm.playsInline=true;realBgm.loop=true;realBgm.volume=volume;
   if(reset)try{realBgm.currentTime=0}catch(e){}
-  try{await realBgm.play();return {mode:'media'}}catch(mediaErr){
+  try{
+    const before=realBgm.currentTime||0;
+    await realBgm.play();
+    await new Promise((resolve,reject)=>{
+      const startedAt=performance.now();
+      const tick=()=>{
+        if(realBgm.paused){reject(new Error('media-paused'));return}
+        if((realBgm.currentTime||0)>before+.035){resolve();return}
+        if(performance.now()-startedAt>1150){reject(new Error('media-no-progress'));return}
+        setTimeout(tick,90);
+      };tick();
+    });
+    return {mode:'media'}
+  }catch(mediaErr){
     if(!ctx)throw mediaErr;
     try{
       let arr;if(src.startsWith('data:')){const b64=src.split(',',2)[1],bin=atob(b64),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);arr=u.buffer}else arr=await fetch(resolved).then(r=>r.arrayBuffer());
@@ -4795,10 +5140,26 @@ async function playSelectedMusicRobust(volume=.82,reset=true){
   }
 }
 function setRobustMusicMuted(v){realBgm.volume=v?0:.82;if(robustWebGain)robustWebGain.gain.value=v?0:.82}
+async function recoverRobustMusic(reason='watchdog'){
+  if(!robustMusicWanted||document.hidden||selectedMusic.type!=='file'||robustRecoverBusy)return;
+  if(robustWebSource){try{if(robustAudioCtx?.state==='suspended')await robustAudioCtx.resume()}catch(e){};return;}
+  if(!realBgm.paused&&realBgm.readyState>=2)return;
+  const now=Date.now();if(now-robustLastRecover<650)return;robustLastRecover=now;robustRecoverBusy=true;
+  try{realBgm.loop=true;realBgm.playsInline=true;realBgm.setAttribute('playsinline','');realBgm.setAttribute('webkit-playsinline','');await realBgm.play();}
+  catch(e){try{await playSelectedMusicRobust(realBgm.volume||.82,false)}catch(_){} }
+  finally{robustRecoverBusy=false;}
+}
+['waiting','stalled','suspend','ended','pause'].forEach(ev=>realBgm.addEventListener(ev,()=>setTimeout(()=>recoverRobustMusic(ev),ev==='pause'?180:420)));
+realBgm.addEventListener('error',()=>setTimeout(()=>recoverRobustMusic('error'),700));
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(()=>recoverRobustMusic('visibility'),120)});
+window.addEventListener('pageshow',()=>setTimeout(()=>recoverRobustMusic('pageshow'),120));
+window.addEventListener('focus',()=>setTimeout(()=>recoverRobustMusic('focus'),120));
+setInterval(()=>recoverRobustMusic('timer'),1600);
 
 function loadSelectedMusic(){
   selectedMusic=MUSIC_LIBRARY[selectedMusicKey]||MUSIC_LIBRARY.youdontcare;
   if(selectedMusic.type==='file'){
+    robustMusicWanted=false;
     realBgm.pause();
     realBgm.src=resolvePartyAudioSrc(selectedMusic.src);
     realBgm.load();
@@ -4907,15 +5268,25 @@ const PartyAudio=(()=>{
     resume();theme=t;started=true;muted=false;
     clearInterval(phraseTimer);
     if(selectedMusic.type==='file'){
-      playSelectedMusicRobust(.82,true).then(r=>toast('今晚BGM已开启 · '+selectedMusic.name)).catch(()=>{
-        toast('当前容器仍限制歌曲播放，已启用系统备用BGM');musicMode='lively';schedule();
+      /* V86: 文件音乐模式只播放邀请人选择的真实歌曲。
+         不再先启动合成 BGM，也不再在 MP3 失败时偷偷切换系统音效。 */
+      clearInterval(phraseTimer);phraseTimer=null;
+      if(bgm&&ctx){
+        bgm.gain.cancelScheduledValues(ctx.currentTime);
+        bgm.gain.setValueAtTime(Math.max(.0001,bgm.gain.value),ctx.currentTime);
+        bgm.gain.linearRampToValueAtTime(.0001,ctx.currentTime+.08);
+      }
+      playSelectedMusicRobust(.82,true).then(r=>{
+        toast('正在播放 · '+selectedMusic.name+' · '+(r?.mode==='webaudio'?'兼容音频':'原始MP3'));
+      }).catch(()=>{
+        toast('歌曲未能加载 · 请检查音频文件/网络后重试');
       });
     }else{
       musicMode=selectedMusic.mode||musicMode;
       if(bgm&&ctx){
         bgm.gain.cancelScheduledValues(ctx.currentTime);
         bgm.gain.setValueAtTime(Math.max(.0001,bgm.gain.value),ctx.currentTime);
-        bgm.gain.linearRampToValueAtTime(.34,ctx.currentTime+1.25);
+        bgm.gain.linearRampToValueAtTime(.34,ctx.currentTime+.25);
       }
       schedule();
     }
@@ -5125,7 +5496,9 @@ document.querySelectorAll('.musicMode').forEach(btn=>{
     PartyAudio.setMusicMode('lively');
     PartyAudio.unlock();
     PartyAudio.sfx('intro');
-    PartyAudio.toast(selectedMusic.type==='file'?`今晚BGM：${selectedMusic.name}`:'已选择：活泼模式 ⚡');
+    const lively=document.getElementById('livelyReply'),c=introThemeCopy[LOCKED_THEME]||introThemeCopy[1];
+    if(lively){lively.textContent=c.lively;lively.classList.add('show');clearTimeout(lively._t);lively._t=setTimeout(()=>lively.classList.remove('show'),3000)}
+    PartyAudio.toast('好闺闺的要求必须满足 ⚡ 活泼模式已拉满');
   });
 });
 
