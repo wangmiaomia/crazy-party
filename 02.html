@@ -3718,16 +3718,16 @@ body[data-theme="01"] .screen.t1 .drawer.menu .menuCard .menuCopy em{
 <meta name="description" content="快乐黑卡已激活，今晚不赌输赢，只赌开心。">
 <meta itemprop="name" content="成年人放风派对｜澳门娱乐黑卡">
 <meta itemprop="description" content="快乐黑卡已激活，今晚不赌输赢，只赌开心。">
-<meta itemprop="image" content="https://wangmiaomia.github.io/crazy-party/assets/share-card-v86.jpg?v=86">
-<link rel="image_src" href="https://wangmiaomia.github.io/crazy-party/assets/share-card-v86.jpg?v=86">
+<meta itemprop="image" content="https://wangmiaomia.github.io/crazy-party/assets/share-card-v86.jpg?v=86.1">
+<link rel="image_src" href="https://wangmiaomia.github.io/crazy-party/assets/share-card-v86.jpg?v=86.1">
 <meta property="og:site_name" content="成年人放风派对">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:title" content="成年人放风派对｜澳门娱乐黑卡">
 <meta property="og:description" content="快乐黑卡已激活，今晚不赌输赢，只赌开心。">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://wangmiaomia.github.io/crazy-party/02.html?v=86">
-<meta property="og:image" content="https://wangmiaomia.github.io/crazy-party/assets/share-card-v86.jpg?v=86">
-<meta property="og:image:secure_url" content="https://wangmiaomia.github.io/crazy-party/assets/share-card-v86.jpg?v=86">
+<meta property="og:url" content="https://wangmiaomia.github.io/crazy-party/02.html?v=86.1">
+<meta property="og:image" content="https://wangmiaomia.github.io/crazy-party/assets/share-card-v86.jpg?v=86.1">
+<meta property="og:image:secure_url" content="https://wangmiaomia.github.io/crazy-party/assets/share-card-v86.jpg?v=86.1">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -3735,8 +3735,8 @@ body[data-theme="01"] .screen.t1 .drawer.menu .menuCard .menuCopy em{
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="成年人放风派对｜澳门娱乐黑卡">
 <meta name="twitter:description" content="快乐黑卡已激活，今晚不赌输赢，只赌开心。">
-<meta name="twitter:image" content="https://wangmiaomia.github.io/crazy-party/assets/share-card-v86.jpg?v=86">
-<link rel="canonical" href="https://wangmiaomia.github.io/crazy-party/02.html?v=86">
+<meta name="twitter:image" content="https://wangmiaomia.github.io/crazy-party/assets/share-card-v86.jpg?v=86.1">
+<link rel="canonical" href="https://wangmiaomia.github.io/crazy-party/02.html?v=86.1">
 </head>
 <body class="singleThemePage">
 
@@ -5101,68 +5101,84 @@ realBgm.preload='auto';
 realBgm.playsInline=true;
 realBgm.setAttribute('playsinline','');
 realBgm.setAttribute('webkit-playsinline','');
-realBgm.volume=0;
+realBgm.volume=.82;
 
-let robustAudioCtx=null,robustWebSource=null,robustWebGain=null;
-let robustMusicWanted=false,robustRecoverBusy=false,robustLastRecover=0;
-function armRobustAudio(){
-  try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return null;if(!robustAudioCtx)robustAudioCtx=new AC();robustAudioCtx.resume();return robustAudioCtx}catch(e){return null}
+/* V86.1 · single-player stable audio
+   - one HTMLAudioElement only
+   - no watchdog reload loop
+   - no WebAudio duplicate fallback
+   - pause is a real pause, not volume=0
+   - resume continues from currentTime instead of restarting */
+let robustAudioCtx=null,robustWebSource=null,robustWebGain=null; // compatibility placeholders
+let musicWanted=false,musicUserPaused=false,musicSourceKey='',musicPlayPromise=null;
+function armRobustAudio(){return null}
+function stopRobustWebAudio(){robustWebSource=null;robustWebGain=null}
+function ensureSelectedMusicSource(){
+  selectedMusic=MUSIC_LIBRARY[selectedMusicKey]||MUSIC_LIBRARY.youdontcare;
+  if(selectedMusic.type!=='file')return false;
+  const resolved=resolvePartyAudioSrc(selectedMusic.src);
+  if(musicSourceKey!==selectedMusicKey){
+    try{realBgm.pause()}catch(e){}
+    realBgm.src=resolved;
+    realBgm.preload='auto';
+    realBgm.load();
+    musicSourceKey=selectedMusicKey;
+  }
+  return true;
 }
-function stopRobustWebAudio(){if(robustWebSource){try{robustWebSource.stop()}catch(e){}robustWebSource=null}robustWebGain=null}
 async function playSelectedMusicRobust(volume=.82,reset=true){
   selectedMusic=MUSIC_LIBRARY[selectedMusicKey]||MUSIC_LIBRARY.youdontcare;
-  robustMusicWanted=true;
   if(selectedMusic.type!=='file')return {mode:'builtin'};
-  const src=selectedMusic.src,resolved=resolvePartyAudioSrc(src);
-  const ctx=armRobustAudio();stopRobustWebAudio();
+  ensureSelectedMusicSource();
+  musicWanted=true;musicUserPaused=false;
+  realBgm.loop=true;realBgm.muted=false;realBgm.volume=volume;
+  if(reset){try{realBgm.currentTime=0}catch(e){}}
+  if(!realBgm.paused)return {mode:'media'};
+  if(musicPlayPromise)return musicPlayPromise;
+  musicPlayPromise=Promise.resolve().then(()=>realBgm.play()).then(()=>({mode:'media'})).finally(()=>{musicPlayPromise=null});
+  return musicPlayPromise;
+}
+function pauseSelectedMusic(user=true){
+  if(user){musicWanted=false;musicUserPaused=true;}
   try{realBgm.pause()}catch(e){}
-  realBgm.src=resolved;realBgm.preload='auto';realBgm.playsInline=true;realBgm.loop=true;realBgm.volume=volume;
-  if(reset)try{realBgm.currentTime=0}catch(e){}
-  try{
-    const before=realBgm.currentTime||0;
-    await realBgm.play();
-    await new Promise((resolve,reject)=>{
-      const startedAt=performance.now();
-      const tick=()=>{
-        if(realBgm.paused){reject(new Error('media-paused'));return}
-        if((realBgm.currentTime||0)>before+.035){resolve();return}
-        if(performance.now()-startedAt>1150){reject(new Error('media-no-progress'));return}
-        setTimeout(tick,90);
-      };tick();
-    });
-    return {mode:'media'}
-  }catch(mediaErr){
-    if(!ctx)throw mediaErr;
-    try{
-      let arr;if(src.startsWith('data:')){const b64=src.split(',',2)[1],bin=atob(b64),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);arr=u.buffer}else arr=await fetch(resolved).then(r=>r.arrayBuffer());
-      const buf=await ctx.decodeAudioData(arr.slice(0));const source=ctx.createBufferSource(),gain=ctx.createGain();gain.gain.value=volume;source.buffer=buf;source.loop=true;source.connect(gain).connect(ctx.destination);source.start(0);robustWebSource=source;robustWebGain=gain;return {mode:'webaudio'};
-    }catch(webErr){const err=new Error((mediaErr?.name||'MediaError')+' / '+(webErr?.name||'WebAudioError'));err.mediaErr=mediaErr;err.webErr=webErr;throw err}
-  }
+  stopRobustWebAudio();
 }
-function setRobustMusicMuted(v){realBgm.volume=v?0:.82;if(robustWebGain)robustWebGain.gain.value=v?0:.82}
-async function recoverRobustMusic(reason='watchdog'){
-  if(!robustMusicWanted||document.hidden||selectedMusic.type!=='file'||robustRecoverBusy)return;
-  if(robustWebSource){try{if(robustAudioCtx?.state==='suspended')await robustAudioCtx.resume()}catch(e){};return;}
-  if(!realBgm.paused&&realBgm.readyState>=2)return;
-  const now=Date.now();if(now-robustLastRecover<650)return;robustLastRecover=now;robustRecoverBusy=true;
-  try{realBgm.loop=true;realBgm.playsInline=true;realBgm.setAttribute('playsinline','');realBgm.setAttribute('webkit-playsinline','');await realBgm.play();}
-  catch(e){try{await playSelectedMusicRobust(realBgm.volume||.82,false)}catch(_){} }
-  finally{robustRecoverBusy=false;}
+function setRobustMusicMuted(v){
+  if(v){pauseSelectedMusic(true);return;}
+  musicWanted=true;musicUserPaused=false;
+  realBgm.muted=false;realBgm.volume=.82;
+  if(realBgm.paused)playSelectedMusicRobust(.82,false).catch(()=>{});
 }
-['waiting','stalled','suspend','ended','pause'].forEach(ev=>realBgm.addEventListener(ev,()=>setTimeout(()=>recoverRobustMusic(ev),ev==='pause'?180:420)));
-realBgm.addEventListener('error',()=>setTimeout(()=>recoverRobustMusic('error'),700));
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(()=>recoverRobustMusic('visibility'),120)});
-window.addEventListener('pageshow',()=>setTimeout(()=>recoverRobustMusic('pageshow'),120));
-window.addEventListener('focus',()=>setTimeout(()=>recoverRobustMusic('focus'),120));
-setInterval(()=>recoverRobustMusic('timer'),1600);
+function resumeMusicAfterSystemSuspend(){
+  if(document.hidden||!musicWanted||musicUserPaused||selectedMusic.type!=='file'||!realBgm.paused)return;
+  realBgm.muted=false;realBgm.volume=.82;
+  Promise.resolve(realBgm.play()).catch(()=>{});
+}
+realBgm.addEventListener('playing',()=>{
+  const tx=document.querySelector('#audioToggle .audioToggleText');
+  if(tx)tx.textContent='♫ 播放中';
+});
+realBgm.addEventListener('waiting',()=>{
+  const tx=document.querySelector('#audioToggle .audioToggleText');
+  if(tx&&musicWanted&&!musicUserPaused)tx.textContent='♫ 缓冲中';
+});
+realBgm.addEventListener('pause',()=>{
+  if(musicUserPaused){const tx=document.querySelector('#audioToggle .audioToggleText');if(tx)tx.textContent='🎵 已暂停';}
+});
+realBgm.addEventListener('error',()=>{
+  const tx=document.querySelector('#audioToggle .audioToggleText');
+  if(tx)tx.textContent='⚠ 音乐加载失败';
+});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(resumeMusicAfterSystemSuspend,120)});
+window.addEventListener('pageshow',()=>setTimeout(resumeMusicAfterSystemSuspend,120));
 
 function loadSelectedMusic(){
   selectedMusic=MUSIC_LIBRARY[selectedMusicKey]||MUSIC_LIBRARY.youdontcare;
+  musicWanted=false;musicUserPaused=false;musicPlayPromise=null;
+  try{realBgm.pause()}catch(e){}
   if(selectedMusic.type==='file'){
-    robustMusicWanted=false;
-    realBgm.pause();
-    realBgm.src=resolvePartyAudioSrc(selectedMusic.src);
-    realBgm.load();
+    musicSourceKey='';
+    ensureSelectedMusicSource();
   }
   const name=document.getElementById('selectedTrackName');
   if(name)name.textContent=selectedMusic.name;
@@ -5265,32 +5281,24 @@ const PartyAudio=(()=>{
     updateUI();
   }
   function startTheme(t=1){
-    resume();theme=t;started=true;muted=false;
-    clearInterval(phraseTimer);
+    resume();theme=t;const firstStart=!started;started=true;muted=false;
+    clearInterval(phraseTimer);phraseTimer=null;
+    /* Theme 06 owns its music through VinylBGM; PartyAudio only provides SFX there. */
+    if(t===6&&typeof VinylBGM!=='undefined'){
+      if(bgm&&ctx){bgm.gain.cancelScheduledValues(ctx.currentTime);bgm.gain.setValueAtTime(.0001,ctx.currentTime)}
+      return;
+    }
     if(selectedMusic.type==='file'){
-      /* V86: 文件音乐模式只播放邀请人选择的真实歌曲。
-         不再先启动合成 BGM，也不再在 MP3 失败时偷偷切换系统音效。 */
-      clearInterval(phraseTimer);phraseTimer=null;
       if(bgm&&ctx){
         bgm.gain.cancelScheduledValues(ctx.currentTime);
-        bgm.gain.setValueAtTime(Math.max(.0001,bgm.gain.value),ctx.currentTime);
-        bgm.gain.linearRampToValueAtTime(.0001,ctx.currentTime+.08);
+        bgm.gain.setValueAtTime(.0001,ctx.currentTime);
       }
-      playSelectedMusicRobust(.82,true).then(r=>{
-        toast('正在播放 · '+selectedMusic.name+' · '+(r?.mode==='webaudio'?'兼容音频':'原始MP3'));
-      }).catch(()=>{
-        toast('歌曲未能加载 · 请检查音频文件/网络后重试');
-      });
+      playSelectedMusicRobust(.82,firstStart).then(()=>{muted=false;updateUI();toast('正在播放 · '+selectedMusic.name)}).catch(()=>{muted=true;updateUI();toast('歌曲未能加载 · 请检查网络后重试')});
     }else{
       musicMode=selectedMusic.mode||musicMode;
-      if(bgm&&ctx){
-        bgm.gain.cancelScheduledValues(ctx.currentTime);
-        bgm.gain.setValueAtTime(Math.max(.0001,bgm.gain.value),ctx.currentTime);
-        bgm.gain.linearRampToValueAtTime(.34,ctx.currentTime+.25);
-      }
-      schedule();
+      if(bgm&&ctx){bgm.gain.cancelScheduledValues(ctx.currentTime);bgm.gain.setValueAtTime(Math.max(.0001,bgm.gain.value),ctx.currentTime);bgm.gain.linearRampToValueAtTime(.34,ctx.currentTime+.25)}
+      schedule();updateUI();
     }
-    updateUI();
   }
   function setTheme(t){
     theme=t;
@@ -5304,13 +5312,10 @@ const PartyAudio=(()=>{
   function setMuted(v){
     resume();muted=v;
     if(selectedMusic.type==='file'){
-      setRobustMusicMuted(v);
-      if(!v&&started&&realBgm.paused&&!robustWebSource)playSelectedMusicRobust(.82,false).catch(()=>{});
+      if(v)pauseSelectedMusic(true);
+      else if(started)playSelectedMusicRobust(.82,false).catch(()=>{muted=true;updateUI()});
     }
-    if(master&&ctx){
-      master.gain.cancelScheduledValues(ctx.currentTime);
-      master.gain.linearRampToValueAtTime(v?0:.95,ctx.currentTime+.22);
-    }
+    if(master&&ctx){master.gain.cancelScheduledValues(ctx.currentTime);master.gain.linearRampToValueAtTime(v?0:.95,ctx.currentTime+.12)}
     updateUI();
   }
   function toggle(){

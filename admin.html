@@ -16,8 +16,8 @@
 <div class="field"><label>GitHub Pages 根地址</label><input id="baseUrl"></div>
 </div><div class="tip">短链接代号建议用英文/拼音/数字，例如 <b class="important">lisiqi</b>，最终链接就是 <b class="important">.../crazy-party/lisiqi.html</b>。中文名字会显示在卡片标题和邀请页里，不需要写进文件名。</div></div>
 <div class="panel"><div class="sec"><b>02 选择今晚 BGM</b></div><div class="musicGrid" id="musicGrid"></div></div>
-<div class="panel"><div class="sec"><b>03 分享卡片预览</b></div><div class="cardPreview"><img class="cardThumb" id="cardThumb" src="assets/share-card-v86.jpg?v=86" alt="分享卡片封面"><div class="cardHost" id="cardHost">wangmiaomia.github.io</div><div class="cardTitle" id="cardTitle"></div><div class="cardDesc" id="cardDesc"></div><div class="cardOpen">打开链接</div></div><div class="tip">这是分享抓取器会读取的卡片预览。V86 会把 title / description / og:title / og:description / og:url / 1200×630 HTTPS og:image 直接写进生成文件的 &lt;head&gt;，不依赖 JavaScript。</div></div>
-<div class="panel"><div class="sec"><b>04 生成并下载</b></div><div class="actions"><button class="action primary" id="make">生成专属短链接文件</button><button class="action secondary" id="download" disabled>下载专属 HTML</button><button class="action secondary" id="copy" disabled>复制短链接</button></div><div id="result" class="result"><div><b>发给朋友的短链接：</b></div><div id="url" class="url"></div></div><div class="tip"><b class="important">重要：</b>专属短链接不使用 iframe：生成的朋友专属 HTML 本身就是完整邀请函。启动页保持手机原生比例；进入主题后采用自适应可读比例画布：按手机视口动态计算设计宽度，并对各主题核心交互做弹性网格布局。以前生成过的朋友专属 HTML 请重新下载并覆盖上传。第一次为某位朋友生成后，请先下载并上传这个 HTML 到 GitHub 仓库根目录，确认线上可打开后再把短链接发给朋友。朋友应收到 <b class="important">slug.html?v=86</b> 的短链接（这个短版本号用于刷新社交平台旧卡片缓存），不要把下面“内部实际页面”的长地址发给朋友。</div></div>
+<div class="panel"><div class="sec"><b>03 分享卡片预览</b></div><div class="cardPreview"><img class="cardThumb" id="cardThumb" src="assets/share-card-v86.jpg?v=86" alt="分享卡片封面"><div class="cardHost" id="cardHost">wangmiaomia.github.io</div><div class="cardTitle" id="cardTitle"></div><div class="cardDesc" id="cardDesc"></div><div class="cardOpen">打开链接</div></div><div class="tip">这是分享抓取器会读取的卡片预览。V86.1 会把 title / description / og:title / og:description / og:url / 1200×630 HTTPS og:image 直接写进生成文件的 &lt;head&gt;，不依赖 JavaScript。</div></div>
+<div class="panel"><div class="sec"><b>04 生成并下载</b></div><div class="actions"><button class="action primary" id="make">生成专属短链接文件</button><button class="action secondary" id="download" disabled>下载专属 HTML</button><button class="action secondary" id="copy" disabled>复制短链接</button></div><div id="result" class="result"><div><b>发给朋友的短链接：</b></div><div id="url" class="url"></div></div><div class="tip"><b class="important">重要：</b>专属短链接不使用 iframe：生成的朋友专属 HTML 本身就是完整邀请函。启动页保持手机原生比例；进入主题后采用自适应可读比例画布：按手机视口动态计算设计宽度，并对各主题核心交互做弹性网格布局。以前生成过的朋友专属 HTML 请重新下载并覆盖上传。第一次为某位朋友生成后，请先下载并上传这个 HTML 到 GitHub 仓库根目录，确认线上可打开后再把短链接发给朋友。朋友应收到 <b class="important">slug.html?v=86.1</b> 的短链接（这个短版本号用于刷新社交平台旧卡片缓存），不要把下面“内部实际页面”的长地址发给朋友。</div></div>
 <script>
 const THEMES={
 '01':{name:'红毯首映礼',desc:'今晚请以明星身份入场，红毯席位已经为你保留。'},
@@ -39,12 +39,12 @@ function normBase(){let b=$('baseUrl').value.trim();if(!/\/$/.test(b))b+='/';ret
 function cleanSlug(s){return String(s||'').toLowerCase().trim().replace(/\.html$/,'').replace(/[^a-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,48)}
 function autoSlug(){const r=Math.random().toString(36).slice(2,6);return `invite-${$('theme').value}-${r}`}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function targetRelative(){const q=new URLSearchParams();q.set('s','1');q.set('lock',$('theme').value);q.set('v','86');q.set('m',music);if($('to').value.trim())q.set('n',$('to').value.trim());if($('from').value.trim())q.set('f',$('from').value.trim());if($('date').value.trim())q.set('d',$('date').value.trim());if($('day').value.trim())q.set('w',$('day').value.trim());if($('time').value.trim())q.set('t',$('time').value.trim());if($('venue').value.trim())q.set('p',$('venue').value.trim());return $('theme').value+'.html?'+q.toString()}
+function targetRelative(){const q=new URLSearchParams();q.set('s','1');q.set('lock',$('theme').value);q.set('v','86.1');q.set('m',music);if($('to').value.trim())q.set('n',$('to').value.trim());if($('from').value.trim())q.set('f',$('from').value.trim());if($('date').value.trim())q.set('d',$('date').value.trim());if($('day').value.trim())q.set('w',$('day').value.trim());if($('time').value.trim())q.set('t',$('time').value.trim());if($('venue').value.trim())q.set('p',$('venue').value.trim());return $('theme').value+'.html?'+q.toString()}
 function cardTitle(){return `${$('to').value.trim()||'专属嘉宾'}｜成年人放风派对｜${THEMES[$('theme').value].name}`}
 function cardDesc(){const bits=[];if($('from').value.trim())bits.push($('from').value.trim()+' 邀请你查收');if($('date').value.trim())bits.push($('date').value.trim());if($('time').value.trim())bits.push($('time').value.trim());if($('venue').value.trim())bits.push($('venue').value.trim());bits.push(THEMES[$('theme').value].desc);return bits.join(' · ')}
 function updateCard(){let host='GitHub Pages';try{host=new URL(normBase()).host}catch(e){}$('cardHost').textContent=host;$('cardTitle').textContent=cardTitle();$('cardDesc').textContent=cardDesc();try{$('cardThumb').src=new URL('assets/share-card-v86.jpg?v=86',normBase()).href}catch(e){};$('themeLock').textContent='🔒 当前锁定：'+$('theme').value+' '+THEMES[$('theme').value].name+'（朋友不可切换）'}
 ['theme','to','from','date','day','time','venue','slug','baseUrl'].forEach(id=>$(id).addEventListener('input',updateCard));$('theme').addEventListener('change',updateCard);updateCard();
-function inviteConfig(){return {share:true,name:$('to').value.trim(),from:$('from').value.trim(),date:$('date').value.trim(),day:$('day').value.trim(),time:$('time').value.trim(),venue:$('venue').value.trim(),music:music,version:'86'}}
+function inviteConfig(){return {share:true,name:$('to').value.trim(),from:$('from').value.trim(),date:$('date').value.trim(),day:$('day').value.trim(),time:$('time').value.trim(),venue:$('venue').value.trim(),music:music,version:'86.1'}}
 function metaPack(shortUrl){const title=cardTitle(),desc=cardDesc();const imageUrl=new URL('assets/share-card-v86.jpg?v=86',normBase()).href;return `
 <title>${esc(title)}</title>
 <meta name="title" content="${esc(title)}">
@@ -85,12 +85,12 @@ function injectStandalone(baseHtml,shortUrl){
   html=html.replace('</head>',`${metaPack(shortUrl)}<script>window.__INVITE_CONFIG__=${cfg};<\/script>\n</head>`);
   return html;
 }
-function build(){let slug=cleanSlug($('slug').value);if(!slug){slug=autoSlug();$('slug').value=slug}const shortUrl=new URL(slug+'.html?v=86',normBase()).href;const target=new URL(targetRelative(),normBase()).href;built={slug,shortUrl,target};$('url').textContent=shortUrl;$('result').classList.add('show');$('download').disabled=false;$('copy').disabled=false;return built}
+function build(){let slug=cleanSlug($('slug').value);if(!slug){slug=autoSlug();$('slug').value=slug}const shortUrl=new URL(slug+'.html?v=86.1',normBase()).href;const target=new URL(targetRelative(),normBase()).href;built={slug,shortUrl,target};$('url').textContent=shortUrl;$('result').classList.add('show');$('download').disabled=false;$('copy').disabled=false;return built}
 $('make').onclick=build;
 $('download').onclick=async()=>{
   if(!built)build();const btn=$('download'),old=btn.textContent;btn.disabled=true;btn.textContent='正在生成完整专属邀请函…';
   try{
-    const source=new URL($('theme').value+'.html?v=86&source=admin-'+Date.now(),normBase()).href;
+    const source=new URL($('theme').value+'.html?v=86.1&source=admin-'+Date.now(),normBase()).href;
     const r=await fetch(source,{cache:'no-store'});if(!r.ok)throw new Error('读取主题页面失败 HTTP '+r.status);
     const html=injectStandalone(await r.text(),built.shortUrl);
     const blob=new Blob([html],{type:'text/html;charset=utf-8'}),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=built.slug+'.html';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1200);

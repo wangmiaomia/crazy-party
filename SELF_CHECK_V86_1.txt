@@ -1,0 +1,44 @@
+V86.1 AUDIO HOTFIX SELF CHECK: 35/35 PASS
+
+PASS  01 JS syntax
+PASS  01 no audio watchdog
+PASS  01 real pause present
+PASS  01 V86 CSS unchanged
+PASS  02 JS syntax
+PASS  02 no audio watchdog
+PASS  02 real pause present
+PASS  02 V86 CSS unchanged
+PASS  03 JS syntax
+PASS  03 no audio watchdog
+PASS  03 real pause present
+PASS  03 V86 CSS unchanged
+PASS  04 JS syntax
+PASS  04 no audio watchdog
+PASS  04 real pause present
+PASS  04 V86 CSS unchanged
+PASS  05 JS syntax
+PASS  05 no audio watchdog
+PASS  05 real pause present
+PASS  05 V86 CSS unchanged
+PASS  06 JS syntax
+PASS  06 no audio watchdog
+PASS  06 real pause present
+PASS  06 V86 CSS unchanged
+PASS  07 JS syntax
+PASS  07 no audio watchdog
+PASS  07 real pause present
+PASS  07 V86 CSS unchanged
+PASS  08 JS syntax
+PASS  08 no audio watchdog
+PASS  08 real pause present
+PASS  08 V86 CSS unchanged
+PASS  06 single dedicated vinyl player
+PASS  No V87 layout code
+PASS  Admin friend URL v=86.1
+
+Optimized MP3 sizes:
+banjia.mp3: 4.60 MB
+henizaiyiqi.mp3: 4.81 MB
+whistle.mp3: 4.04 MB
+yecao.mp3: 5.17 MB
+you-dont-care.mp3: 3.68 MB
